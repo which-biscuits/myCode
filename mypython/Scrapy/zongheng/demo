@@ -1,0 +1,10 @@
+创建项目
+scrapy startproject zongheng
+
+查询可使用模板
+scrapy genspider -l
+
+通过crawl模板创建爬虫文件
+scrapy genspider -t crawl zh xxx.com
+
+

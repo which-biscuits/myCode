@@ -1,0 +1,244 @@
+'<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n    <meta charset="utf-8">\n    <title>百度安全验证</title>\n    <meta http-equiv="Content-Type" content="text/html;
+ charset=utf-8">\n    <meta name="apple-mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="black">\n    <meta
+name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">\n    <meta name="format-detection" content
+="telephone=no, email=no">\n    <link rel="shortcut icon" href="https://www.baidu.com/favicon.ico" type="image/x-icon">\n    <link rel="icon" sizes="any" mask href
+="https://www.baidu.com/img/baidu.svg">\n    <meta http-equiv="X-UA-Compatible" content="IE=Edge">\n    <meta http-equiv="Content-Security-Policy" content="upgrade
+-insecure-requests">\n    <link rel="stylesheet" href="https://ppui-static-wap.cdn.bcebos.com/static/touch/css/api/mkdjump_0635445.css" />\n</head>\n<body>\n    <d
+iv class="timeout hide">\n        <div class="timeout-img"></div>\n        <div class="timeout-title">网络不给力，请稍后重试</div>\n        <button type="button" c
+lass="timeout-button">返回首页</button>\n    </div>\n    <div class="timeout-feedback hide">\n        <div class="timeout-feedback-icon"></div>\n        <p class="
+timeout-feedback-title">问题反馈</p>\n    </div>\n\n<script src="https://wappass.baidu.com/static/machine/js/api/mkd.js"></script>\n<script src="https://ppui-stati
+c-wap.cdn.bcebos.com/static/touch/js/mkdjump_fbb9952.js"></script>\n</body>\n</html>'
+2021 [scrapy.utils.log] INFO: Scrapy 2.4.1 started (bot: baiduimage)
+2021 [scrapy.utils.log] INFO: Versions: lxml 4.6.2.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.2.0, Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1j  16 Feb 2021), cryptography 3.4.6, Platform Windows-10-10.0.18362-SP0
+2021 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.selectreactor.SelectReactor
+2021 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'baiduimage',
+ 'LOG_DATEFORMAT': '%Y',
+ 'LOG_FILE': 'bdimg.log',
+ 'NEWSPIDER_MODULE': 'baiduimage.spiders',
+ 'SPIDER_MODULES': ['baiduimage.spiders']}
+2021 [scrapy.extensions.telnet] INFO: Telnet Password: b81d3c64812d22f3
+2021 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2021 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021 [scrapy.core.engine] INFO: Spider opened
+2021 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://wappass.baidu.com/static/captcha/tuxing.html?&ak=5c55ec1d6f983c7c410423a63d2071b6&backurl=https%3A%2F%2Fimage.baidu.com%2Fsearch%2Findex%3Ftn%3Dbaiduimage%26ct%3D201326592%26lm%3D-1%26cl%3D2%26ie%3Dgb18030%26word%3D%25C3%25A8%25DF%25E4%26fr%3Dala%26ala%3D1%26alatpl%3Dadress%26pos%3D0%26hs%3D2%26xthttps%3D000000&logid=9454871504389156410&signature=d7996e2bd29d6bf752c1a779c67ea92b&timestamp=1616573945> from <GET https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gb18030&word=%C3%A8%DF%E4&fr=ala&ala=1&alatpl=adress&pos=0&hs=2&xthttps=000000>
+2021 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://wappass.baidu.com/static/captcha/tuxing.html?&ak=5c55ec1d6f983c7c410423a63d2071b6&backurl=https%3A%2F%2Fimage.baidu.com%2Fsearch%2Findex%3Ftn%3Dbaiduimage%26ct%3D201326592%26lm%3D-1%26cl%3D2%26ie%3Dgb18030%26word%3D%25C3%25A8%25DF%25E4%26fr%3Dala%26ala%3D1%26alatpl%3Dadress%26pos%3D0%26hs%3D2%26xthttps%3D000000&logid=9454871504389156410&signature=d7996e2bd29d6bf752c1a779c67ea92b&timestamp=1616573945> (referer: None)
+2021 [scrapy.core.engine] INFO: Closing spider (finished)
+2021 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 1140,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 2383,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/302': 1,
+ 'elapsed_time_seconds': 0.458624,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 3, 24, 8, 19, 6, 422487),
+ 'log_count/DEBUG': 2,
+ 'log_count/INFO': 10,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 2,
+ 'scheduler/dequeued/memory': 2,
+ 'scheduler/enqueued': 2,
+ 'scheduler/enqueued/memory': 2,
+ 'start_time': datetime.datetime(2021, 3, 24, 8, 19, 5, 963863)}
+2021 [scrapy.core.engine] INFO: Spider closed (finished)
+2021 [scrapy.utils.log] INFO: Scrapy 2.4.1 started (bot: baiduimage)
+2021 [scrapy.utils.log] INFO: Versions: lxml 4.6.2.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.2.0, Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1j  16 Feb 2021), cryptography 3.4.6, Platform Windows-10-10.0.18362-SP0
+2021 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.selectreactor.SelectReactor
+2021 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'baiduimage',
+ 'LOG_DATEFORMAT': '%Y',
+ 'LOG_FILE': 'bdimg.log',
+ 'NEWSPIDER_MODULE': 'baiduimage.spiders',
+ 'SPIDER_MODULES': ['baiduimage.spiders']}
+2021 [scrapy.extensions.telnet] INFO: Telnet Password: 74d2d6a64f69de78
+2021 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2021 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021 [scrapy.core.engine] INFO: Spider opened
+2021 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://wappass.baidu.com/static/captcha/tuxing.html?&ak=5c55ec1d6f983c7c410423a63d2071b6&backurl=https%3A%2F%2Fimage.baidu.com%2Fsearch%2Findex%3Ftn%3Dbaiduimage%26ct%3D201326592%26lm%3D-1%26cl%3D2%26ie%3Dgb18030%26word%3D%25C3%25A8%25DF%25E4%26fr%3Dala%26ala%3D1%26alatpl%3Dadress%26pos%3D0%26hs%3D2%26xthttps%3D000000&logid=10346861102332987850&signature=43d213d79dd07f92c16adb37e88e1742&timestamp=1616574037> from <GET https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gb18030&word=%C3%A8%DF%E4&fr=ala&ala=1&alatpl=adress&pos=0&hs=2&xthttps=000000>
+2021 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://wappass.baidu.com/static/captcha/tuxing.html?&ak=5c55ec1d6f983c7c410423a63d2071b6&backurl=https%3A%2F%2Fimage.baidu.com%2Fsearch%2Findex%3Ftn%3Dbaiduimage%26ct%3D201326592%26lm%3D-1%26cl%3D2%26ie%3Dgb18030%26word%3D%25C3%25A8%25DF%25E4%26fr%3Dala%26ala%3D1%26alatpl%3Dadress%26pos%3D0%26hs%3D2%26xthttps%3D000000&logid=10346861102332987850&signature=43d213d79dd07f92c16adb37e88e1742&timestamp=1616574037> (referer: None)
+2021 [scrapy.core.engine] INFO: Closing spider (finished)
+2021 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 1141,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 2556,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/302': 1,
+ 'elapsed_time_seconds': 0.70133,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 3, 24, 8, 20, 38, 324284),
+ 'log_count/DEBUG': 2,
+ 'log_count/INFO': 10,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 2,
+ 'scheduler/dequeued/memory': 2,
+ 'scheduler/enqueued': 2,
+ 'scheduler/enqueued/memory': 2,
+ 'start_time': datetime.datetime(2021, 3, 24, 8, 20, 37, 622954)}
+2021 [scrapy.core.engine] INFO: Spider closed (finished)
+2021 [scrapy.utils.log] INFO: Scrapy 2.4.1 started (bot: baiduimage)
+2021 [scrapy.utils.log] INFO: Versions: lxml 4.6.2.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.2.0, Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1j  16 Feb 2021), cryptography 3.4.6, Platform Windows-10-10.0.18362-SP0
+2021 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'baiduimage',
+ 'LOG_DATEFORMAT': '%Y',
+ 'LOG_FILE': 'bdimg.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'baiduimage.spiders',
+ 'SPIDER_MODULES': ['baiduimage.spiders']}
+2021 [scrapy.extensions.telnet] INFO: Telnet Password: b56656e2ba3c314e
+2021 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2021 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021 [scrapy.core.engine] INFO: Spider opened
+2021 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021 [scrapy.core.engine] INFO: Closing spider (finished)
+2021 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 1140,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 2554,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/302': 1,
+ 'elapsed_time_seconds': 0.730397,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 3, 24, 8, 21, 41, 23988),
+ 'log_count/INFO': 10,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 2,
+ 'scheduler/dequeued/memory': 2,
+ 'scheduler/enqueued': 2,
+ 'scheduler/enqueued/memory': 2,
+ 'start_time': datetime.datetime(2021, 3, 24, 8, 21, 40, 293591)}
+2021 [scrapy.core.engine] INFO: Spider closed (finished)
+2021 [scrapy.utils.log] INFO: Scrapy 2.4.1 started (bot: baiduimage)
+2021 [scrapy.utils.log] INFO: Versions: lxml 4.6.2.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.2.0, Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1j  16 Feb 2021), cryptography 3.4.6, Platform Windows-10-10.0.18362-SP0
+2021 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'baiduimage',
+ 'LOG_DATEFORMAT': '%Y',
+ 'LOG_FILE': 'bdimg.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'baiduimage.spiders',
+ 'SPIDER_MODULES': ['baiduimage.spiders']}
+2021 [scrapy.extensions.telnet] INFO: Telnet Password: c8c138890e29cf51
+2021 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2021 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021 [scrapy.core.engine] INFO: Spider opened
+2021 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021 [scrapy.core.engine] INFO: Closing spider (finished)
+2021 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 1141,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 2556,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/302': 1,
+ 'elapsed_time_seconds': 0.518067,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 3, 24, 8, 26, 5, 91414),
+ 'log_count/INFO': 10,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 2,
+ 'scheduler/dequeued/memory': 2,
+ 'scheduler/enqueued': 2,
+ 'scheduler/enqueued/memory': 2,
+ 'start_time': datetime.datetime(2021, 3, 24, 8, 26, 4, 573347)}
+2021 [scrapy.core.engine] INFO: Spider closed (finished)

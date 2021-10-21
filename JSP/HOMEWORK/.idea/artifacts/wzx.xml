@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="wzx">
+    <output-path>$PROJECT_DIR$/../..</output-path>
+    <root id="archive" name="wzx.war">
+      <element id="artifact" artifact-name="HOMEWORK:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="lib" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

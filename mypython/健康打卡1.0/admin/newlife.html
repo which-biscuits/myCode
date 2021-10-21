@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>健康系统自动打卡</title>
+    <style>
+        /*输入框*/
+        .input{
+            height: 25px;
+            margin-top: 10px;
+            width: 300px;
+        }
+        /*选择框*/
+        .input_01{
+            width: 308px;
+            height: 30px;
+            margin-top: 10px;
+        }
+        /*文字div*/
+        .Name{
+            width: 150px;
+            text-align: right;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- 上方空格 -->
+    <div  style="margin-bottom: 20px;"></div>
+    <!--标题-->
+    <div style="color: black;font-weight: bold;font-size: 2.0em;line-height: 50px;text-align: center;margin-left: 70px" >
+        本科生自动健康打卡1.0
+    </div>
+    <div style="text-align: center;margin-bottom: 20px">
+        <br>
+        <label style="color: red">免责声明:</label>
+        <label style="color: black">本辅助系统主要用于辅助进行健康系统打卡，请同学们密切关注个人健康状况及信息变化。</label>
+        <br>
+        <label style="color: #1f93dc">使用说明:</label>
+        <label style="color: black">请确保信息输入的正确性，重复输入可自动替代已存在的消息（主要用于打卡状态的更改），QQ号可用于每日打卡结果的通知</label>
+    </div>
+    <div class="show" id="appInfo" style="text-align: center;">
+        <!--学号-->
+        <div class="information" id="info_xuehao" name="学号" type="text" columntype="varchar2" columnlen="300">
+            <div class="Name">
+                <label style="color: #ff0000"><b> * </b></label><label><b> 学号 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_xuehao" name="appInput_xuehao" placeholder="请输入学号" style="width: 200px;">
+            <button id="findBtn" type="button" style="width: 95px;height: 30px;" onclick="find()">
+                查询
+            </button>
+        </div>
+        <!--密码-->
+        <div class="information" id="info_mima" name="密码" type="text" columntype="varchar2" columnlen="300">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 密码 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_mima" name="appInput_mima" placeholder="请输入密码">
+        </div>
+        <!--姓名-->
+        <div class="information" id="info_xingming" name="姓名" type="text" columntype="varchar2" columnlen="300">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 姓名 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_xingming" name="appInput_xingming" placeholder="请输入姓名">
+        </div>
+        <!--身份证号-->
+        <div class="information" id="info_shenfen" name="身份证号" type="text" columntype="varchar2" columnlen="300">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 身份证号 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_shenfen" name="appInput_shenfen" placeholder="请输入身份证号">
+        </div>
+        <!--学院-->
+        <div class="information" id="info_xueyuan" name="学院" type="select" ds="" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 学院 </b>:&emsp;&emsp;</label>
+            </div>
+            <select type="select" id="appInput_xueyuan" name="appInput_xueyuan"  class="input_01">
+                        <option value="请选择">请选择</option>
+                        <option value="企管院">企管院</option>
+                        <option value="公管院">公管院</option>
+                        <option value="农工院">农工院</option>
+                        <option value="力材院">力材院</option>
+                        <option value="商学院">商学院</option>
+                        <option value="商学院（常州）">商学院（常州）</option>
+                        <option value="土木院">土木院</option>
+                        <option value="地学院">地学院</option>
+                        <option value="外语院">外语院</option>
+                        <option value="大禹院">大禹院</option>
+                        <option value="机电院">机电院</option>
+                        <option value="水文院">水文院</option>
+                        <option value="水电院">水电院</option>
+                        <option value="法学院">法学院</option>
+                        <option value="海洋院">海洋院</option>
+                        <option value="港航院">港航院</option>
+                        <option value="物联网院">物联网院</option>
+                        <option value="环境院">环境院</option>
+                        <option value="理学院">理学院</option>
+                        <option value="能电院">能电院</option>
+                        <option value="计信院">计信院</option>
+                        <option value="里尔院">里尔院</option>
+                        <option value="马学院">马学院</option>
+                        <option value="预科生中心">预科生中心</option>
+            </select>
+        </div>
+        <!--年级-->
+        <div class="information" id="info_nianji" name="年级" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 年级 </b>:&emsp;&emsp;</label>
+            </div>
+            <select type="select" id="appInput_nianji" name="appInput_nianji" class="input_01" >
+                        <option value="">请选择</option>
+                        <option value="2016级">2016级</option>
+                        <option value="2017级">2017级</option>
+                        <option value="2018级">2018级</option>
+                        <option value="2019级">2019级</option>
+                        <option value="2020级">2020级</option>
+            </select>
+        </div>
+        <!--专业-->
+        <div class="information" id="info_zhuanye" name="专业" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 专业 </b>:&emsp;&emsp;</label>
+            </div>
+            <select type="select" id="appInput_zhuanye" name="appInput_zhuanye" class="input_01" >
+                <option value="请选择">请选择</option>
+                <option value="交通">交通</option>
+                <option value="交通工程">交通工程</option>
+                <option value="人力">人力</option>
+                <option value="人力资源管理">人力资源管理</option>
+                <option value="会计">会计</option>
+                <option value="会计学">会计学</option>
+                <option value="信息">信息</option>
+                <option value="信息管理与信息系统">信息管理与信息系统</option>
+                <option value="信管">信管</option>
+                <option value="农业水利工程">农业水利工程</option>
+                <option value="农水">农水</option>
+                <option value="力学">力学</option>
+                <option value="力学大禹">力学大禹</option>
+                <option value="劳保">劳保</option>
+                <option value="劳动与社会保障">劳动与社会保障</option>
+                <option value="国贸">国贸</option>
+                <option value="国际经济与贸易">国际经济与贸易</option>
+                <option value="土地整治工程">土地整治工程</option>
+                <option value="土地资源管理">土地资源管理</option>
+                <option value="土木">土木</option>
+                <option value="土木大禹">土木大禹</option>
+                <option value="土木工程">土木工程</option>
+                <option value="土木工程（中外合作办学）">土木工程（中外合作办学）</option>
+                <option value="土管">土管</option>
+                <option value="地信">地信</option>
+                <option value="地理信息科学">地理信息科学</option>
+                <option value="地质">地质</option>
+                <option value="地质工程">地质工程</option>
+                <option value="大数据管理与应用">大数据管理与应用</option>
+                <option value="大禹">大禹</option>
+                <option value="工业设计">工业设计</option>
+                <option value="工商管理">工商管理</option>
+                <option value="工程">工程</option>
+                <option value="工程力学">工程力学</option>
+                <option value="工程力学（大禹徐芝纶班）">工程力学（大禹徐芝纶班）</option>
+                <option value="工程管理">工程管理</option>
+                <option value="工管">工管</option>
+                <option value="工设">工设</option>
+                <option value="市场营销">市场营销</option>
+                <option value="广播电视学">广播电视学</option>
+                <option value="广电">广电</option>
+                <option value="应用物理学">应用物理学</option>
+                <option value="思想政治教育">思想政治教育</option>
+                <option value="思政">思政</option>
+                <option value="播音">播音</option>
+                <option value="播音与主持艺术">播音与主持艺术</option>
+                <option value="数学">数学</option>
+                <option value="数学类">数学类</option>
+                <option value="数学类（数学与应用数学、信息与计算科学）">数学类（数学与应用数学、信息与计算科学）</option>
+                <option value="新能源科学与工程">新能源科学与工程</option>
+                <option value="智能">智能</option>
+                <option value="智能科学与技术">智能科学与技术</option>
+                <option value="机器人">机器人</option>
+                <option value="机器人工程">机器人工程</option>
+                <option value="机械">机械</option>
+                <option value="机械工程">机械工程</option>
+                <option value="机械工程（中外合作办学）">机械工程（中外合作办学）</option>
+                <option value="材料">材料</option>
+                <option value="材料科学与工程">材料科学与工程</option>
+                <option value="水利水电工程">水利水电工程</option>
+                <option value="水利类（大禹强化班）">水利类（大禹强化班）</option>
+                <option value="水务">水务</option>
+                <option value="水务工程">水务工程</option>
+                <option value="水工">水工</option>
+                <option value="水工大禹">水工大禹</option>
+                <option value="水文">水文</option>
+                <option value="水文与水资源工程">水文与水资源工程</option>
+                <option value="水文大禹">水文大禹</option>
+                <option value="法学">法学</option>
+                <option value="法语">法语</option>
+                <option value="测绘">测绘</option>
+                <option value="测绘工程">测绘工程</option>
+                <option value="海洋">海洋</option>
+                <option value="海洋科学">海洋科学</option>
+                <option value="海洋资源开发技术">海洋资源开发技术</option>
+                <option value="港口航道与海岸工程">港口航道与海岸工程</option>
+                <option value="港航">港航</option>
+                <option value="港航大禹">港航大禹</option>
+                <option value="物理">物理</option>
+                <option value="物联网">物联网</option>
+                <option value="物联网工程">物联网工程</option>
+                <option value="环境">环境</option>
+                <option value="环境工程">环境工程</option>
+                <option value="环境生态工程">环境生态工程</option>
+                <option value="环境科学">环境科学</option>
+                <option value="环境科学（中外合作办学）">环境科学（中外合作办学）</option>
+                <option value="环工">环工</option>
+                <option value="环科">环科</option>
+                <option value="生态">生态</option>
+                <option value="电信">电信</option>
+                <option value="电子信息工程">电子信息工程</option>
+                <option value="电子科学与技术">电子科学与技术</option>
+                <option value="电气">电气</option>
+                <option value="电气工程及其自动化">电气工程及其自动化</option>
+                <option value="电科">电科</option>
+                <option value="社会">社会</option>
+                <option value="社会学">社会学</option>
+                <option value="给排水">给排水</option>
+                <option value="给排水科学与工程">给排水科学与工程</option>
+                <option value="能动">能动</option>
+                <option value="能源">能源</option>
+                <option value="能源与动力工程">能源与动力工程</option>
+                <option value="自动化">自动化</option>
+                <option value="自然地理与资源环境">自然地理与资源环境</option>
+                <option value="英语">英语</option>
+                <option value="营销">营销</option>
+                <option value="计算">计算</option>
+                <option value="计算机">计算机</option>
+                <option value="计算机科学与技术">计算机科学与技术</option>
+                <option value="财务">财务</option>
+                <option value="财务管理">财务管理</option>
+                <option value="资源">资源</option>
+                <option value="资环">资环</option>
+                <option value="软件工程">软件工程</option>
+                <option value="通信">通信</option>
+                <option value="通信工程">通信工程</option>
+                <option value="遥感科学与技术">遥感科学与技术</option>
+                <option value="金属材料工程">金属材料工程</option>
+                <option value="金融工程">金融工程</option>
+                <option value="无">无</option>
+            </select>
+        </div>
+        <!--班级-->
+        <div class="information" id="info_banji" name="班级" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 班级 </b>:&emsp;&emsp;</label>
+            </div>
+            <select type="select" id="appInput_banji" name="appInput_banji" class="input_01">
+                <option value="请选择">请选择</option>
+                <option value="C会计20_1">C会计20_1</option>
+                <option value="C会计20_2">C会计20_2</option>
+                <option value="C国贸20_1">C国贸20_1</option>
+                <option value="C国贸20_2">C国贸20_2</option>
+                <option value="C国贸20_3">C国贸20_3</option>
+                <option value="C大数据20_1">C大数据20_1</option>
+                <option value="C大数据20_2">C大数据20_2</option>
+                <option value="C工管20_1">C工管20_1</option>
+                <option value="C工管20_2">C工管20_2</option>
+                <option value="C工设20_1">C工设20_1</option>
+                <option value="C工设20_2">C工设20_2</option>
+                <option value="C机器人20_1">C机器人20_1</option>
+                <option value="C机器人20_2">C机器人20_2</option>
+                <option value="C机械20_1">C机械20_1</option>
+                <option value="C机械20_2">C机械20_2</option>
+                <option value="C机械20_3">C机械20_3</option>
+                <option value="C机械20_4">C机械20_4</option>
+                <option value="C机械20_5">C机械20_5</option>
+                <option value="C材料20_1">C材料20_1</option>
+                <option value="C材料20_2">C材料20_2</option>
+                <option value="C物联网20_1">C物联网20_1</option>
+                <option value="C物联网20_2">C物联网20_2</option>
+                <option value="C物联网20_3">C物联网20_3</option>
+                <option value="C电科20_1">C电科20_1</option>
+                <option value="C电科20_2">C电科20_2</option>
+                <option value="C能源20_1">C能源20_1</option>
+                <option value="C能源20_2">C能源20_2</option>
+                <option value="C能源20_3">C能源20_3</option>
+                <option value="C自动化20_1">C自动化20_1</option>
+                <option value="C自动化20_2">C自动化20_2</option>
+                <option value="C计算机20_1">C计算机20_1</option>
+                <option value="C计算机20_2">C计算机20_2</option>
+                <option value="C通信20_1">C通信20_1</option>
+                <option value="C通信20_2">C通信20_2</option>
+                <option value="C通信20_3">C通信20_3</option>
+                <option value="交通16_1">交通16_1</option>
+                <option value="交通16_2">交通16_2</option>
+                <option value="交通17_1">交通17_1</option>
+                <option value="交通17_2">交通17_2</option>
+                <option value="交通18_1">交通18_1</option>
+                <option value="交通18_2">交通18_2</option>
+                <option value="土木18_6">土木18_6</option>
+                <option value="交通19_1">交通19_1</option>
+                <option value="交通19_2">交通19_2</option>
+                <option value="交通20_1">交通20_1</option>
+                <option value="交通20_2">交通20_2</option>
+                <option value="人力16_1">人力16_1</option>
+                <option value="人力16_2">人力16_2</option>
+                <option value="人力17_1">人力17_1</option>
+                <option value="人力17_2">人力17_2</option>
+                <option value="人力18_1">人力18_1</option>
+                <option value="人力18_2">人力18_2</option>
+                <option value="人力19_1">人力19_1</option>
+                <option value="人力19_2">人力19_2</option>
+                <option value="人力20_1">人力20_1</option>
+                <option value="人力20_2">人力20_2</option>
+                <option value="会计16_1">会计16_1</option>
+                <option value="会计16_2">会计16_2</option>
+                <option value="会计16_3">会计16_3</option>
+                <option value="会计17_1">会计17_1</option>
+                <option value="会计17_2">会计17_2</option>
+                <option value="会计17_3">会计17_3</option>
+                <option value="会计18_1">会计18_1</option>
+                <option value="会计18_2">会计18_2</option>
+                <option value="会计18_3">会计18_3</option>
+                <option value="会计19_1">会计19_1</option>
+                <option value="会计19_2">会计19_2</option>
+                <option value="会计20_1">会计20_1</option>
+                <option value="会计20_2">会计20_2</option>
+                <option value="会计20_3">会计20_3</option>
+                <option value="信息16_1">信息16_1</option>
+                <option value="信息16_2">信息16_2</option>
+                <option value="信息17_1">信息17_1</option>
+                <option value="信息17_2">信息17_2</option>
+                <option value="信息18_1">信息18_1</option>
+                <option value="信息18_2">信息18_2</option>
+                <option value="信息19_1">信息19_1</option>
+                <option value="信息19_2">信息19_2</option>
+                <option value="信息20_1">信息20_1</option>
+                <option value="信息20_2">信息20_2</option>
+                <option value="信管16_1">信管16_1</option>
+                <option value="信管16_2">信管16_2</option>
+                <option value="信管16_3">信管16_3</option>
+                <option value="信管17_1">信管17_1</option>
+                <option value="信管17_2">信管17_2</option>
+                <option value="信管18_1">信管18_1</option>
+                <option value="信管18_2">信管18_2</option>
+                <option value="信管19_1">信管19_1</option>
+                <option value="信管19_2">信管19_2</option>
+                <option value="农水16_1">农水16_1</option>
+                <option value="农水16_2">农水16_2</option>
+                <option value="农水16_3">农水16_3</option>
+                <option value="农水16_4">农水16_4</option>
+                <option value="农水17_1">农水17_1</option>
+                <option value="农水17_2">农水17_2</option>
+                <option value="农水17_3">农水17_3</option>
+                <option value="农水17_4">农水17_4</option>
+                <option value="农水18_1">农水18_1</option>
+                <option value="农水18_2">农水18_2</option>
+                <option value="农水18_3">农水18_3</option>
+                <option value="农水19_1">农水19_1</option>
+                <option value="农水19_2">农水19_2</option>
+                <option value="农水19_3">农水19_3</option>
+                <option value="农水19_4">农水19_4</option>
+                <option value="农水20_1">农水20_1</option>
+                <option value="农水20_2">农水20_2</option>
+                <option value="农水20_3">农水20_3</option>
+                <option value="农水20_4">农水20_4</option>
+                <option value="力学16_1">力学16_1</option>
+                <option value="力学16_2">力学16_2</option>
+                <option value="力学17_1">力学17_1</option>
+                <option value="力学17_2">力学17_2</option>
+                <option value="力学18_1">力学18_1</option>
+                <option value="力学18_2">力学18_2</option>
+                <option value="力学19_1">力学19_1</option>
+                <option value="力学19_2">力学19_2</option>
+                <option value="力学20_1">力学20_1</option>
+                <option value="力学20_2">力学20_2</option>
+                <option value="力学大禹16_1">力学大禹16_1</option>
+                <option value="力学大禹17_1">力学大禹17_1</option>
+                <option value="劳保16_1">劳保16_1</option>
+                <option value="劳保16_2">劳保16_2</option>
+                <option value="劳保17_1">劳保17_1</option>
+                <option value="劳保17_2">劳保17_2</option>
+                <option value="劳保18_1">劳保18_1</option>
+                <option value="劳保18_2">劳保18_2</option>
+                <option value="劳保19_1">劳保19_1</option>
+                <option value="劳保19_2">劳保19_2</option>
+                <option value="劳保20_1">劳保20_1</option>
+                <option value="劳保20_2">劳保20_2</option>
+                <option value="国贸16_1">国贸16_1</option>
+                <option value="国贸16_2">国贸16_2</option>
+                <option value="国贸16_3">国贸16_3</option>
+                <option value="国贸16_4">国贸16_4</option>
+                <option value="国贸17_1">国贸17_1</option>
+                <option value="国贸17_2">国贸17_2</option>
+                <option value="国贸17_3">国贸17_3</option>
+                <option value="国贸18_1">国贸18_1</option>
+                <option value="国贸18_2">国贸18_2</option>
+                <option value="国贸18_3">国贸18_3</option>
+                <option value="国贸19_1">国贸19_1</option>
+                <option value="国贸19_2">国贸19_2</option>
+                <option value="国贸19_3">国贸19_3</option>
+                <option value="土木16_1">土木16_1</option>
+                <option value="土木16_2">土木16_2</option>
+                <option value="土木16_3">土木16_3</option>
+                <option value="土木16_4">土木16_4</option>
+                <option value="土木16_5">土木16_5</option>
+                <option value="土木16_6">土木16_6</option>
+                <option value="土木17_1">土木17_1</option>
+                <option value="土木17_2">土木17_2</option>
+                <option value="土木17_3">土木17_3</option>
+                <option value="土木17_4">土木17_4</option>
+                <option value="土木17_5">土木17_5</option>
+                <option value="土木17_6">土木17_6</option>
+                <option value="土木18_1">土木18_1</option>
+                <option value="土木18_2">土木18_2</option>
+                <option value="土木18_3">土木18_3</option>
+                <option value="土木18_4">土木18_4</option>
+                <option value="土木18_5">土木18_5</option>
+                <option value="土木19_1">土木19_1</option>
+                <option value="土木19_2">土木19_2</option>
+                <option value="土木19_3">土木19_3</option>
+                <option value="土木19_4">土木19_4</option>
+                <option value="土木19_5">土木19_5</option>
+                <option value="土木20_1">土木20_1</option>
+                <option value="土木20_2">土木20_2</option>
+                <option value="土木20_3">土木20_3</option>
+                <option value="土木20_4">土木20_4</option>
+                <option value="土木20_5">土木20_5</option>
+                <option value="土木大禹16_1">土木大禹16_1</option>
+                <option value="土木大禹17_1">土木大禹17_1</option>
+                <option value="土木（里尔）20_1">土木（里尔）20_1</option>
+                <option value="土木（里尔）20_2">土木（里尔）20_2</option>
+                <option value="土治20_1">土治20_1</option>
+                <option value="土治20_2">土治20_2</option>
+                <option value="土管16_1">土管16_1</option>
+                <option value="土管17_1">土管17_1</option>
+                <option value="土管18_1">土管18_1</option>
+                <option value="土管19_1">土管19_1</option>
+                <option value="土管20_1">土管20_1</option>
+                <option value="地信16_1">地信16_1</option>
+                <option value="地信16_2">地信16_2</option>
+                <option value="地信17_1">地信17_1</option>
+                <option value="地信17_2">地信17_2</option>
+                <option value="地信18_1">地信18_1</option>
+                <option value="地信18_2">地信18_2</option>
+                <option value="地信19_1">地信19_1</option>
+                <option value="地信19_2">地信19_2</option>
+                <option value="地信20_1">地信20_1</option>
+                <option value="地信20_2">地信20_2</option>
+                <option value="地质16_1">地质16_1</option>
+                <option value="地质16_2">地质16_2</option>
+                <option value="地质16_3">地质16_3</option>
+                <option value="地质17_1">地质17_1</option>
+                <option value="地质17_2">地质17_2</option>
+                <option value="地质17_3">地质17_3</option>
+                <option value="地质18_1">地质18_1</option>
+                <option value="地质18_2">地质18_2</option>
+                <option value="地质18_3">地质18_3</option>
+                <option value="地质19_1">地质19_1</option>
+                <option value="地质19_2">地质19_2</option>
+                <option value="地质19_3">地质19_3</option>
+                <option value="地质20_1">地质20_1</option>
+                <option value="地质20_2">地质20_2</option>
+                <option value="地质20_3">地质20_3</option>
+                <option value="大禹18_1">大禹18_1</option>
+                <option value="大禹18_2">大禹18_2</option>
+                <option value="大禹18_3">大禹18_3</option>
+                <option value="大禹18_4">大禹18_4</option>
+                <option value="大禹19_1">大禹19_1</option>
+                <option value="大禹19_2">大禹19_2</option>
+                <option value="大禹19_3">大禹19_3</option>
+                <option value="大禹19_4">大禹19_4</option>
+                <option value="大禹20_1">大禹20_1</option>
+                <option value="大禹20_2">大禹20_2</option>
+                <option value="大禹20_3">大禹20_3</option>
+                <option value="大禹20_4">大禹20_4</option>
+                <option value="工程16_1">工程16_1</option>
+                <option value="工程16_2">工程16_2</option>
+                <option value="工程17_1">工程17_1</option>
+                <option value="工程17_2">工程17_2</option>
+                <option value="工程18_1">工程18_1</option>
+                <option value="工程18_2">工程18_2</option>
+                <option value="工程19_1">工程19_1</option>
+                <option value="工程19_2">工程19_2</option>
+                <option value="工程20_1">工程20_1</option>
+                <option value="工程20_2">工程20_2</option>
+                <option value="工管16_1">工管16_1</option>
+                <option value="工管16_2">工管16_2</option>
+                <option value="工管16_3">工管16_3</option>
+                <option value="工管17_1">工管17_1</option>
+                <option value="工管17_2">工管17_2</option>
+                <option value="工管18_1">工管18_1</option>
+                <option value="工管18_2">工管18_2</option>
+                <option value="工管19_1">工管19_1</option>
+                <option value="工管19_2">工管19_2</option>
+                <option value="工设16_1">工设16_1</option>
+                <option value="工设16_2">工设16_2</option>
+                <option value="工设17_1">工设17_1</option>
+                <option value="工设17_2">工设17_2</option>
+                <option value="工设18_1">工设18_1</option>
+                <option value="工设18_2">工设18_2</option>
+                <option value="工设19_1">工设19_1</option>
+                <option value="工设19_2">工设19_2</option>
+                <option value="广电16_1">广电16_1</option>
+                <option value="广电16_2">广电16_2</option>
+                <option value="广电17_1">广电17_1</option>
+                <option value="广电17_2">广电17_2</option>
+                <option value="广电18_1">广电18_1</option>
+                <option value="广电18_2">广电18_2</option>
+                <option value="广电19_1">广电19_1</option>
+                <option value="广电19_2">广电19_2</option>
+                <option value="广电20_1">广电20_1</option>
+                <option value="广电20_2">广电20_2</option>
+                <option value="思政16_1">思政16_1</option>
+                <option value="思政17_1">思政17_1</option>
+                <option value="思政18_1">思政18_1</option>
+                <option value="思政19_1">思政19_1</option>
+                <option value="思政20_1">思政20_1</option>
+                <option value="播音16_1">播音16_1</option>
+                <option value="播音16_2">播音16_2</option>
+                <option value="播音17_1">播音17_1</option>
+                <option value="播音17_2">播音17_2</option>
+                <option value="播音18_1">播音18_1</option>
+                <option value="播音18_2">播音18_2</option>
+                <option value="播音19_1">播音19_1</option>
+                <option value="播音19_2">播音19_2</option>
+                <option value="播音20_1">播音20_1</option>
+                <option value="播音20_2">播音20_2</option>
+                <option value="数学16_1">数学16_1</option>
+                <option value="数学17_1">数学17_1</option>
+                <option value="数学18_1">数学18_1</option>
+                <option value="数学类19_1">数学类19_1</option>
+                <option value="数学类19_2">数学类19_2</option>
+                <option value="数学类19_3">数学类19_3</option>
+                <option value="数学类20_1">数学类20_1</option>
+                <option value="数学类20_2">数学类20_2</option>
+                <option value="数学类20_3">数学类20_3</option>
+                <option value="智能19_1">智能19_1</option>
+                <option value="智能19_2">智能19_2</option>
+                <option value="智能20_1">智能20_1</option>
+                <option value="智能20_2">智能20_2</option>
+                <option value="机器人18_1">机器人18_1</option>
+                <option value="机器人18_2">机器人18_2</option>
+                <option value="机器人19_1">机器人19_1</option>
+                <option value="机器人19_2">机器人19_2</option>
+                <option value="机械16_1">机械16_1</option>
+                <option value="机械16_2">机械16_2</option>
+                <option value="机械16_3">机械16_3</option>
+                <option value="机械16_4">机械16_4</option>
+                <option value="机械16_5">机械16_5</option>
+                <option value="机械16_6">机械16_6</option>
+                <option value="机械16_7">机械16_7</option>
+                <option value="机械16_8">机械16_8</option>
+                <option value="机械17_1">机械17_1</option>
+                <option value="机械17_2">机械17_2</option>
+                <option value="机械17_3">机械17_3</option>
+                <option value="机械17_4">机械17_4</option>
+                <option value="机械17_5">机械17_5</option>
+                <option value="机械17_6">机械17_6</option>
+                <option value="机械17_7">机械17_7</option>
+                <option value="机械17_8">机械17_8</option>
+                <option value="机械18_1">机械18_1</option>
+                <option value="机械18_2">机械18_2</option>
+                <option value="机械18_3">机械18_3</option>
+                <option value="机械18_4">机械18_4</option>
+                <option value="机械18_5">机械18_5</option>
+                <option value="机械18_6">机械18_6</option>
+                <option value="机械19_1">机械19_1</option>
+                <option value="机械19_2">机械19_2</option>
+                <option value="机械19_3">机械19_3</option>
+                <option value="机械19_4">机械19_4</option>
+                <option value="机械19_5">机械19_5</option>
+                <option value="机械（里尔）20_1">机械（里尔）20_1</option>
+                <option value="机械（里尔）20_2">机械（里尔）20_2</option>
+                <option value="材料16_1">材料16_1</option>
+                <option value="材料16_2">材料16_2</option>
+                <option value="材料16_3">材料16_3</option>
+                <option value="材料17_1">材料17_1</option>
+                <option value="材料17_2">材料17_2</option>
+                <option value="材料17_3">材料17_3</option>
+                <option value="材料18_1">材料18_1</option>
+                <option value="材料18_2">材料18_2</option>
+                <option value="材料18_3">材料18_3</option>
+                <option value="材料18_4">材料18_4</option>
+                <option value="材料19_1">材料19_1</option>
+                <option value="材料19_2">材料19_2</option>
+                <option value="材料19_3">材料19_3</option>
+                <option value="材料19_4">材料19_4</option>
+                <option value="材料20_1">材料20_1</option>
+                <option value="材料20_2">材料20_2</option>
+                <option value="材料20_3">材料20_3</option>
+                <option value="材料20_4">材料20_4</option>
+                <option value="水务16_1">水务16_1</option>
+                <option value="水务16_2">水务16_2</option>
+                <option value="水务16_3">水务16_3</option>
+                <option value="水务17_1">水务17_1</option>
+                <option value="水务17_2">水务17_2</option>
+                <option value="水务17_3">水务17_3</option>
+                <option value="水务17_4">水务17_4</option>
+                <option value="水务18_1">水务18_1</option>
+                <option value="水务18_2">水务18_2</option>
+                <option value="水务18_3">水务18_3</option>
+                <option value="水务19_1">水务19_1</option>
+                <option value="水务19_2">水务19_2</option>
+                <option value="水务19_3">水务19_3</option>
+                <option value="水务20_1">水务20_1</option>
+                <option value="水务20_2">水务20_2</option>
+                <option value="水务20_3">水务20_3</option>
+                <option value="水工16_1">水工16_1</option>
+                <option value="水工16_2">水工16_2</option>
+                <option value="水工16_3">水工16_3</option>
+                <option value="水工16_4">水工16_4</option>
+                <option value="水工16_5">水工16_5</option>
+                <option value="水工17_1">水工17_1</option>
+                <option value="水工17_2">水工17_2</option>
+                <option value="水工17_3">水工17_3</option>
+                <option value="水工17_4">水工17_4</option>
+                <option value="水工17_5">水工17_5</option>
+                <option value="水工18_1">水工18_1</option>
+                <option value="水工18_2">水工18_2</option>
+                <option value="水工18_3">水工18_3</option>
+                <option value="水工18_4">水工18_4</option>
+                <option value="水工18_5">水工18_5</option>
+                <option value="水工19_1">水工19_1</option>
+                <option value="水工19_2">水工19_2</option>
+                <option value="水工19_3">水工19_3</option>
+                <option value="水工19_4">水工19_4</option>
+                <option value="水工19_5">水工19_5</option>
+                <option value="水工20_1">水工20_1</option>
+                <option value="水工20_2">水工20_2</option>
+                <option value="水工20_3">水工20_3</option>
+                <option value="水工20_4">水工20_4</option>
+                <option value="水工20_5">水工20_5</option>
+                <option value="水工大禹16_1">水工大禹16_1</option>
+                <option value="水工大禹17_1">水工大禹17_1</option>
+                <option value="水文16_1">水文16_1</option>
+                <option value="水文16_2">水文16_2</option>
+                <option value="水文16_3">水文16_3</option>
+                <option value="水文16_4">水文16_4</option>
+                <option value="水文17_1">水文17_1</option>
+                <option value="水文17_2">水文17_2</option>
+                <option value="水文17_3">水文17_3</option>
+                <option value="水文17_4">水文17_4</option>
+                <option value="水文18_1">水文18_1</option>
+                <option value="水文18_2">水文18_2</option>
+                <option value="水文18_3">水文18_3</option>
+                <option value="水文18_4">水文18_4</option>
+                <option value="水文19_1">水文19_1</option>
+                <option value="水文19_2">水文19_2</option>
+                <option value="水文19_3">水文19_3</option>
+                <option value="水文19_4">水文19_4</option>
+                <option value="水文20_1">水文20_1</option>
+                <option value="水文20_2">水文20_2</option>
+                <option value="水文20_3">水文20_3</option>
+                <option value="水文20_4">水文20_4</option>
+                <option value="水文大禹16_1">水文大禹16_1</option>
+                <option value="水文大禹17_1">水文大禹17_1</option>
+                <option value="法学16_1">法学16_1</option>
+                <option value="法学16_2">法学16_2</option>
+                <option value="法学17_1">法学17_1</option>
+                <option value="法学17_2">法学17_2</option>
+                <option value="法学18_1">法学18_1</option>
+                <option value="法学18_2">法学18_2</option>
+                <option value="法学19_1">法学19_1</option>
+                <option value="法学19_2">法学19_2</option>
+                <option value="法学20_1">法学20_1</option>
+                <option value="法学20_2">法学20_2</option>
+                <option value="法语16_1">法语16_1</option>
+                <option value="法语17_1">法语17_1</option>
+                <option value="法语18_1">法语18_1</option>
+                <option value="法语19_1">法语19_1</option>
+                <option value="法语20_1">法语20_1</option>
+                <option value="测绘16_1">测绘16_1</option>
+                <option value="测绘16_2">测绘16_2</option>
+                <option value="测绘16_3">测绘16_3</option>
+                <option value="测绘17_1">测绘17_1</option>
+                <option value="测绘17_2">测绘17_2</option>
+                <option value="测绘17_3">测绘17_3</option>
+                <option value="测绘18_1">测绘18_1</option>
+                <option value="测绘18_2">测绘18_2</option>
+                <option value="测绘18_3">测绘18_3</option>
+                <option value="测绘19_1">测绘19_1</option>
+                <option value="测绘19_2">测绘19_2</option>
+                <option value="测绘19_3">测绘19_3</option>
+                <option value="测绘20_1">测绘20_1</option>
+                <option value="测绘20_2">测绘20_2</option>
+                <option value="海洋16_1">海洋16_1</option>
+                <option value="海洋16_2">海洋16_2</option>
+                <option value="海洋16_3">海洋16_3</option>
+                <option value="海洋17_1">海洋17_1</option>
+                <option value="海洋17_2">海洋17_2</option>
+                <option value="海洋17_3">海洋17_3</option>
+                <option value="海洋18_1">海洋18_1</option>
+                <option value="海洋18_2">海洋18_2</option>
+                <option value="海洋18_3">海洋18_3</option>
+                <option value="海洋19_1">海洋19_1</option>
+                <option value="海洋19_2">海洋19_2</option>
+                <option value="海洋19_3">海洋19_3</option>
+                <option value="海洋20_1">海洋20_1</option>
+                <option value="海洋20_2">海洋20_2</option>
+                <option value="海洋20_3">海洋20_3</option>
+                <option value="港航16_1">港航16_1</option>
+                <option value="港航16_2">港航16_2</option>
+                <option value="港航16_3">港航16_3</option>
+                <option value="港航16_4">港航16_4</option>
+                <option value="港航16_5">港航16_5</option>
+                <option value="港航17_1">港航17_1</option>
+                <option value="港航17_2">港航17_2</option>
+                <option value="港航17_3">港航17_3</option>
+                <option value="港航17_4">港航17_4</option>
+                <option value="港航17_5">港航17_5</option>
+                <option value="港航18_1">港航18_1</option>
+                <option value="港航18_2">港航18_2</option>
+                <option value="港航18_3">港航18_3</option>
+                <option value="港航18_4">港航18_4</option>
+                <option value="港航18_5">港航18_5</option>
+                <option value="港航18_6">港航18_6</option>
+                <option value="港航19_1">港航19_1</option>
+                <option value="港航19_2">港航19_2</option>
+                <option value="港航19_3">港航19_3</option>
+                <option value="港航19_4">港航19_4</option>
+                <option value="港航19_5">港航19_5</option>
+                <option value="港航20_1">港航20_1</option>
+                <option value="港航20_2">港航20_2</option>
+                <option value="港航20_3">港航20_3</option>
+                <option value="港航20_4">港航20_4</option>
+                <option value="港航20_5">港航20_5</option>
+                <option value="港航大禹16_1">港航大禹16_1</option>
+                <option value="港航大禹17_1">港航大禹17_1</option>
+                <option value="物理16_1">物理16_1</option>
+                <option value="物理16_2">物理16_2</option>
+                <option value="物理17_1">物理17_1</option>
+                <option value="物理17_2">物理17_2</option>
+                <option value="物理18_1">物理18_1</option>
+                <option value="物理18_2">物理18_2</option>
+                <option value="物理19_1">物理19_1</option>
+                <option value="物理19_2">物理19_2</option>
+                <option value="物理20_1">物理20_1</option>
+                <option value="物理20_2">物理20_2</option>
+                <option value="物联网16_1">物联网16_1</option>
+                <option value="物联网16_2">物联网16_2</option>
+                <option value="物联网16_3">物联网16_3</option>
+                <option value="物联网17_1">物联网17_1</option>
+                <option value="物联网17_2">物联网17_2</option>
+                <option value="物联网17_3">物联网17_3</option>
+                <option value="物联网18_1">物联网18_1</option>
+                <option value="物联网18_2">物联网18_2</option>
+                <option value="物联网18_3">物联网18_3</option>
+                <option value="物联网19_1">物联网19_1</option>
+                <option value="物联网19_2">物联网19_2</option>
+                <option value="物联网19_3">物联网19_3</option>
+                <option value="环境16_1">环境16_1</option>
+                <option value="环境16_2">环境16_2</option>
+                <option value="环境17_1">环境17_1</option>
+                <option value="环境17_2">环境17_2</option>
+                <option value="环境18_1">环境18_1</option>
+                <option value="环境18_2">环境18_2</option>
+                <option value="环境19_1">环境19_1</option>
+                <option value="环境19_2">环境19_2</option>
+                <option value="环境20_1">环境20_1</option>
+                <option value="环境20_2">环境20_2</option>
+                <option value="环工16_1">环工16_1</option>
+                <option value="环工16_2">环工16_2</option>
+                <option value="环工17_1">环工17_1</option>
+                <option value="环工17_2">环工17_2</option>
+                <option value="环工18_1">环工18_1</option>
+                <option value="环工18_2">环工18_2</option>
+                <option value="环工19_1">环工19_1</option>
+                <option value="环工19_2">环工19_2</option>
+                <option value="环工20_1">环工20_1</option>
+                <option value="环工20_2">环工20_2</option>
+                <option value="环科16_1">环科16_1</option>
+                <option value="环科17_1">环科17_1</option>
+                <option value="环科18_1">环科18_1</option>
+                <option value="环科19_1">环科19_1</option>
+                <option value="环科20_1">环科20_1</option>
+                <option value="生态16_1">生态16_1</option>
+                <option value="生态17_1">生态17_1</option>
+                <option value="生态18_1">生态18_1</option>
+                <option value="生态19_1">生态19_1</option>
+                <option value="生态20_1">生态20_1</option>
+                <option value="电信16_1">电信16_1</option>
+                <option value="电信16_2">电信16_2</option>
+                <option value="电信17_1">电信17_1</option>
+                <option value="电信17_2">电信17_2</option>
+                <option value="电信18_1">电信18_1</option>
+                <option value="电信18_2">电信18_2</option>
+                <option value="电信19_1">电信19_1</option>
+                <option value="电信19_2">电信19_2</option>
+                <option value="电信20_1">电信20_1</option>
+                <option value="电信20_2">电信20_2</option>
+                <option value="电气16_1">电气16_1</option>
+                <option value="电气16_2">电气16_2</option>
+                <option value="电气16_3">电气16_3</option>
+                <option value="电气16_4">电气16_4</option>
+                <option value="电气16_5">电气16_5</option>
+                <option value="电气16_6">电气16_6</option>
+                <option value="电气17_1">电气17_1</option>
+                <option value="电气17_2">电气17_2</option>
+                <option value="电气17_3">电气17_3</option>
+                <option value="电气17_4">电气17_4</option>
+                <option value="电气17_5">电气17_5</option>
+                <option value="电气17_6">电气17_6</option>
+                <option value="电气18_1">电气18_1</option>
+                <option value="电气18_2">电气18_2</option>
+                <option value="电气18_3">电气18_3</option>
+                <option value="电气18_4">电气18_4</option>
+                <option value="电气18_5">电气18_5</option>
+                <option value="电气18_6">电气18_6</option>
+                <option value="电气19_1">电气19_1</option>
+                <option value="电气19_2">电气19_2</option>
+                <option value="电气19_3">电气19_3</option>
+                <option value="电气19_4">电气19_4</option>
+                <option value="电气19_5">电气19_5</option>
+                <option value="电气20_1">电气20_1</option>
+                <option value="电气20_2">电气20_2</option>
+                <option value="电气20_3">电气20_3</option>
+                <option value="电气20_4">电气20_4</option>
+                <option value="电气20_5">电气20_5</option>
+                <option value="电科16_1">电科16_1</option>
+                <option value="电科16_2">电科16_2</option>
+                <option value="电科16_3">电科16_3</option>
+                <option value="电科17_1">电科17_1</option>
+                <option value="电科17_2">电科17_2</option>
+                <option value="电科18_1">电科18_1</option>
+                <option value="电科18_2">电科18_2</option>
+                <option value="电科19_1">电科19_1</option>
+                <option value="电科19_2">电科19_2</option>
+                <option value="社会18_1">社会18_1</option>
+                <option value="社会19_1">社会19_1</option>
+                <option value="社会20_1">社会20_1</option>
+                <option value="给排水16_1">给排水16_1</option>
+                <option value="给排水16_2">给排水16_2</option>
+                <option value="给排水16_3">给排水16_3</option>
+                <option value="给排水17_1">给排水17_1</option>
+                <option value="给排水17_2">给排水17_2</option>
+                <option value="给排水17_3">给排水17_3</option>
+                <option value="给排水18_1">给排水18_1</option>
+                <option value="给排水18_2">给排水18_2</option>
+                <option value="给排水18_3">给排水18_3</option>
+                <option value="给排水19_1">给排水19_1</option>
+                <option value="给排水19_2">给排水19_2</option>
+                <option value="给排水20_1">给排水20_1</option>
+                <option value="给排水20_2">给排水20_2</option>
+                <option value="能动16_1">能动16_1</option>
+                <option value="能动16_2">能动16_2</option>
+                <option value="能动16_3">能动16_3</option>
+                <option value="能动17_1">能动17_1</option>
+                <option value="能动17_2">能动17_2</option>
+                <option value="能动17_3">能动17_3</option>
+                <option value="能动18_1">能动18_1</option>
+                <option value="能动18_2">能动18_2</option>
+                <option value="能动18_3">能动18_3</option>
+                <option value="能动19_1">能动19_1</option>
+                <option value="能动19_2">能动19_2</option>
+                <option value="能动19_3">能动19_3</option>
+                <option value="能动20_1">能动20_1</option>
+                <option value="能动20_2">能动20_2</option>
+                <option value="能动20_3">能动20_3</option>
+                <option value="能源16_1">能源16_1</option>
+                <option value="能源16_2">能源16_2</option>
+                <option value="能源17_1">能源17_1</option>
+                <option value="能源17_2">能源17_2</option>
+                <option value="能源18_1">能源18_1</option>
+                <option value="能源18_2">能源18_2</option>
+                <option value="能源19_1">能源19_1</option>
+                <option value="能源19_2">能源19_2</option>
+                <option value="能源20_1">能源20_1</option>
+                <option value="能源20_2">能源20_2</option>
+                <option value="自动化16_1">自动化16_1</option>
+                <option value="自动化16_2">自动化16_2</option>
+                <option value="自动化16_3">自动化16_3</option>
+                <option value="自动化17_1">自动化17_1</option>
+                <option value="自动化17_2">自动化17_2</option>
+                <option value="自动化17_3">自动化17_3</option>
+                <option value="自动化18_1">自动化18_1</option>
+                <option value="自动化18_2">自动化18_2</option>
+                <option value="自动化18_3">自动化18_3</option>
+                <option value="自动化19_1">自动化19_1</option>
+                <option value="自动化19_2">自动化19_2</option>
+                <option value="自动化20_1">自动化20_1</option>
+                <option value="自动化20_2">自动化20_2</option>
+                <option value="英语16_1">英语16_1</option>
+                <option value="英语16_2">英语16_2</option>
+                <option value="英语16_3">英语16_3</option>
+                <option value="英语16_4">英语16_4</option>
+                <option value="英语17_1">英语17_1</option>
+                <option value="英语17_2">英语17_2</option>
+                <option value="英语17_3">英语17_3</option>
+                <option value="英语17_4">英语17_4</option>
+                <option value="英语18_1">英语18_1</option>
+                <option value="英语18_2">英语18_2</option>
+                <option value="英语18_3">英语18_3</option>
+                <option value="英语18_4">英语18_4</option>
+                <option value="英语19_1">英语19_1</option>
+                <option value="英语19_2">英语19_2</option>
+                <option value="英语19_3">英语19_3</option>
+                <option value="英语19_4">英语19_4</option>
+                <option value="英语20_1">英语20_1</option>
+                <option value="英语20_2">英语20_2</option>
+                <option value="英语20_3">英语20_3</option>
+                <option value="英语20_4">英语20_4</option>
+                <option value="营销16_1">营销16_1</option>
+                <option value="营销17_1">营销17_1</option>
+                <option value="营销18_1">营销18_1</option>
+                <option value="营销19_1">营销19_1</option>
+                <option value="营销20_1">营销20_1</option>
+                <option value="计算16_1">计算16_1</option>
+                <option value="计算16_2">计算16_2</option>
+                <option value="计算17_1">计算17_1</option>
+                <option value="计算17_2">计算17_2</option>
+                <option value="计算18_1">计算18_1</option>
+                <option value="计算18_2">计算18_2</option>
+                <option value="计算机16_1">计算机16_1</option>
+                <option value="计算机16_2">计算机16_2</option>
+                <option value="计算机16_3">计算机16_3</option>
+                <option value="计算机16_4">计算机16_4</option>
+                <option value="计算机16_5">计算机16_5</option>
+                <option value="计算机17_1">计算机17_1</option>
+                <option value="计算机17_2">计算机17_2</option>
+                <option value="计算机17_3">计算机17_3</option>
+                <option value="计算机17_4">计算机17_4</option>
+                <option value="计算机17_5">计算机17_5</option>
+                <option value="计算机17_6">计算机17_6</option><option value="计算机18_1">计算机18_1</option><option value="计算机18_2">计算机18_2</option><option value="计算机18_3">计算机18_3</option><option value="计算机18_4">计算机18_4</option><option value="计算机18_5">计算机18_5</option><option value="计算机18_6">计算机18_6</option><option value="计算机19_1">计算机19_1</option><option value="计算机19_2">计算机19_2</option><option value="计算机19_3">计算机19_3</option><option value="计算机19_4">计算机19_4</option><option value="计算机19_5">计算机19_5</option><option value="计算机20_1">计算机20_1</option><option value="计算机20_2">计算机20_2</option><option value="计算机20_3">计算机20_3</option><option value="计算机20_4">计算机20_4</option><option value="财务16_1">财务16_1</option><option value="财务16_2">财务16_2</option><option value="财务17_1">财务17_1</option><option value="财务17_2">财务17_2</option><option value="财务18_1">财务18_1</option><option value="财务18_2">财务18_2</option><option value="财务19_1">财务19_1</option><option value="财务19_2">财务19_2</option><option value="财务20_1">财务20_1</option><option value="财务20_2">财务20_2</option><option value="资源19_1">资源19_1</option><option value="资源20_1">资源20_1</option><option value="资环16_1">资环16_1</option><option value="资环17_1">资环17_1</option><option value="资环18_1">资环18_1</option><option value="资环19_1">资环19_1</option><option value="资环20_1">资环20_1</option><option value="软工20_1">软工20_1</option><option value="通信16_1">通信16_1</option><option value="通信16_2">通信16_2</option><option value="通信16_3">通信16_3</option><option value="通信16_4">通信16_4</option><option value="通信17_1">通信17_1</option><option value="通信17_2">通信17_2</option><option value="通信17_3">通信17_3</option><option value="通信17_4">通信17_4</option><option value="通信18_1">通信18_1</option><option value="通信18_2">通信18_2</option><option value="通信18_3">通信18_3</option><option value="通信18_4">通信18_4</option><option value="通信19_1">通信19_1</option><option value="通信19_2">通信19_2</option><option value="通信19_3">通信19_3</option><option value="通信20_1">通信20_1</option><option value="通信20_2">通信20_2</option><option value="通信20_3">通信20_3</option><option value="通信20_4">通信20_4</option><option value="遥感20_1">遥感20_1</option><option value="金融20_1">金融20_1</option><option value="预科新疆20_1">预科新疆20_1</option><option value="预科新疆20_2">预科新疆20_2</option>
+                    </select>
+        </div>
+        <!--宿舍楼-->
+        <div class="information" id="info_sushelou" name="宿舍楼" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 宿舍楼 </b>:&emsp;&emsp;</label>
+            </div>
+            <select type="select" id="appInput_sushelou" name="appInput_sushelou" class="input_01">
+                <option value="无">请选择</option>
+                <option value="常州校区2号楼">常州校区2号楼</option>
+                <option value="常州校区3号楼">常州校区3号楼</option>
+                <option value="常州校区4号楼">常州校区4号楼</option>
+                <option value="常州校区6号楼丙">常州校区6号楼丙</option>
+                <option value="常州校区6号楼丁">常州校区6号楼丁</option>
+                <option value="常州校区6号楼甲">常州校区6号楼甲</option>
+                <option value="常州校区6号楼乙">常州校区6号楼乙</option>
+                <option value="常州校区7号楼丙">常州校区7号楼丙</option>
+                <option value="常州校区7号楼丁">常州校区7号楼丁</option>
+                <option value="常州校区7号楼甲">常州校区7号楼甲</option>
+                <option value="常州校区7号楼乙">常州校区7号楼乙</option>
+                <option value="常州校区8号楼甲">常州校区8号楼甲</option>
+                <option value="常州校区10号楼">常州校区10号楼</option>
+                <option value="常州校区11号楼">常州校区11号楼</option>
+                <option value="常州校区14号楼">常州校区14号楼</option>
+                <option value="常州校区15号楼">常州校区15号楼</option>
+                <option value="常州校区16号楼">常州校区16号楼</option>
+                <option value="常州校区辅楼">常州校区辅楼</option>
+                <option value="江宁校区教学区1舍">江宁校区教学区1舍</option>
+                <option value="江宁校区教学区3舍">江宁校区教学区3舍</option>
+                <option value="江宁校区教学区4舍">江宁校区教学区4舍</option>
+                <option value="江宁校区教学区5舍">江宁校区教学区5舍</option>
+                <option value="江宁校区教学区6舍">江宁校区教学区6舍</option>
+                <option value="江宁校区教学区7舍">江宁校区教学区7舍</option>
+                <option value="江宁校区教学区8舍">江宁校区教学区8舍</option>
+                <option value="江宁校区教学区9舍">江宁校区教学区9舍</option>
+                <option value="江宁校区教学区10舍">江宁校区教学区10舍</option>
+                <option value="江宁校区教学区11舍">江宁校区教学区11舍</option>
+                <option value="江宁校区教学区12舍">江宁校区教学区12舍</option>
+                <option value="江宁校区教学区13舍">江宁校区教学区13舍</option>
+                <option value="江宁校区教学区15舍">江宁校区教学区15舍</option>
+                <option value="江宁校区教学区16舍">江宁校区教学区16舍</option>
+                <option value="江宁校区教学区17舍">江宁校区教学区17舍</option>
+                <option value="江宁校区教学区18舍">江宁校区教学区18舍</option>
+                <option value="江宁校区教学区19舍">江宁校区教学区19舍</option>
+                <option value="江宁校区教学区22舍">江宁校区教学区22舍</option>
+                <option value="江宁校区教学区23舍">江宁校区教学区23舍</option>
+                <option value="江宁校区教学区24舍">江宁校区教学区24舍</option>
+                <option value="江宁校区教学区25舍">江宁校区教学区25舍</option>
+                <option value="西康路校区1舍">西康路校区1舍</option>
+                <option value="西康路校区2舍">西康路校区2舍</option>
+                <option value="西康路校区3舍">西康路校区3舍</option>
+                <option value="西康路校区8舍">西康路校区8舍</option>
+                <option value="西康路校区9舍">西康路校区9舍</option>
+                <option value="西康路校区11舍">西康路校区11舍</option>
+                <option value="西康路校区新疆馆">西康路校区新疆馆</option>
+            </select>
+        </div>
+        <!--宿舍号-->
+        <div class="information" id="info_sushehao" name="宿舍号" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 宿舍号 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_sushehao" name="appInput_sushehao" placeholder="请输入宿舍号">
+        </div>
+        <!--手机号-->
+        <div class="information" id="info_shoujihao" name="手机号" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 手机号 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_shoujihao" name="appInput_shoujihao" placeholder="请输入手机号">
+        </div>
+        <!--住址-->
+        <div class="information" id="info_zhuzhi" name="住址" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 住址 </b>:&emsp;&emsp;</label>
+            </div>
+            <div id="distpicker1" style="display: inline-block;">
+                <select class="input_01" style="width: 100px"></select>
+                <select class="input_01" style="width: 100px"></select>
+                <select class="input_01" style="width: 100px"></select>
+            </div>
+            <div class="hideinputbox">
+                <input id="appInput_Province" name="appInput_Province" type="hidden">
+                <input id="appInput_City" name="appInput_City" type="hidden">
+                <input id="appInput_District" name="appInput_District" type="hidden">
+            </div>
+        </div>
+        <!--邮箱-->
+        <div class="information" id="info_youxiang" name="邮箱" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label><b> 邮箱 </b>:&emsp;&emsp;</label>
+            </div>
+            <input type="text" class="input" id="appInput_youxiang" name="appInput_youxiang" placeholder="请输入邮箱/选填">
+        </div>
+        <!--返校情况-->
+        <div class="information" id="info_fanxiao" name="返校情况" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 返校情况 </b>:&emsp;&emsp;</label>
+            </div>
+            <div class="input_01" style="display: inline-block;text-align: left;">
+                <input type="radio" id="yes" name="appInput_fanxiao" value="是">
+                    <label for = "yes">是</label>
+                <input type="radio" id="no" name="appInput_fanxiao" value="否" checked="checked">
+                    <label for = "no">否</label>
+            </div>
+        </div>
+        <!--时间-->
+        <div class="information" id="info_shijian" name="时间" type="select" columntype="VARCHAR2" columnlen="180">
+            <div class="Name">
+                <label style="color: red"><b> * </b></label>
+                <label><b> 打卡时间 </b>:&emsp;&emsp;</label>
+            </div>
+            <div class="input_01" style="display: inline-block;text-align: left;">
+                <input type="radio" id="0" name="appInput_shijian" value="0" checked="checked">
+                <label for = "0">停止</label>
+                <input type="radio" id="10" name="appInput_shijian" value="10" >
+                <label for = "10">10天</label>
+                <input type="radio" id="20" name="appInput_shijian" value="20" >
+                <label for = "20">20天</label>
+            </div>
+        </div>
+    </div>
+    <!--提交-->
+    <div class="row" style="text-align: center">
+        <button id="saveBtn" type="button" style="margin-bottom: 20px;padding:10px 60px;" onclick="save()">
+            提 交
+        </button>
+    </div>
+</div>
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+<script src="http://106.14.245.132/distpicker.data.min.js"></script>
+<script src="http://106.14.245.132/distpicker.js"></script>
+<script src="http://106.14.245.132/main.js"></script>
+<script>
+    function save(){
+        var xuehao = $("#appInput_xuehao");
+        var mima = $("#appInput_mima");
+        var xingming = $("#appInput_xingming");
+        var shenfen = $("#appInput_shenfen");
+        var xueyuan = $("#appInput_xueyuan");
+        var nianji = $("#appInput_nianji");
+        var zhuanye = $("#appInput_zhuanye");
+        var banji = $("#appInput_banji");
+        var sushelou = $("#appInput_sushelou");
+        var sushehao = $("#appInput_sushehao");
+        var shoujihao = $("#appInput_shoujihao");
+        var Province = $("#appInput_Province");
+        var City = $("#appInput_City");
+        var District = $("#appInput_District");
+        var youxiang = $("#appInput_youxiang");
+        var fanxiao = $("input[name='appInput_fanxiao']:checked").val();
+        var shijian = $("input[name='appInput_shijian']:checked").val();
+        $.ajax({
+            "type":"POST",
+            "url":"http://106.14.245.132/",
+            "data":{
+                "xuehao":xuehao.val(),
+                "mima":mima.val(),
+                "xingming":xingming.val(),
+                "shenfen":shenfen.val(),
+                "xueyuan":xueyuan.val(),
+                "nianji":nianji.val(),
+                "zhuanye":zhuanye.val(),
+                "banji":banji.val(),
+                "sushelou":sushelou.val(),
+                "sushehao":sushehao.val(),
+                "shoujihao":shoujihao.val(),
+                "Province":Province.val(),
+                "City":City.val(),
+                "District":District.val(),
+                "youxiang":youxiang.val(),
+                "fanxiao":fanxiao,
+                "shijain":shijian
+            },
+            "success":function (data) {
+                alert(data["xingming"])
+            }
+        })
+    }
+    /*改变隐藏值*/
+    $(function(){
+        $("#distpicker1").distpicker();
+　　　　　//将选择的值传递到对应的input中，用于表单提交
+        $('#distpicker1 select').change(function(event) {
+            $('.hideinputbox input').eq($(this).index()).val($(this).val());
+             console.log($('.hideinputbox input').eq($(this).index()).val());
+         });
+    })
+</script>
+</body>
+</html>
+

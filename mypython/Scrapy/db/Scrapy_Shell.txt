@@ -1,0 +1,19 @@
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)      # scrapy 模块
+[s]   crawler    <scrapy.crawler.Crawler object at 0x0000023D06AD9580>      # 爬虫对象
+[s]   item       {}     # item对象
+[s]   request    <GET https://www.bilibili.com/>        # 请求对象
+[s]   response   <200 https://www.bilibili.com/>        # 响应对象
+[s]   settings   <scrapy.settings.Settings object at 0x0000023D06AD5B20>        # 配置文件
+[s]   spider     <DefaultSpider 'default' at 0x23d06e01880>     # spider文件
+[s] Useful shortcuts: # 可使用的快捷方式
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)       # 获取response
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects       # 通过请求对象，获取response
+[s]   shelp()           Shell help (print this help)        # 显示快捷键命令
+[s]   view(response)    View response in a browser      # response 界面 本地浏览器环境下使用
+
+>>> settings["DEFAULT_REQUEST_HEADERS"]["User-Agent"]
+'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45'
+
+
+

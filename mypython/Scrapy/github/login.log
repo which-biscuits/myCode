@@ -1,0 +1,96 @@
+2021 [scrapy.downloadermiddlewares.retry] ERROR: Gave up retrying <GET https://github.com/> (fail://github.com/>ed 3 times): TCP connection timed out: 10060: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。.
+2021 [scrapy.core.scraper] ERROR: Error downloading <GET https
+Traceback (most recent call last):
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\downloader\middleware.py", line 45, in process_request
+    return (yield download_func(request=request, spider=spider))
+twisted.internet.error.TCPTimedOutError: TCP connection timed out: 10060: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。.
+2021 [scrapy.core.scraper] ERROR: Spider error processing <GET https://github.com/> (referer: None)
+Traceback (most recent call last):
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\defer.py", line 120, in iter_errback
+    yield next(it)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 340, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 37, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "C:\Users\11412\Desktop\mypython\Scrapy\github\github\spiders\login.py", line 11, in parse
+    timestamp = response.xpath('//input[@name="timestamp"]/@value').extract()[0]
+IndexError: list index out of range
+2021 [scrapy.core.scraper] ERROR: Spider error processing <GET https://github.com/> (referer: None)
+Traceback (most recent call last):
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\defer.py", line 120, in iter_errback
+    yield next(it)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 340, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 37, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "C:\Users\11412\Desktop\mypython\Scrapy\github\github\spiders\login.py", line 11, in parse
+    timestamp = response.xpath('//input[@name="timestamp"]/@value').extract()[0]
+IndexError: list index out of range
+2021 [scrapy.core.scraper] ERROR: Spider error processing <GET https://github.com/> (referer: None)
+Traceback (most recent call last):
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\defer.py", line 120, in iter_errback
+    yield next(it)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 340, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 37, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "c:\app\pycharm\scrapy\lib\site-packages\scrapy\core\spidermw.py", line 62, in _evaluate_iterable
+    for r in iterable:
+  File "C:\Users\11412\Desktop\mypython\Scrapy\github\github\spiders\login.py", line 11, in parse
+    timestamp = response.xpath('//input[@name="timestamp"]/@value').extract()[0]
+IndexError: list index out of range
+2021 [py.warnings] WARNING: c:\app\pycharm\scrapy\lib\site-packages\scrapy\spidermiddlewares\referer.py:285: RuntimeWarning: Could not load referrer policy 'origin-when-cross-origin, strict-origin-when-cross-origin'
+  warnings.warn(msg, RuntimeWarning)
+
