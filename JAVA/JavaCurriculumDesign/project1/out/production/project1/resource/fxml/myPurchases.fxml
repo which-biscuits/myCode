@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.myPurchasesController">
+   <children>
+      <Button fx:id="findGoods" layoutX="760.0" layoutY="24.0" mnemonicParsing="false" onAction="#findGoodsOnClick" prefHeight="50.0" prefWidth="100.0" text="搜索" />
+      <ScrollPane hbarPolicy="NEVER" layoutY="94.0" prefHeight="466.0" prefWidth="1000.0">
+         <content>
+            <FlowPane fx:id="goodsView" prefHeight="720.0" prefWidth="1000.0" />
+         </content>
+      </ScrollPane>
+      <TextField fx:id="findText" layoutX="206.0" layoutY="24.0" prefHeight="50.0" prefWidth="535.0" />
+      <Button fx:id="refresh" layoutX="878.0" layoutY="24.0" mnemonicParsing="false" onAction="#findGoodsOnClick" prefHeight="50.0" prefWidth="100.0" text="刷新" />
+      <Label alignment="CENTER" layoutY="29.0" prefHeight="40.0" prefWidth="200.0" styleClass="titleLabel" text="我的购买" />
+   </children>
+</AnchorPane>

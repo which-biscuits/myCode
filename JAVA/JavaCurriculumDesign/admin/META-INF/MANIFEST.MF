@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: adminApplication.views.loginView
+Class-Path: mysql-connector-java-5.1.39-bin.jar
+

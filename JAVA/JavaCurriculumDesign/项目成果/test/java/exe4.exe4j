@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exe4j version="5.1" transformSequenceNumber="2">
+  <directoryPresets config="C:/Users/WZX/Desktop/test" />
+  <application name="java" distributionSourceDir="C:/Users/WZX/Desktop/test/java">
+    <languages>
+      <principalLanguage id="en" customLocalizationFile="" />
+    </languages>
+  </application>
+  <executable name="LOAP-二手交易平台" type="2" iconSet="true" iconFile="C:/Users/WZX/Desktop/test/favicon.ico" executableDir="" redirectStderr="true" stderrFile="error.log" stderrMode="append" redirectStdout="true" stdoutFile="output.log" stdoutMode="append" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false" amd64="true">
+    <messageSet />
+    <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
+  </executable>
+  <splashScreen show="false" width="0" height="0" bitmapFile="" windowsNative="false" textOverlay="false">
+    <text>
+      <statusLine x="20" y="20" text="" fontSize="8" fontColor="0,0,0" bold="false" />
+      <versionLine x="20" y="40" text="version %VERSION%" fontSize="8" fontColor="0,0,0" bold="false" />
+    </text>
+  </splashScreen>
+  <java mainClass="userApplication.view.Main" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.8" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
+    <searchSequence>
+      <registry />
+      <directory location="/jre1.8.0_281" />
+    </searchSequence>
+    <classPath>
+      <archive location="C:/Users/WZX/Desktop/test/mysql-connector-java-5.1.39-bin.jar" failOnError="false" />
+      <archive location="C:/Users/WZX/Desktop/test/Thumbnailator-0.3.10.jar" failOnError="false" />
+      <archive location="C:/Users/WZX/Desktop/test/users.jar" failOnError="false" />
+    </classPath>
+    <nativeLibraryDirectories />
+    <vmOptions />
+  </java>
+  <includedFiles />
+  <unextractableFiles />
+</exe4j>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.introductionController">
+   <children>
+      <Label alignment="CENTER" prefHeight="60.0" prefWidth="1000.0" styleClass="titleLabel" text="商品详情" textAlignment="CENTER" />
+      <Label layoutX="35.0" layoutY="70.0" prefHeight="40.0" prefWidth="100.0" text="商品名称:" />
+      <ImageView fx:id="goodsImage" fitHeight="300.0" fitWidth="460.0" layoutX="35.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="630.0" layoutY="70.0" prefHeight="40.0" prefWidth="100.0" text="商品价格:" />
+      <TextArea fx:id="introduction" editable="false" layoutX="630.0" layoutY="170.0" prefHeight="180.0" prefWidth="330.0" wrapText="true" />
+      <Label layoutX="630.0" layoutY="360.0" prefHeight="40.0" prefWidth="100.0" text="关键词:" />
+      <Button fx:id="buyIt" layoutX="860.0" layoutY="480.0" mnemonicParsing="false" onAction="#buyItOnClick" prefHeight="40.0" prefWidth="100.0" text="购买" />
+      <Button fx:id="contactSeller" layoutX="745.0" layoutY="480.0" mnemonicParsing="false" onAction="#contactSellerOnClick" prefHeight="40.0" prefWidth="100.0" text="联系卖家" />
+      <Label layoutX="35.0" layoutY="120.0" prefHeight="40.0" prefWidth="100.0" text="卖家 ID :" />
+      <TextField fx:id="goodsName" editable="false" layoutX="180.0" layoutY="70.0" prefHeight="40.0" prefWidth="320.0" />
+      <TextField fx:id="sellerId" editable="false" layoutX="180.0" layoutY="120.0" prefHeight="40.0" prefWidth="320.0" />
+      <TextField fx:id="goodsPrice" editable="false" layoutX="760.0" layoutY="70.0" prefHeight="40.0" prefWidth="200.0" />
+      <Label layoutX="630.0" layoutY="120.0" prefHeight="40.0" prefWidth="100.0" text="发布日期:" />
+      <TextField fx:id="keyWords" editable="false" layoutX="760.0" layoutY="360.0" prefHeight="40.0" prefWidth="200.0" />
+      <Label layoutX="35.0" layoutY="170.0" prefHeight="40.0" prefWidth="100.0" text="卖家姓名:" />
+      <TextField fx:id="sellerName" editable="false" layoutX="180.0" layoutY="170.0" prefHeight="40.0" prefWidth="320.0" />
+      <Button fx:id="cancel" layoutX="630.0" layoutY="480.0" mnemonicParsing="false" onAction="#cancelOnClick" prefHeight="40.0" prefWidth="100.0" text="返回" />
+      <TextField fx:id="registerTime" editable="false" layoutX="760.0" layoutY="120.0" prefHeight="40.0" prefWidth="200.0" />
+      <Button fx:id="modify" layoutX="515.0" layoutY="480.0" mnemonicParsing="false" onAction="#modifyOnClick" prefHeight="40.0" prefWidth="100.0" text="修改" />
+      <TextField fx:id="failReason" editable="false" layoutX="630.0" layoutY="413.0" prefHeight="40.0" prefWidth="330.0" />
+   </children>
+</AnchorPane>

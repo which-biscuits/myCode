@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a8c3d134-68b5-4f7e-b136-79959b21ee8f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1r9jH8omTS3IgpI1brcSfihJ7v3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ex_4" />
+    <property name="settings.editor.selected.configurable" value="profiler.jvm" />
+  </component>
+  <component name="RunManager" selected="Application.ex_32">
+    <configuration name="ex_31" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ex_31" />
+      <module name="ex_3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ex_32" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ex_32" />
+      <module name="ex_3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main" />
+      <module name="ex_3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ex_32" />
+        <item itemvalue="Application.ex_31" />
+        <item itemvalue="Application.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="NONE" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a8c3d134-68b5-4f7e-b136-79959b21ee8f" name="Default Changelist" comment="" />
+      <created>1618395108686</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618395108686</updated>
+      <workItem from="1618395111782" duration="387000" />
+      <workItem from="1618395512341" duration="27000" />
+      <workItem from="1618395551113" duration="1109000" />
+      <workItem from="1618396738197" duration="2104000" />
+      <workItem from="1618473023637" duration="38000" />
+      <workItem from="1621772833679" duration="93000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="192" y="66" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618396913994">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="192" y="66" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1618396913994" />
+    <state x="530" y="57" key="#com.intellij.ide.util.MemberChooser" timestamp="1618397375437">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="530" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1618397375437" />
+    <state x="404" y="160" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1618396852982">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="404" y="160" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1618396852982" />
+    <state x="467" y="99" key="FileChooserDialogImpl" timestamp="1621772925291">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="467" y="99" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621772925291" />
+    <state width="1492" height="210" key="GridCell.Tab.0.bottom" timestamp="1621772926202">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1621772926202" />
+    <state width="1492" height="210" key="GridCell.Tab.0.center" timestamp="1621772926201">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1621772926201" />
+    <state width="1492" height="210" key="GridCell.Tab.0.left" timestamp="1621772926201">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1621772926201" />
+    <state width="1492" height="210" key="GridCell.Tab.0.right" timestamp="1621772926202">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1621772926202" />
+    <state x="154" y="0" key="SettingsEditor" timestamp="1618396438877">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="154" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1618396438877" />
+    <state x="0" y="0" key="new project wizard" timestamp="1618473058152">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="0" y="0" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1618473058152" />
+    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup" timestamp="1618396106220">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1618396106220" />
+  </component>
+</project>

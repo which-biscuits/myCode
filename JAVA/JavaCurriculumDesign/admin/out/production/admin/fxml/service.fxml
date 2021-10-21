@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminApplication.Controllers.serviceController">
+   <children>
+      <VBox fx:id="userView" prefHeight="750.0" prefWidth="200.0" />
+      <TextField fx:id="textIn" layoutX="200.0" layoutY="690.0" prefHeight="60.0" prefWidth="600.0" />
+      <Button fx:id="send" layoutX="800.0" layoutY="690.0" mnemonicParsing="false" onAction="#sendOnClick" prefHeight="60.0" prefWidth="200.0" text="发送" />
+      <Button fx:id="sendReadingGoods" layoutX="1000.0" layoutY="690.0" mnemonicParsing="false" onAction="#sendReadingGoodsOnClick" prefHeight="60.0" prefWidth="200.0" text="发送当前商品" />
+      <Label fx:id="choiceUser" alignment="CENTER" layoutX="200.0" prefHeight="50.0" prefWidth="1300.0" styleClass="titltLabel" text="请选择聊天对象..." />
+      <ScrollPane fx:id="serviceScrollPane" hbarPolicy="NEVER" layoutX="200.0" layoutY="50.0" prefHeight="640.0" prefWidth="1300.0">
+         <content>
+            <VBox fx:id="serviceView" prefHeight="640.0" prefWidth="1300.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

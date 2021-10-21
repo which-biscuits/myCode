@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?import com.gluonhq.charm.glisten.control.Icon?>-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1700.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminApplication.Controllers.mainController">
+   <children>
+      <VBox layoutY="150.0" prefHeight="750.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="auditGoods" mnemonicParsing="false" onAction="#auditGoodsOnClick" prefHeight="65.0" prefWidth="200.0" text="商品审核" />
+            <Button fx:id="userInfo" mnemonicParsing="false" onAction="#userInfoOnClick" prefHeight="65.0" prefWidth="200.0" text="用户信息管理" />
+            <Button fx:id="goodsInfo" mnemonicParsing="false" onAction="#goodsInfoOnClick" prefHeight="65.0" prefWidth="200.0" text="商品信息管理" />
+            <Button fx:id="Service" mnemonicParsing="false" onAction="#ServiceOnClick" prefHeight="65.0" prefWidth="200.0" text="用户消息" />
+            <Button fx:id="adminInfo" mnemonicParsing="false" onAction="#adminInfoOnClick" prefHeight="65.0" prefWidth="200.0" text="管理员信息管理" />
+         </children>
+      </VBox>
+      <StackPane fx:id="workingSpace" layoutX="200.0" layoutY="150.0" prefHeight="750.0" prefWidth="1500.0" />
+      <AnchorPane prefHeight="150.0" prefWidth="1700.0">
+         <children>
+            <ImageView fx:id="mainIcon" fitHeight="150.0" fitWidth="700.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            <ImageView fx:id="userPhoto" fitHeight="120.0" fitWidth="120.0" layoutX="1203.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            <MenuButton layoutX="1473.0" layoutY="50.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="个人中心" textAlignment="CENTER">
+              <items>
+                  <MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#changePasswordOnClick" text="修改密码" />
+                <MenuItem fx:id="logOut" mnemonicParsing="false" onAction="#logOutOnClick" text="退出登录" />
+              </items>
+            </MenuButton>
+            <Label fx:id="userName" layoutX="1360.0" layoutY="50.0" prefHeight="50.0" prefWidth="100.0" text="请登录..." textAlignment="CENTER" />
+<!--            <Icon content="HELP_OUTLINE" layoutX="862.0" layoutY="25.0" prefHeight="100.0" prefWidth="100.0" />-->
+<!--            <Icon content="HELP_OUTLINE" layoutX="23.0" layoutY="25.0" prefHeight="100.0" prefWidth="300.0" />-->
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

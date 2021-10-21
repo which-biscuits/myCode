@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: userApplication.view.Main
+Class-Path: Thumbnailator-0.3.10.jar mysql-connector-java-5.1.39-bin.jar
+

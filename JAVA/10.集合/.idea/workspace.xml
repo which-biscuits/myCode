@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fc1b8792-e9bb-4664-921f-8b588346f8ea" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1sqPy7FQnaDJ00zHv2Ybb2VC5CU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+  </component>
+  <component name="RunManager">
+    <configuration name="TestCollection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestCollection" />
+      <module name="10.集合" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestCollection" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="NONE" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc1b8792-e9bb-4664-921f-8b588346f8ea" name="Default Changelist" comment="" />
+      <created>1621597397202</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621597397202</updated>
+      <workItem from="1621597400320" duration="914000" />
+      <workItem from="1621665973271" duration="749000" />
+      <workItem from="1621668275273" duration="20000" />
+      <workItem from="1623231657460" duration="70000" />
+      <workItem from="1623234838929" duration="12000" />
+      <workItem from="1623234884801" duration="21000" />
+      <workItem from="1623235158679" duration="52000" />
+      <workItem from="1623236950686" duration="600000" />
+      <workItem from="1623244619415" duration="1000" />
+      <workItem from="1623252672266" duration="30000" />
+      <workItem from="1623252719742" duration="50000" />
+      <workItem from="1623253864442" duration="38000" />
+      <workItem from="1623254014898" duration="76000" />
+      <workItem from="1623254104780" duration="9000" />
+      <workItem from="1623380103506" duration="5000" />
+      <workItem from="1623589264644" duration="115000" />
+      <workItem from="1630808366293" duration="249000" />
+      <workItem from="1630808726683" duration="44000" />
+      <workItem from="1630808788074" duration="191000" />
+      <workItem from="1630818277095" duration="126000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="516" y="282" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1623252701104">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="516" y="282" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1536.824@0.0.1536.824" timestamp="1623252701104" />
+    <state x="614" y="302" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1630808858392">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="614" y="302" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.824@0.0.1536.824" timestamp="1630808858392" />
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1623589366580">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1623589366580" />
+    <state x="295" y="0" key="SettingsEditor" timestamp="1630808833167">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="295" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1630808833167" />
+    <state x="461" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1623231657570">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="461" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1623231657570" />
+    <state x="178" y="23" key="new project wizard" timestamp="1623589378401">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="178" y="23" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1623589378401" />
+  </component>
+</project>
