@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41cb6007-b5f4-4ce8-9167-ef824ec687b1" name="Default Changelist" comment="" />
+    <list default="true" id="41cb6007-b5f4-4ce8-9167-ef824ec687b1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Animals.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Cat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Dog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Test2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Test3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Test4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/Vehicle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/car.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ex_2/driver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test4.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +34,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
   <component name="ProjectId" id="1qpxkJMqxaaaovCztNI85THEkYM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -25,13 +46,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ex_3" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
   <component name="RunManager" selected="Application.Test3">
     <configuration name="Test2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -87,6 +109,7 @@
       <workItem from="1618308859112" duration="87000" />
       <workItem from="1618323101109" duration="164000" />
       <workItem from="1621772617448" duration="215000" />
+      <workItem from="1635149007198" duration="445000" />
     </task>
     <servers />
   </component>
@@ -94,41 +117,25 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="530" y="55" key="#com.intellij.ide.util.MemberChooser" timestamp="1617792622157">
+    <state width="1492" height="210" key="GridCell.Tab.0.bottom" timestamp="1635149456240">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="530" y="55" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1617792622157" />
-    <state x="499" y="111" key="FileChooserDialogImpl" timestamp="1621772831259">
+    <state width="1492" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1635149456240" />
+    <state width="1492" height="210" key="GridCell.Tab.0.center" timestamp="1635149456240">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="111" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621772831259" />
-    <state width="1492" height="210" key="GridCell.Tab.0.bottom" timestamp="1621772832339">
+    <state width="1492" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1635149456240" />
+    <state width="1492" height="210" key="GridCell.Tab.0.left" timestamp="1635149456240">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1621772832339" />
-    <state width="1492" height="210" key="GridCell.Tab.0.center" timestamp="1621772832338">
+    <state width="1492" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1635149456240" />
+    <state width="1492" height="210" key="GridCell.Tab.0.right" timestamp="1635149456240">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1621772832338" />
-    <state width="1492" height="210" key="GridCell.Tab.0.left" timestamp="1621772832338">
+    <state width="1492" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1635149456240" />
+    <state x="270" y="0" key="SettingsEditor" timestamp="1635149058842">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1621772832338" />
-    <state width="1492" height="210" key="GridCell.Tab.0.right" timestamp="1621772832339">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1621772832339" />
-    <state x="154" y="0" key="SettingsEditor" timestamp="1618308903450">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="154" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1618308903450" />
-    <state x="341" y="183" key="run.anything.popup" timestamp="1617793203866">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="341" y="183" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1617793203866" />
-    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup" timestamp="1617796154830">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1617796154830" />
+    <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1635149058842" />
   </component>
 </project>

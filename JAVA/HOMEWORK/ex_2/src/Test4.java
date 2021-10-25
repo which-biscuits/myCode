@@ -1,118 +1,131 @@
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
+/**
+ * @author wanyu.zhang
+ */
 public class Test4 {
     public static void main(String[] args) {
-        //     1）创建类，驾驶员
-        //    驾驶员的属性：级别（“新手”或“老手”）
-        //    驾驶员的行为：返回级别
-        driver driver1 = new driver("老手");
-        System.out.println(driver1.getGrade());
+        // 重载构造方法
+        // 继承构造方法
+        Animals anm1 = new Animals();
+        Animals anm2 = new Animals(13,5);
+        // 分别继承父类不同的构造方法
+        Cat cat1 = new Cat(13,5);
+        Dog dog1 = new Dog();
+        System.out.println("cat1's weight & age:" + cat1.getWeight() + "," + cat1.getAge());
+        System.out.println("dog1's weight & age:" + dog1.getWeight() + "," + dog1.getAge());
 
-        //    2）汽车类的子类
-        //    添加汽车属性：
-        //    1）驾驶员（2）最高速度
-        car car1 = new car(45,45,45,driver1);
+        // 实现成员方法的多态
+        Dog dog2 = new Dog();
+        dog1.set(10,1);
+        dog2.set("weight",10);
+        dog2.set("age",1);
+        System.out.println("dog1's weight & age:" + dog1.getWeight() + "," + dog1.getAge());
+        System.out.println("dog2's weight & age:" + dog1.getWeight() + "," + dog1.getAge());
 
-        //    添加汽车行为：
-        //    1）设定最高速度：如果驾驶员是“新手”，最高速度赋值30；如果是“老手”，最高速度赋值60
-        //    2）变速提醒：如“新手”速度大于30，显示“请放慢！”；如“老手”速度大于60，显示“违规！”
-        System.out.println(car1.getMaxSpeed());
-        car1.setMaxSpeed(70);
-        car1.setMaxSpeed(56);
-        System.out.println(car1.getMaxSpeed());
-    }
-
-
-}
-
-class Vehicle {
-    private double speed;
-    private double dist;
-    private double time;
-
-    public Vehicle (double speed, double dist,double time) {
-        this.speed = speed;
-        this.dist = dist;
-        this.time = time;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    public void setDist(double dist) {
-        this.dist = dist;
-    }
-
-    public double getSpeed() { return speed;}
-
-    public double getDist() { return dist;}
-
-    public double getTime() { return time;}
-
-    public void setTime(double time) {
-        this.time = time;
-    }
-
-    public void showInfo() {
-        System.out.println("此辆车行驶了" + time + "小时");
+        // 子类用父类的静态方法互相传递实例变量
+        Cat cat2 = new Cat(1,1);
+        Animals.copy(cat1,cat2);    // 将 cat2 的 weight/age 赋值给cat1
+        System.out.println("cat1's weight & age:" + cat1.getWeight() + "," + cat1.getAge());
+        System.out.println("cat2's weight & age:" + cat1.getWeight() + "," + cat1.getAge());
     }
 }
 
-class driver {
-    private String grade;   // 驾驶员等级
+class Animals {    // 抽象父类
+    private int weight;     // 动物的体重
+    private int age;        // 动物的年龄
 
-    driver(String grade) {
-        if (grade.equals("新手") || grade.equals("老手"))
-            this.grade = grade;
-        else
-            System.out.println("驾驶员等级输入错误");
+    Animals(int weight, int age) {  // 重载构造方法
+        this.weight = (Math.max(weight, 0));
+        this.age = (Math.max(age, 0));
     }
 
-    public String getGrade() {
-        return grade;
+    Animals() {}    // 构造方法的多态
+
+    public int getWeight() {
+        return weight;
     }
 
-    public void setGrade(String grade) {
-        if (grade.equals("新手") || grade.equals("老手"))
-            this.grade = grade;
-        else
-            System.out.println("驾驶员等级输入错误");
-}
-}
-
-class car extends Vehicle {
-    private driver myDriver;
-    private int maxSpeed;
-
-    public car(double speed, double dist, double time, driver myDriver) {
-        super(speed, dist, time);
-        this.myDriver = myDriver;
-        if (myDriver.getGrade().equals("新手"))
-            this.maxSpeed = 30;
-        else if (myDriver.getGrade().equals("老手"))
-            this.maxSpeed = 60;
+    public int getAge() {
+        return age;
     }
 
-    public int getMaxSpeed() {
-        return maxSpeed;
+    public void setWeight(int weight) {
+        this.weight = (Math.max(weight, 0));
     }
 
-    public void setMaxSpeed(int maxSpeed) {
-        if (myDriver.getGrade().equals("新手") && maxSpeed > 30)
-            System.out.println("请放慢你的速度");
-        else if (myDriver.getGrade().equals("老手") && maxSpeed > 60)
-            System.out.println("您已违规");
-        else
-            this.maxSpeed = maxSpeed;
+    public void setAge(int age) {
+        this.age = (Math.max(age, 0));
     }
 
-    public driver getMyDriver() {
-        return myDriver;
+    public static void copy(Object obj1, Object obj2) {     // 用于调用的父类静态方法
+        Animals anm1 = (Animals) obj1;
+        Animals anm2 = (Animals) obj2;
+        anm1.setWeight(anm2.getWeight());
+        anm1.setAge(anm2.getAge());
     }
 
-    public void setMyDriver(driver myDriver) {
-        this.myDriver = myDriver;
-    }
+    public void patCalls() {};
+
+    public void jumping() {};
+
 }
 
+class Cat extends Animals {     // 子类 Cat
+
+    Cat(int weight, int age) {
+        super(weight,age);
+    }
+
+    public void set(int weight, int age) {
+        this.setWeight(weight);
+        this.setAge(age);
+    }
+
+    public void set(String attr, int value) {   // 成员方法的多态
+        if ("weight".equals(attr)) {
+            this.setWeight(value);
+        } else if ("age".equals(attr)) {
+            this.setAge(value);
+        }
+    }
+
+    @Override
+    public void patCalls() {
+        System.out.println("miaow...");
+    }
+
+    @Override
+    public void jumping() {
+        System.out.println("The cat is jumping!");
+    }
+}
+
+class Dog extends Animals {     // 子类 Dog
+
+    Dog() {     // 分别继承父类不同的构造方法
+        super();
+    }
+
+    public void set(int weight, int age) {
+        this.setWeight(weight);
+        this.setAge(age);
+    }
+
+    public void set(String attr, int value) {   // 成员方法的多态
+        if ("weight".equals(attr)) {
+            this.setWeight(value);
+        } else if ("age".equals(attr)) {
+            this.setAge(value);
+        }
+    }
+
+    @Override
+    public void patCalls() {
+        System.out.println("wow...");
+    }
+
+    @Override
+    public void jumping() {
+        System.out.println("The Dog is jumping!");
+    }
+}
