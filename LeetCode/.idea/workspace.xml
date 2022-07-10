@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4d8284d-03e4-4e67-9797-db31c854e1de" name="Default Changelist" comment="" />
+    <list default="true" id="e6d7c2ff-6bac-44bc-a0b9-b94e4f199d9c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -15,7 +21,8 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2BkBccYUD90EsKNF8rgDRMr8tUC" />
+  <component name="ProjectId" id="2BkKNaw2lDVXgZjr0kVCPvgUggt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -39,12 +46,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f4d8284d-03e4-4e67-9797-db31c854e1de" name="Default Changelist" comment="" />
-      <created>1657440282635</created>
+      <changelist id="e6d7c2ff-6bac-44bc-a0b9-b94e4f199d9c" name="Default Changelist" comment="" />
+      <created>1657444603993</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1657440282635</updated>
-      <workItem from="1657440286026" duration="12000" />
+      <updated>1657444603993</updated>
+      <workItem from="1657444606820" duration="2000" />
     </task>
     <servers />
   </component>
@@ -52,9 +59,9 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="71" key="#Project_Structure" timestamp="1657440288929">
+    <state x="361" y="71" key="#Project_Structure" timestamp="1657444608462">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="71" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1657440288929" />
+    <state x="361" y="71" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1657444608462" />
   </component>
 </project>
