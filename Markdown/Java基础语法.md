@@ -1,4 +1,6 @@
-# 1 标识符
+# 基础语法
+
+## 标识符
 
 - Java 的标识符可以为任意长度
 
@@ -9,7 +11,7 @@
 - 严格区分大小写
 ***
 
-# 2 关键字
+## 关键字
 
 ```Java
 abstract    continue    for          new          switch
@@ -25,87 +27,116 @@ const       float       native       super        while
 ```
 
 > `const	goto `	无实际用途,目前仅为**占位符**
+>
 
-***
+### **instanceof**
 
-# 3 基本数据类型
+```java
+B instanceof A
+if ((B是指定类A || B派生于A || B实现了指定接口A) && B != null) { return true;}
+else { return false; }
+```
 
-> 在不同平台中各种基本数据类型占用储存空间长度固定, 保证了 `Java` 语言的**跨平台性**
+### **final**
 
-## 	整数类型
+1. 任何一个变量被 final 修饰后 一旦初始化,其值便不可改变
+
+2. 与**abstract**互斥
+
+**final 类**
+
+```java
+//  不可被继承 (java.long.String 不可被继承)
+final class test{}
+```
+
+**final 方法** 
+
+```java
+// 不可被重写，可以重载
+final void test(){}
+```
+
+**final 局部变量** 
+
+```java
+// 变量有且仅能被赋值一次 **常量**
+// 只能在创建时赋值一次
+final int test = 0;
+```
+
+**final 静态变量**
+
+```java
+// 产生常量 **只能在创建 或 静态代码块 中赋值一次**
+public static final int TEST = 1;
+```
+
+**final 实例变量**
+
+```java
+// 意义不大，只能赋值一次，直接用 static 代替
+// 复制地点: 定义，实例代码块，构造器
+```
+
+
+
+##  基本数据类型
+
+**在不同平台中各种基本数据类型占用储存空间长度固定, 保证了 `Java` 语言的跨平台性**
+
+**整数类型**
 
 ```Java
-byte      字符型
-short     短整型
-int       整型
-long      长整型
+byte	a;	// 1 字节
+short	a;	// 2 字节
+int 	a;	// 4 字节
+long a = 100l;	// 8 字节
 ```
 
-## 	浮点数类型
+**浮点数类型**
+
+**默认为 double 类型**
 
 ```java
-float      单精度浮点数
-double     双精度浮点数
+float a = 3.14F;	// 单精度浮点数 4 字节
+double b = 3.14D;	// 双精度浮点数 8 字节
+Double.isNaN(b);	// whether is not a number 
 ```
 
-## 	字符类型
+**字符类型**
 
 ```java
-char      字符类型 // 支持Unicode ==> \u____(四位)
+char a = "字符类型"	// 支持Unicode ==> \u____(四位)
 ```
 
-## 	布尔类型
+**布尔类型**
 
 ```java
-boolean     布尔类型 // false / true
+boolean a = "布尔类型" // false or true
 ```
 
-## 	整型文字常量
-
-默认为 **int** 类型
-
-- 十进制		不可以 0 开头,除 0 的情况	0 / 1 / 2021
-
-- 八进制		以 0 开头	010 / -0276		(0 - 7位)
-
-- 十六进制	以 0x / 0X 开头	0x4Ab	(0 - 9 位)		// 不严格区分大小写
-
-- long型常量后加后缀  `L`  		`int a = 123456789L`
-
-## 	浮点型文字常量
-
-- 默认 **double** 类型
-
-- **不可以省略小数点**  5.6 / 5. / .6
-
-- 加后缀	D / d	F / f	可省略小数点
-
-## 	字符文字常量
-
-' A '		' $ '
-
-## 	布尔文字常量
-
-false  /  true
 ***
 
-# 4 变量及基本运算
+## 变量及基本运算
 
-## 	变量
+**变量**
 
 数据类型	变量名1,变量名2....;
 
+**不提倡多变量在一行内声明**
+
 `int a,b,c;`
 
-## 	常量
+**常量**
 
-标识符字母均 **大写**
+标识符字母均 大写
 
 `final double PI = 3.1415926535 `
 
 ## 运算符
 
-### 	算数运算符
+**算数运算符**
 
 Java 中可连续赋值
 
@@ -119,48 +150,50 @@ int型 / int型		**取整**
 
 `++(自增) / --(自减)`  	(前置 后置 与C语言相同)
 
-### 	关系运算符
+**关系运算符**
 
 ```java
 <	<=	>	>=	==	!=
 ```
 
-### 	逻辑运算符
+**逻辑运算符**
 
 ```java
 !	&&	||	^        // false / true
 ```
 
-### 	复合赋值运算符
+**复合赋值运算符**
 
 ```java
 +=	-=	*=	/=	%=	<<=	>>=
 ```
 
-### 	条件运算符
+**条件运算符**
 
 ```java
-(a)?(b):(c)
+(a)?(b):(c) // 三元运算符
 等价于 if( a ) { b } else { c }
 ```
 
-### 	自动类型转换
+## 类型转换
+
+**自动类型转换**
 
 ```java
 byte ==> short ==> int ==> long ==> float ==> double
     	  char ==> int...
 ```
 
-### 	强制类型转换
+**强制类型转换**
 
 ```java
 float x = (float) a;
 ```
 ***
 
-# 5 控制台的输入和输出
+## 控制台的输入和输出
 
-## 	System 类
+### 	System 类
 
 不能实例化 , 无法创建对象
 
@@ -182,7 +215,7 @@ byte read[] = new byte[1024];
 System.in.read(read);		// 从控制台读取字节型数据
 System.in.read(read,start,len);		// 从控制台读取 len 个字节的数据 并从read[start] 开始存放
 ```
-## Scanner 类
+### Scanner 类
 
 ```java
 import java.util.Scanner;
@@ -221,9 +254,9 @@ Scanner scanner = new Scanner(System.in).useDelimiter("[0-9]");	// 以数字 0-9
 
 ***
 
-# 6 条件语句
+## 条件语句
 
-## 	if 语句
+### 	if 语句
 
 ```java
 if (boolean) {
@@ -235,7 +268,7 @@ if (boolean) {
 }
 ```
 
-## 	switch 语句
+### 	switch 语句
 
 ```java
 switch (表达式) {
@@ -247,9 +280,9 @@ switch (表达式) {
 ```
 ***
 
-# 7 循环语句
+## 循环语句
 
-## 	while 循环
+### 	while 循环
 
 ```java
 while (boolean) {
@@ -257,7 +290,7 @@ while (boolean) {
 }
 ```
 
-## 	do - while 循环
+### 	do - while 循环
 
 ```java
 do {
@@ -265,7 +298,7 @@ do {
 } whlie (boolean);
 ```
 
-## 	for 循环
+### 	for 循环
 
 ```java
 for (a ; boolean ; c) {
@@ -274,7 +307,7 @@ for (a ; boolean ; c) {
 ```
 ***
 
-# 8 跳转语句
+##  跳转语句
 
 - break;	跳出当前一层循环 / switch	(无标号)
 
@@ -284,7 +317,7 @@ for (a ; boolean ; c) {
 
 - continue 标号;		结束本次循环,并开始目标层的下一次循环;
 
-## 	标号
+**标号**
 
 ```java
 tag_a:		// 实现 break; continue;	对循环体操作
@@ -301,29 +334,9 @@ for (int i = 0;i <= 5;i++) {
 ```
 ***
 
-# 9 方法
+## 方法
 
-## 		定义
-
-```java
-修饰符 返回值类型 方法名(形式参数表) {
-    方法体
-}	// 方法名的首字母小写,单词连写,其余单词首字母大写
-eg:
-public double area (double length; double width) {
-    return length * width;
-}
-```
-
-## 		调用
-
-```java
-int length = 10;
-int width = 5;
-int area = area(length, width);
-```
-
-## 		递归调用
+### 		递归调用
 
 ```java
 public long  factorial(int num) {
@@ -335,7 +348,7 @@ public long  factorial(int num) {
 }
 ```
 
-## 	方法重载
+### 	方法重载
 
 - 在一个类中,可定义多个同名的方法,但方法的形参表互不相同
 
@@ -351,33 +364,112 @@ method(1,1);	// 无直接匹配,调用函数三,将 1 转换为 double 型
 ```
 ***
 
-# 10 类和对象
+## 类和对象
 
-## 	类的定义
+### 	类的定义
+
+- 类名的首字母建议大写。满足**驼峰模式**。 
+- 定义类：**一个Java文件可以定义多个类**（一个文件尽量只放一个类）。但是只有一个类是用public修饰，public修饰的类名必须称为Java文件名。
+- 类中有且仅有**5大成分**
+  - **成员变量Field**：描述类或者对象的属性信息的。
+  - **成员方法Method**：描述类或者对象的行为的。
+  - **构造器**（构造方法,Constructor）: 初始化类的一个对象返回。
+  - **代码块**
+  - **内部类**
+
+面向对象的三大特征：==**封装，继承，多态**==。
+
+### **封装**
+
+-  形成了规范，即使毫无意义还是会这样写代码！
+- 合理隐藏，合理暴露。
+- 封装的规范：成员变量私有，方法一般公开，提供成套的**getter和setter方法**暴露成员变量的取值和赋值。
+- 封装的作用：提高安全性，提高代码的组件化思想。
+- 封装已经成为Java代码的规范，即使毫无意义，我们也要这样写代码（成员变量私有，方法公开）
+
+1.使用 `private` 关键字来修饰成员变量。
+
+2.使用`public`修饰getter和setter方法。
+
+### 继承
+
+- **继承**：就是子类继承父类的**属性**和**行为**，使得子类对象可以直接具有与父类相同的属性、相同的行为。子类可以直接访问父类中的**非私有**的属性和行为。
+- 若无显示指定,就隐含继承于类 **java.lang.Object**
+- Java 中仅支持**单继承** 即只可有一个指定的父类
+- 优点：提高**代码的复用性**（减少代码冗余，相同代码重复利用）。使类与类之间产生了关系。
 
 ```java
-修饰符 class class_name (extends / implements) {
-    类体 (数据成员 + 方法)
+public 子类名 extends 父类名 {
+    定义子类新成员
 }
 ```
 
-## 	对象引用
+**子类的构造方法**
+
+- **子类不能继承父类的构造器，因为子类有自己的构造器。**
+
+- 在创建子类对象时, 系统会自动调用父类的构造方法
+
+  ​	1.调用父类默认的构造方法
+
+  ​	2.通过 super(); 显式调用父类含参数的构造方法, 参数不能为 this 或 当前对象的实例对象
+
+- **值得注意的是子类可以继承父类的私有成员（成员变量，方法），只是子类无法直接访问而已，可以通过getter/setter方法访问父类的private成员变量。**
+
+**方法覆盖**
+
+- 子类中的方法应与父类中被覆盖的方法有相同的方法名,返回值类型 和 形参类型列表(形参名可不同)
+
+- 可通过 **super.方法名** 调用父类的数据成员和方法
+
+- **方法覆盖时 , 不可修改其访问权限**
+
+**方法重载**
+
+- 当对应形参类型或者参数个数不同,则为方法重载
+- `@Override`
+
+**数据成员和静态方法隐藏**
+
+- 子类中可改写父类的数据成员和静态方法	不支持多态
+- 使用 **super.成员** 访问父类被隐藏的数据成员 或 方法名
+
+### 构造器
+
+- **作用**：通过调用构造器可以返回一个类的对象，构造器同时负责帮我们把对象的数据（属性和行为等信息）初始化好。
+
+- 构造器的**分类**：无参数构造器，有参数构造器。
+
+- 构造器的注意点：一个类默认自带一个无参数构造器，但是**如果写了有参数构造器那么默认的无参数构造器就消失了**，此时如果还需要用无参数构造器就需要自己从新写一个。
 
 ```java
-类名 对象名 = new 类名();
+  修饰符 类名(形参列表) {
+      // 构造体代码，执行代码
+  }
 ```
+### this
 
-## 	匿名对象引用
+this代表了当前对象的引用。
+this关键字可以用在实例方法和构造器中。
+this用在方法中，谁调用这个方法，this就代表谁。
+this用在构造器，代表了构造器正在初始化的那个对象的引用。
 
 ```java
-new 类名().方法名()/;
+Cat () { this(2,4); }	
+cat (int age; int weight) {...}	
 ```
 
-## 	静态变量
+==调用语句必须放在方法体的第一句==
 
-- 一个静态变量永远只有一份存储空间
+其他方法中不能调用构造方法,且参数不能为this的参数或实例成员
 
-- 可以通过类名访问
+### 静态
+
+**静态变量**
+
+- 一个静态变量永远只有一份存储空间 通过==static==修饰的变量
+
+- 可以通过类名访问，**也可以通过对象名访问,但不推荐。**
 
 ```java
 public class A { static int i= 0;}
@@ -385,9 +477,9 @@ A.i++;	// i = 1
 A a1 = new A();		// i = 2
 ```
 
-### 	静态方法
+**静态方法**
 
-类的方法,通过类名直接访问,**也可以通过对象名访问,但不推荐.**
+类的方法,通过类名直接访问，**也可以通过对象名访问,但不推荐.**
 
 ```java
 public class Cat {
@@ -398,24 +490,7 @@ public class Cat {
 }
 ```
 
-### 构造方法
-
-一种特殊方法,方法名与类名相同	默认会启用自动生成构造方法
-
-```java
-public class Cat {
-    int age;
-    int weight;
-    // 方法名 与 类名 相同
-    Cat (int insage, int itsweight) {	// 方法体,参数列表可为空
-        age = itsage;
-        weight = itsweight;
-    }
-}
-Cat cat2 = new Cat(12,15);	// 调用 自定义 构造方法
-```
-
-### 静态变量的初始化
+**静态变量的初始化**
 
 - 不能在**构造方法**中初始化 final 静态变量
 
@@ -423,375 +498,313 @@ Cat cat2 = new Cat(12,15);	// 调用 自定义 构造方法
 
 - 仅在**第一次**用到该变量的时候进行初始化
 
-### 初始化块
+### 代码块
 
-#### 		静态初始化块
+**静态代码块**：
 
-​	只初始化一次
+- 在类被加载时执行一次
 
 ```java
 static {...}
 ```
 
-#### 		实例初始化块
+**实例代码块**：
 
-​	在创建类的对象时,**构造方法执行前执行**
+- 在创建类的对象时,**构造方法执行前执行**
+- 实例代码块的代码在底层实际上是提取到每个构造器中去执行的
 
 ```java
 {...}
 ```
 ***
-
-# 11 包
-
-## 类的添加
-
-```java
-package packagename;	// 包名全部小写	放在文件开头位置
-```
-
-## pubic
-
-- 使该类可被其他类使用 (公用的)
-
-- 一个java文件中只允许有一个 公用类
-
-```java
-package cn.com.wzx.my_package.mysubpackage;
-// 对应存放目录为 cn/com/wzx/my_package/mysubpackage
-```
-
-## 类的使用
-
-```java
-import mypackage.dog;	// import 语句之前不允许存在 class
-import mypackage.*;		// 同时导入包中的所有 publick 类
-pack1.MyClass m = new pack1.MyClass();		// 实现在同一文件中使用不同包中重名的类
-pack2.MyClass m = new pack2.MyClass();
-```
-
-## 类访问权限
-
-- public	公用的 可在包外使用
-
-- 默认访问权限		只可在所属包中访问
-
-## 成员访问权限
-
-- public	任何可访问该类的代码都可以访问该成员`
-
-- private	只能在所属类中被访问
-
-- protected	在所属类 及所属类的子类 及其所属包中可访问
-
-- 默认访问权限	只可在所属包中访问
-
-### 		私有数据成员的外部访问
-
-​		私有数据成员一般有对应的读取方法以及修改写入方法
-
-```java
-private	int Age;
-int getAge() {
-    return Age;
-}	// 获取方法
-int setAge(int age) {
-    this.age = ((a>0)&&(a<20)?a:0);
-}	// 修改方法
-```
-
-### 		构造方法默认为公用的
-
-### 不可变对象和类
-
-不存在修改方法 只能的构造时赋值
-***
-
-# 12 对象的存在时间与垃圾回收器
-
-```JAVA
-Book b1 = new Book();
-// b1 为创建的对象引用 保存在堆栈中,退出作用域时,其所占内存就会被释放
-// new Book() 创建一个对象 并保存在堆中
-```
-
-当引用某个对象的所有对象引用都退出作用域,则无法访问,但继续占用内存,**自动回收内存**
-***
-
-# 13 this
-
-当前对象本身
-
-- 在类的定义中直接访问同一类的成员
-
-```java
-this.radius = age;
-```
-
-- 返回当前对象
-
-```java
-return this;
-```
-
-- 访问被隐藏的数据成员
-
-```java
-private int age;
-Cat (int age) { this.age = age;}
-```
-
-- 调用所属类的另一个构造方法 (通过方法重载定义多个构造方法)
-
-```java
-Cat () { this(2,4); }	
-cat (int age; int weight) {...}	
-```
-
-- ​	**调用语句必须放在方法体的第一句**
-
-- ​	其他方法中不能调用构造方法,且参数不能为this的参数或实例成员
-***
-
-# 14 Math 类
-
-## 	数学常量
-
-```java
-自然对数的底e    public static final double E;
-圆周率Π         public static final PI;
-```
-
-## 	三角函数
-
-```java
-正弦值        public static double sin( double a );
-余弦值        public static double cos( double a );
-正切值        public static double tan( double a );
-// 单位为 弧度
-正弦值为 a 的角度    public static double asin( double a );
-余弦值为 a 的角度    public static double acos( double a );
-正切值为 a 的角度    public static double atan( double a );
-角度 转为 弧度    public static double toRadians( double angdeg );
-弧度 转为 角度    public static double toDegrees( double angrad );
-```
-
-## 	指数函数
-
-```java
-e 的 a 次方    public static double exp( double a );
-a 的 b 次方    public static double pow( double a, double b );
-
-a 的平方根    public static double sqrt( double a );
-a 的立方根    public static double cbrt( double a );
-```
-
-## 	对数函数
-
-```java
-ln a       public static double log( double a );
-log10 a    public static double log10( double a );
-```
-
-## 	取整方法
-
-```java
->= a 的整数    public static double ceil( double a );
-<= a 的整数    public static double floor( double a);
-最接近 a 的整数    public static double rint( double a );// 左右距离相同时以偶数优先
-
-返回floor(a+0.5f)    public static int round( float a );
-返回floor(a+0.5d)    public static long round( double a);
-```
-
-## 	其他常用方法
-
-```java
-绝对值    abs( object o );	// 方法重载 返回 int long float double 型参数的绝对值
-最大值    max( object o );	// 方法重载 返回 int long float double 型参数的较大值
-最小值    min( object o );	// 方法重载 返回 int long float double 型参数的较小值
-0.0 - 1.1 的伪随机    random();	// double 类型
-```
-
-# 15 BigInteger / BigDecimal
-
-> `BigInteger`  对象 可以表示任意精度和大小的整数
-
-> BigInteger num1 = new BigInteger("9999999999999");
-> BigDecimal nu`m2 = new BigDecimal("3.1415678");
-
-## 	基本运算方法
-
-```java
-加	add		减	subtract
-乘	multipiy	除	divide
-
-BigInteger num3 = num1.divide(num2);
-```
-***
-
-# 16 继承与子类
-
-- Java 中定义的每个类都继承于一个已存在的类
-
-- 若无显示指定,就隐含继承于类 **java.lang.Object**
-
-- Java 中仅支持**单继承** 即只可有一个指定的父类
-
-```java
-public 子类名 extends 父类名 {
-    定义子类新成员
-}
-```
-
-## 	子类的构造方法 super()
-
-- 子类不能继承父类的构造方法
-
-- 在创建子类对象时, 系统会自动调用父类的构造方法
-
-  ​	1.调用父类默认的构造方法
-
-  ​	2.通过 super(); 显式调用父类含参数的构造方法, 参数不能为 this 或 当前对象的实例对象
-
-## 	方法覆盖
-
-- 子类中的方法应与父类中被覆盖的方法有相同的方法名,返回值类型 和 形参类型列表(形参名可不同)
-
-- 可通过 **super.方法名** 调用父类的数据成员和方法
-
-- **方法覆盖时 , 不可修改其访问权限**
-
-## 	方法重载
-
-- 当对应形参类型或者参数个数不同,则为方法重载
-
-## 	数据成员和静态方法隐藏
-
-- 子类中可改写父类的数据成员和静态方法	不支持多态
-- 使用 **super.成员** 访问父类被隐藏的数据成员 或 方法名
-
-***
-
-# 17 final 关键字
-
-任何一个变量被 final 修饰后 一旦初始化,其值便不可改变
-
-### 	final 静态变量
-
-必须在声明的同时初始化	或在静态初始化块中初始化
-
-### 	final 实例变量
-
-必须在声明的同时初始化	或在实例初始化块中初始化
-
-### 	final 方法参数
-
-可在方法中读取它的值,但不可改变
-
-### 	final 对象引用
-
-不能引用另一个对象,但对象的成员参数可以改变
-
-### 	final 方法
-
-在继承过程中**不能被子类覆盖**	(允许重载)
-
-构造方法 不可使用 final 修饰
-
-效果等价于	private + 方法
-
-***
-
-# 18 对象类型转换
-
-- 子类对象 可向上转换为 父类对象	// **无法访问在子类中新定义的成员**
-- 当父类对象 引用 子类对象时    可以**强制类型转换**为 子类对象
-
-# 19 instanceof
-
-- 检查某个对象的实际类型是否是某个对象或派生于指定类 / 实现了指定接口
-- false  /  true
-
-```java
-B instanceof A
-if ((B是指定类A || B派生于A || B实现了指定接口A) && B != null) { return true;}
-else { return false; }
-```
-
-***
-
-# 20 抽象类和抽象方法
-
-### 	抽象方法
-
-- 抽象方法是一个不完全方法,只有方法头 无方法体
-
-```java
-abstract 返回值类型 方法名(形式参数表);
-```
+## 抽象
 
 ### 	抽象类
-
-- 抽象类不一定含有抽象方法,含有抽象方法的一定是抽象类
-- 为继承而定义 / 只能做父类 / 不能使用new 创建对象
-- 可定义构造方法 / 由子类构造方法调用
-- **抽象父类中的所有抽象方法都要在子类中覆盖,否则子类仍为抽象类**
-
 ```java
 abstract class A {...}
 ```
+**特点**：
+ 1. 抽象类不一定含有抽象方法,含有抽象方法的一定是抽象类
+ 2. 为继承而定义 / 只能做父类 
+ 3. 抽象类必须有构造器供子类调用，但不能创建对象 => ==抽象意味着不能具体化==
+ 4. 抽象父类中的所有抽象方法**都要在子类中覆盖**,否则子类仍为抽象类
+
+**警告**：
 
 - 静态方法不能声明为抽象的
 - final 方法不能声明为抽象的 这与 final 方法不支持 子类覆盖有关
 - final 类不能声明为抽象的 这与final 类无法被继承有关 
 
+### 抽象方法
+
+```java
+abstract 返回值类型 方法名(形式参数表);
+```
+
+- **只有方法签名 无方法体**
+
+### 抽象类设计模板设计模式
+
+设计模式：
+- 是前人（技术大牛，或者一些技术协会，或者一些大型知名的IT公司）
+- 已经研发好或者设计好或者在实战开发中发现的的优秀软件设计思想，开源出去
+- 后来者可以直接使用就能够得到很好的软件模式。
+
+设计模式的目的：
+- 得到优秀的软件架构，从而提升代码的可重用性，扩展性，维护性，可读性。
+
+模板模式的作用：
+- 部分实现，部分抽象，可以极大的简化功能代码，提高开发效率
 ***
+## 接口
 
-# 21 接口
-
-### 	定义
+**JDK 1.8 之前，接口只能拥有抽象方法和常量**
 
 ```java
 (public) interface name {
-    int NUM = 1;	// 公用静态常量
-    void fun();		// 公用抽象方法
+    // 公用静态常量 变量名全大写，用_连接
+    (public static final) String TEST_ONE = "test";	
+    // 公用抽象方法
+    (public abstract) void fun();		
 }
 ```
 
-### 	information
+**特点**：
 
+- 实现接口的类必须重写完接口中全部的抽象方法，否则定义为抽象类
 - 不可定义构造方法
 - 在一个类实现接口时,方法必须由 public 修饰
 - 若未实现某接口的的全部方法,则产生抽象类 , 类必须由 abstract 修饰
+- 接口称为被**实现**，实现接口的类称为**实现类**
 
-###     接口继承
+**接口实现**：
 
-允许同时继承多个接口,但只允许继承一个类
+- 多实现 单继承
 
 ```java
-class D extends C implements A,B {...}
+// 接口可以多实现
+class D extends C implements A,B {...}	
+```
 
+**接口继承**:
+
+- 多继承
+
+```java
 interface A extends B,C {...}
+```
+
+**JDK 1.8 之后，新增的接口方法**
+
+```java
+(public) interface name {
+    // 默认方法: 示例方法，使用 default 修饰 只能用接口的实现类的对象调用
+    default void run(){ return 0 }
+    // 静态方法: static修饰 只能用接口名本身来调用
+    static void run(){ return 0 }
+    // 私有方法: private修饰 私有实例方法 -- JDK 1.9
+    private voic run(){ return 0 }
+}
 ```
 
 ***
 
-# 22 Object 类
+## 枚举类型
 
-### 	equals
+**枚举类的作用**：
+
+- 信息标志和信息分类
+- 在Java语言中, 枚举类型是一种引用数据类型, 本质上说它是一种**特殊的类**
+
+```java
+枚举类型的定义:
+enum 枚举类型名称 {枚举值1, 枚举值2, 枚举值3, ... ,枚举值n}
+```
+
+**枚举类的特点**:
+
+1. 枚举类是用**final修饰**的，枚举类不能被继承
+2. 枚举类默认继承了枚举类 java.lang.Enum
+3. 枚举类的第一行罗列的是枚举类的对象名称，而且是用常量存储的
+4. 枚举类的构造器默认是私有的
+5. 枚举类相当于**多例对象，多例设计模式**
+
+**反编译**：
+
+```java
+public final class Sex extends java.lang.Enum<Sex> {
+  public static final Sex BOY;
+  public static final Sex GIRL;
+  public static Sex[] values();
+  public static Sex valueOf(java.lang.String);
+  static {};
+}
+```
+
+**枚举类型的声明与赋值**
+
+```java
+// 不能显式使用运算符 new 创建枚举类型的实例对象
+Weekday wd;
+Weekday wd = Weekday.枚举值;
+```
+
+**常用方法**
+
+```java
+// 返回当前枚举常量的名称
+public String toString();
+// 返回会当前常量的序数 (0 ~ length-1)
+public final int ordinal();		
+// 获取枚举类型的全部枚举值
+Weekday[] wds = Weekday.values();	
+```
+
+**枚举对象的比较**
+
+1. 同一枚举类型的不同实例对象的值一定不相同,因此,在比较两个枚举变量引用对象的值是否相同时,不需要调用方法 `equal()`
+2. 直接使用运算符 == 
+3. 在 case 语句中 应使用相应枚举类型中定义的枚举变量, 且枚举常量前不能加限定名
+
+***
+
+# 单例设计模式
+
+**什么是单例 SingleIntance**：
+
+- 一个类永远**只存在一个对象**，不能创建多个对象
+
+**使用场景**：
+
+- 部分实例对象只需要一个，类永远只有一个对象（例：部分应用不允许多开），节省内存
+
+**单例的实现**：
+
+1. **饿汉**单例设计模式：
+
+   通过类获取单例对象的时候，**对象已经被创建**
+
+   无论是否使用都已经创建好了，所以会浪费一定的内存。如果一个程序有大量的饿汉式单例模式，那么在类加载时，会同时创建大量单例，会浪费硬件资源。
+
+   ```java
+   class SingleIntance {
+       // 1.把类的构造器私有化，不允许创建类的对象
+       private SingleInstance() {}
+       // 2.定义一个静态成员变量用于存储一个对象！
+       private static SingleInstance singleInstance = new SingleInstance();
+       // 3.提供方法向外暴露单例对象
+       public static SingleInstance getInstance() { return singleInstance; }
+   }
+   ```
+
+2. **懒汉**单例设计模式：
+
+   通过类获取单例对象的时候发现没有才会去创建一个对象
+
+    ```java
+   class SingleIntance {
+       // 1.把类的构造器私有化，不允许创建类的对象
+       private SingleInstance() {}
+       // 2.定义一个静态成员变量用于存储一个对象！需要时创建实例
+       private static SingleInstance singleInstance;
+       // 3.提供方法向外暴露单例对象 当实例对象为空时，创建对象
+       public static SingleInstance getInstance() {
+           if (singleInstance == null) 
+               singleInstance = new SingleInstance();
+           return singleInstance; 
+       }
+   }
+    ```
+
+***
+
+# 内置类
+
+## Math 类
+
+**数学常量**
+
+```java
+public static final double E;	// 自然对数的底e
+public static final PI;			// 圆周率Π
+```
+
+**三角函数**
+
+```java
+public static double sin( double a );	// 正弦值        
+public static double cos( double a );	// 余弦值        
+public static double tan( double a );	// 正切值        
+// 单位为 弧度
+public static double asin( double a );	// 正弦值为 a 的角度    
+public static double acos( double a );	// 余弦值为 a 的角度    
+public static double atan( double a );	// 正切值为 a 的角度    
+public static double toRadians( double angdeg );	// 角度 转为 弧度    
+public static double toDegrees( double angrad );	// 弧度 转为 角度    
+```
+
+**指数函数**
+
+```java
+public static double exp( double a );	// e 的 a 次方    
+public static double pow( double a, double b );	// a 的 b 次方    
+
+public static double sqrt( double a );	// a 的平方根    
+public static double cbrt( double a );	// a 的立方根    
+```
+
+**对数函数**
+
+```java
+public static double log( double a );	// ln a       
+public static double log10( double a );	// log10 a    
+```
+
+**取整方法**
+
+```java
+public static double ceil( double a );	// >= a 的整数    
+public static double floor( double a);	// <= a 的整数    
+public static double rint( double a );	// 最接近 a 的整数 左右距离相同时以偶数优先
+public static int round( float a );		// 返回floor(a+0.5f)    
+public static long round( double a);	// 返回floor(a+0.5d)    
+```
+
+**其他常用方法**
+
+```java
+abs( object o );	// 方法重载 返回 int long float double 型参数的绝对值
+max( object o );	// 方法重载 返回 int long float double 型参数的较大值
+min( object o );	// 方法重载 返回 int long float double 型参数的较小值
+random();	// 0.0 - 1.1 的伪随机 double 类型
+```
+
+## BigInteger / BigDecimal
+
+> `BigInteger`  对象 可以表示任意精度和大小的整数
+
+> BigInteger num1 = new BigInteger("9999999999999");
+> BigDecimal nu`m2 = new BigDecimal("3.1415678");
+>
+
+
+***
+
+## Object 类
+
+**equals**
 
 ```java
 Object1.equals(object2);	// 比较两个对象引用是否引用同一个对象	一般在子类中覆盖
 ```
 
-###  	toString
+**toString**
 
 ```java
 Odject1.toString();		// 返回一个代表当前对象信息的字符串		默认为 类名 + @ + 该对象的哈希码/无符号十六进制
 ```
 
-### 	clone
+**clone**
 
 ```java
 // 浅层复制
@@ -807,7 +820,7 @@ newObject = oldObject.clone();		// 将对象 oldObject 的值复制到一个新�
 
 ***
 
-# 23 包装类
+## 包装类
 
 - 包装类的对象不可变,创建后值无法修改
 - 将基本数据类型包装成对象
@@ -817,7 +830,7 @@ Object <== Boolean / Number / Character
 Number <== Byte / Short / Integer / Long / Float / Double
 ```
 
-### 	构造方法
+**构造方法**
 
 均无默认构造方法
 
@@ -831,9 +844,7 @@ public Integer( String s );
 public Boolean( String s );		
 ```
 
-### 	静态方法
-
-### 		valueOf()
+**valueOf()**
 
 ​	创建对象并初始化,返回该对象
 
@@ -842,33 +853,33 @@ Integer integerObject = Integer.valueOf(1);		// 以相应的基本数据类型�
 Double doubleObject = Double.valueOf("1.2");	// 以相应的字符串为参数
 ```
 
-### 		toString()
+**toString()**
 
 ​	返回特征字符串
 
-### 		String ==> 基本数据类型
+**String ==> 基本数据类型**
 
 ```java
 int i = Integer.parseInt("2");
 double d = Double.parseDouble("4.5");
 ```
 
-### 		equals()
+**equals()**
 
 ​	在包装类中被覆盖为  比较两个对象内容是否相同
 
-### 		hashCode()
+**hashCode()**
 
 ​	在包装类中被覆盖为 返回数据值
 
-### 	获取对象的值
+**获取对象的值**
 
 ```java
 boolean b = booleanObject.booleanValue();
 char c = characterObject.charValue();
 ```
 
-### 	类的最大最小值
+**类的最大最小值**
 
 除 Boolean 类外 , 每个包装类中都定义有静态常量	MAX_VALUE / MIN_VALUE
 
@@ -877,7 +888,7 @@ Integer.MAX_VALUE;
 Double.MIN_VALUE;
 ```
 
-### 	自动装箱与拆箱
+**自动装箱与拆箱**
 
 ```java
 Integer intObject = 1;		// 自动装箱
@@ -889,7 +900,7 @@ int num = intObject;		// 自动拆箱
 
 ***
 
-# 24 Character 类
+## Character 类
 
 ```java
 是否为数字    public static boolean isDigit( char ch );
@@ -905,6 +916,340 @@ int num = intObject;		// 自动拆箱
 转成小写字母    public static char toLowerCase( char ch );
 转成大写字母    public static char toUpperCase( char ch );
 ```
+
+
+
+## Arrays 类
+
+**fill()**
+
+```java
+Arrays.fill( arrayObject, value );		// 将 value 的值 赋值给arrayObject中的所有元素
+Arrays.fill( arrayObject, start, end, value );    // 同上 ,指定赋值区域
+// 注意 value 的数据类型
+```
+
+**数组 ==> 字符串**
+
+```java
+Arrays.toString(数组对象);	// 一维数组
+Arrays.deepToString(数组对象);		// 多维数组
+```
+
+**数组复制**
+
+```java
+Arrays.copyOf(数组对象,个数);		// 从头开始选择, 个数 > length的部分 赋默认值 0
+Arrays.copyOfRange(数组对象, start, end);	// 超出部分 赋默认值 0
+```
+
+**数组的相等**
+
+```java
+Arrays.equals(a1, a2);	// 元素个数相同,对应位置元素相同 返回 True
+Arrays.deepEquals(a1, a2);	// 多维数组的比较
+```
+
+**数组的排序**
+
+除 Boolean 的基本数据类型 都可排序	**从小到大**
+
+```java
+Arrays.sort(数组对象);	// 全数组排序
+Arrays.sort(对象, start, end);	// 将 (start,end) 部分进行排序
+```
+
+**对象数组的排序**
+
+```java
+class A implements Compareable {	// 实现接口 自然比较法
+    public int i,j;
+    // 自定义 类的实例对象的比较函数
+    public int compareTo(Object obj) {
+        int k = ((A) obj).i;
+        if (k>i) {
+            return -1;		// 当目标对象参数大于该对象参数时,返回 负整数
+        } else if (k<i) {
+            return 1;		// 当目标对象参数小于该对象参数时,返回 正整数
+        } else {
+            return 0;		// 当目标对象参数等于该对象参数时,返回 0
+        }
+    }
+}
+```
+
+**查找**
+
+二分法,数据已自然顺序排序	除 Boolean 数据类型
+
+```java
+Arrays.binarySearch(对象, start, end, key);	// 返回下标 或 负值(数据不存在)
+```
+
+## StringBuilder/StringBuffer
+
+**创建可变字符串对象**
+
+类StringBuffer可以安全的用于多线程编程, 类StringBuilder 运行速度更快
+
+**1.类StringBuilder**
+
+```java
+创建无字符的对象    public StringBuilder();// 初始容量为16个字符
+创建指定容量对象    public StringBuilder(int capacity);// 初始容量为 capacity
+创建指定字符串str的对象    public StringBUilder(String str);// 默认长度为 str + 16
+
+eg:
+StringBuilder strBuilder1 = new StringBuilder();
+StringBuilder strBuilder2 = new StringBuilder(32);
+StringBuilder strBuilder3 = new StringBuilder("hello Java!");
+```
+
+**2.类StringBuffer**
+
+```java
+创建一个空对象    public StringBuffer();	// 初始容量为16个字符
+创建指定容量对象    public StringBuffer(int capacity);// 初始容量为 capacity
+创建指定字符串str的对象    public StringBuffer(String str);// 默认长度为 str + 16
+
+eg:
+StringBuffer strBuffer1 = new StringBuffer();
+StringBuffer strBuffer2 = new StringBuffer(32);
+StringBuffer strBuffer3 = new StringBuffer("hello Java!");
+```
+
+**在可变字符串中追加和插入新内容**
+
+```java
+追加	append
+StringBuilder strBuilder = new StringBuilder("Hello");
+strBuilder.append(" java!");
+==> strBuilder = "Hello Java!"
+    
+插入	insert
+StringBuilder strBuilder = new StringBuilder("Java!");
+strBUilder.insert(0,"Hello ");
+==> strBuilder = "Hello Java!"
+```
+
+**常用操作**
+
+```java
+索引字符内容    public char charAt(int index);// 返回 index 处字符
+
+字符串的长度    public int length();	// 返回存储 字符 个数
+
+删除指定区域    public StringBuilder delete(int start, int end);// 包头不包尾
+删除指定字符    public StringBUilder deleteCharAt(int index);
+
+替换指定区域    public StringBuilder replace(int Start, int end, String str);
+
+索引子串内容    public StringBuilder substring(int start);
+索引指定区域子串内容    public StringBuilder substring(int start, int end);
+
+逆转字串内容    public StringBulider reverse();// 返回当前对象
+
+设置字符内容    public void setCharAt(int index, char ch);
+
+设置字符串长度    public void setLength(int newLength);// 长 删, 短 补零
+
+生成String对象    public void String toString();
+
+获取对象的最大容量    public int capacity();		// 返回对象目前容量
+```
+
+## 字符串 String
+
+==类String中的方法, 实际上都是创建了一个新的String对象, 原有对象没有任何改变==
+
+==当调用String类的某个方法并未改变String对象值,则返回引用源String对象的引用,并不会创建全新的String对象==
+
+### **创建 String 对象**
+
+String 对象不可变
+
+```java
+char[] data = {'a','b','c',};
+String str1 = new String("...");
+String str2 = "...";
+```
+
+### **操作String对象**
+
+**字符串长度**
+
+```java
+str1.length()
+```
+
+**比较**
+
+```java
+str1.equals(str2);    // 区分大小写
+str1.equalsIgnoreCase(str2);    // 忽略大小写
+
+str1.compareTo(str2);    // 返回第一个不相同字符 的 编码差值 str1 - str2 (ASCII)
+str1.compareToIgnoreCase(str2);    // 不区分大小写
+```
+
+**规范化字符串**
+
+相同内容的**字符串文字常量** 共享同一个String对象
+
+```java
+String str1 = "Java";	// 规范化字符串
+String str1 = new String("...");	// 非规范化字符串
+String str2 = str1.intern();	// 返回对应的规范化字符串
+```
+
+**字符串拼接**
+
+```java
+String str1 = "Hello!";
+String str2 = str1.concat(" world!");	// 返回新对象
+```
+
+**查找单个字符**
+
+```java
+public int indexOf(int ch);    // 返回 ch 第一次出现的位置 或者 -1 未找到
+public int indexOf(int ch, int fromIndex);    // 从指定位置开始 , 同上
+
+public int lastIndexOf(int ch);    // 返回 ch 最后一次出现的位置 或者 -1 未找到
+public int lastIndexOf(int ch, int fromIndex);    // 从指定位置开始 , 同上
+```
+
+**查找字符串**
+
+```java
+public int indexOf(String str);    // 返回 str 第一次出现的位置 或者 -1 未找到
+public int indexOf(String str, int fromIndex);    // 从指定位置开始 , 同上
+
+public int lastIndexOf(String str);		// 返回 str 最后一次出现的位置 或者 -1 未找到
+public int lastIndexOf(String str, int fromIndex);    // 从指定位置开始 , 同上
+
+public boolean startsWith(String prefix);	// 判断是否以字符串开头
+public boolean endsWith(String suffix);		// 判断是否以字符串结尾
+```
+
+**转换字符串**
+
+```java
+转换为纯小写    public String toLowerCase(String str);    // 将str中的字符串转换为纯小写,并产生新字符串
+转换为纯大写    public String toUpperCase(String str);    // 将str中的字符串转换为纯大写,并产生新字符串
+
+替换字符串字符    public String replace(char oldChar, char newChar);    // 替换字符串对应字符,返回新字符串
+
+移除开头结尾空白字符    public String trim();    // 移除当前字符串开头结尾的空白字符,生成新字符串返回
+```
+
+**提取子字符串**
+
+```java
+public String substring(int beginIndex);	// 返回指定位置到结尾的子串
+public String substring(int beginIndex, int endIndex);	// 返回指定区间的字串 左闭右开
+```
+
+**将字符串转换成数组**
+
+```java
+全转换    public char[] toCharArray();	// 将当前字符串转换为字符数组
+
+/*转换指定字符串并复制到指定数组的指定位置*/
+/*将 (srcBegin, srcEnd) 位置的字符,放置在 dst字符数组从 dstBegin 位置中*/
+public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin);
+
+eg:
+char[] chars = {'v','e','r','y',' ','g','o','o','d'};
+"too much".getchars(4,8,chars,5);
+==> chars = {'v','e','r','y',' ','m','u','c','h'}
+```
+
+**格式化字符串**
+
+```java
+public static String format(String format, Object...args);
+
+eg:
+int num = 2; double d = 3.5;
+String str = String.format("num = %d, d = %f", num, d);
+==> str = "num = 2, d = 3.500000"
+```
+
+**format 参数语法格式**
+
+```java
+%[argument_index $ ][flags][width][.precision]conversion
+```
+
+**conversion**
+
+| 转换符 |      类型      | 转换符 |       类型       |
+| :----: | :------------: | :----: | :--------------: |
+|   b    |   boolean值    |   e    | 浮点数(科学计数) |
+|   c    |  Unicode字符   |   o    |   整数(八进制)   |
+|   d    |  整数(十进制)  |   s    |      String      |
+|   f    | 浮点数(十进制) |   x    |  整数(十六进制)  |
+
+**width**
+
+```java
+可选非负十进制数  用于指定格式参数转换后的最少字符数, 超过则无限制,不足则补空格(默认在左侧补空格,右对齐)
+```
+
+**precision**
+
+```java
+可选非负十进制数  用于指定浮点数类型参数的精度, 设置显示小数的位数
+eg:		String("%.2f",2.129)	==>		2.12
+```
+
+**flags**
+
+| 标志 |                       说明                       |
+| :--: | :----------------------------------------------: |
+|  -   |             相应参数转换结果将左对齐             |
+|  +   |    相应参数转换结果总是包括整数和负数的正负号    |
+|  0   | 相应参数转换结果将在数字前用零填充以满足指定宽度 |
+| 空格 |      相应参数转换结果将在正数前面加一个空格      |
+|  ,   | 相应参数转换结果将在整数或浮点数中添加分组分隔符 |
+|  (   |         相应参数转换结果将负数扩在括号内         |
+
+**argument_index**
+
+```java
+用于表明参数在参数列表中的位置
+String.format("%2$d,%1$d", 1, 2);
+```
+
+
+
+# 12 对象的存在时间与垃圾回收器
+
+```JAVA
+Book b1 = new Book();
+// b1 为创建的对象引用 保存在堆栈中,退出作用域时,其所占内存就会被释放
+// new Book() 创建一个对象 并保存在堆中
+```
+
+当引用某个对象的所有对象引用都退出作用域,则无法访问,但继续占用内存,**自动回收内存**
+
+
+
+## 	基本运算方法
+
+```java
+加	add		减	subtract
+乘	multipiy	除	divide
+
+BigInteger num3 = num1.divide(num2);
+```
+***
+
+# 18 对象类型转换
+
+- 子类对象 可向上转换为 父类对象	// **无法访问在子类中新定义的成员**
+- 当父类对象 引用 子类对象时    可以**强制类型转换**为 子类对象
 
 # 25 内部类
 
@@ -1028,308 +1373,7 @@ int[] a = new int[10];
 return a;	// 返回的只是一个引用数组的引用
 ```
 
-# 27Arrays 类
 
-### fill()
-
-```java
-Arrays.fill( arrayObject, value );		// 将 value 的值 赋值给arrayObject中的所有元素
-Arrays.fill( arrayObject, start, end, value );    // 同上 ,指定赋值区域
-// 注意 value 的数据类型
-```
-
-### 数组 ==> 字符串
-
-```java
-Arrays.toString(数组对象);	// 一维数组
-Arrays.deepToString(数组对象);		// 多维数组
-```
-
-### 数组复制
-
-```java
-Arrays.copyOf(数组对象,个数);		// 从头开始选择, 个数 > length的部分 赋默认值 0
-Arrays.copyOfRange(数组对象, start, end);	// 超出部分 赋默认值 0
-```
-
-### 数组的相等
-
-```java
-Arrays.equals(a1, a2);	// 元素个数相同,对应位置元素相同 返回 True
-Arrays.deepEquals(a1, a2);	// 多维数组的比较
-```
-
-### 数组的排序
-
-除 Boolean 的基本数据类型 都可排序	**从小到大**
-
-```java
-Arrays.sort(数组对象);	// 全数组排序
-Arrays.sort(对象, start, end);	// 将 (start,end) 部分进行排序
-```
-
-### 对象数组的排序
-
-```java
-class A implements Compareable {	// 实现接口 自然比较法
-    public int i,j;
-    // 自定义 类的实例对象的比较函数
-    public int compareTo(Object obj) {
-        int k = ((A) obj).i;
-        if (k>i) {
-            return -1;		// 当目标对象参数大于该对象参数时,返回 负整数
-        } else if (k<i) {
-            return 1;		// 当目标对象参数小于该对象参数时,返回 正整数
-        } else {
-            return 0;		// 当目标对象参数等于该对象参数时,返回 0
-        }
-    }
-}
-```
-
-### 查找
-
-二分法,数据已自然顺序排序	除 Boolean 数据类型
-
-```java
-Arrays.binarySearch(对象, start, end, key);	// 返回下标 或 负值(数据不存在)
-```
-
-# 28 字符串 String
-
-==类String中的方法, 实际上都是创建了一个新的String对象, 原有对象没有任何改变==
-
-==当调用String类的某个方法并未改变String对象值,则返回引用源String对象的引用,并不会创建全新的String对象==
-
-### 创建 String 对象
-
-String 对象不可变
-
-```java
-char[] data = {'a','b','c',};
-String str1 = new String("...");
-String str2 = "...";
-```
-
-### 操作String对象
-
-#### 字符串长度
-
-```java
-str1.length()
-```
-
-#### 比较
-
-```java
-相等性比较    str1.equals(str2);    // 区分大小写
-相等性比较    str1.equalsIgnoreCase(str2);    // 忽略大小写
-
-ASCII码差值    str1.compareTo(str2);    // 返回第一个不相同字符 的 编码差值 str1 - str2 (ASCII)
-ASCII码差值    str1.compareToIgnoreCase(str2);    // 不区分大小写
-```
-
-#### 规范化字符串
-
-相同内容的**字符串文字常量** 共享同一个String对象
-
-```java
-String str1 = "Java";	// 规范化字符串
-String str1 = new String("...");	// 非规范化字符串
-String str2 = str1.intern();	// 返回对应的规范化字符串
-```
-
-#### 字符串拼接
-
-```java
-String str1 = "Hello!";
-String str2 = str1.concat(" world!");	// 返回新对象
-```
-
-#### 查找单个字符
-
-```java
-查找首次出现位置    public int indexOf(int ch);    // 返回 ch 第一次出现的位置 或者 -1 未找到
-查找首次出现位置    public int indexOf(int ch, int fromIndex);    // 从指定位置开始 , 同上
-
-查找最后出现位置    public int lastIndexOf(int ch);    // 返回 ch 最后一次出现的位置 或者 -1 未找到
-查找最后出现位置    public int lastIndexOf(int ch, int fromIndex);    // 从指定位置开始 , 同上
-```
-
-#### 查找字符串
-
-```java
-查找首次出现位置    public int indexOf(String str);    // 返回 str 第一次出现的位置 或者 -1 未找到
-查找首次出现位置    public int indexOf(String str, int fromIndex);    // 从指定位置开始 , 同上
-
-查找最后出现位置    public int lastIndexOf(String str);    // 返回 str 最后一次出现的位置 或者 -1 未找到
-查找最后出现位置    public int lastIndexOf(String str, int fromIndex);    // 从指定位置开始 , 同上
-
-以指定字符串开头    public boolean startsWith(String prefix);    // 判断是否以字符串开头
-以指定字符串结尾    public boolean endsWith(String suffix);    // 判断是否以字符串结尾
-```
-
-#### 转换字符串
-
-```java
-转换为纯小写    public String toLowerCase(String str);    // 将str中的字符串转换为纯小写,并产生新字符串
-转换为纯大写    public String toUpperCase(String str);    // 将str中的字符串转换为纯大写,并产生新字符串
-
-替换字符串字符    public String replace(char oldChar, char newChar);    // 替换字符串对应字符,返回新字符串
-
-移除开头结尾空白字符    public String trim();    // 移除当前字符串开头结尾的空白字符,生成新字符串返回
-```
-
-#### 提取子字符串
-
-```java
-提取指定位置到结尾    public String substring(int beginIndex);// 返回指定位置到结尾的子串
-提取指定区间字符串    public String substring(int beginIndex, int endIndex);// 返回指定区间的字串		
-```
-
-#### 将字符串转换成数组
-
-```java
-全转换    public char[] toCharArray();	// 将当前字符串转换为字符数组
-
-/*转换指定字符串并复制到指定数组的指定位置*/
-/*将 (srcBegin, srcEnd) 位置的字符,放置在 dst字符数组从 dstBegin 位置中*/
-public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin);
-
-eg:
-char[] chars = {'v','e','r','y',' ','g','o','o','d'};
-"too much".getchars(4,8,chars,5);
-==> chars = {'v','e','r','y',' ','m','u','c','h'}
-```
-
-#### 格式化字符串
-
-```java
-public static String format(String format, Object...args);
-
-eg:
-int num = 2; double d = 3.5;
-String str = String.format("num = %d, d = %f", num, d);
-==> str = "num = 2, d = 3.500000"
-```
-
-##### format 参数语法格式
-
-```java
-%[argument_index $ ][flags][width][.precision]conversion
-```
-
-**conversion**
-
-| 转换符 |      类型      | 转换符 |       类型       |
-| :----: | :------------: | :----: | :--------------: |
-|   b    |   boolean值    |   e    | 浮点数(科学计数) |
-|   c    |  Unicode字符   |   o    |   整数(八进制)   |
-|   d    |  整数(十进制)  |   s    |      String      |
-|   f    | 浮点数(十进制) |   x    |  整数(十六进制)  |
-
-**width**
-
-```java
-可选非负十进制数  用于指定格式参数转换后的最少字符数, 超过则无限制,不足则补空格(默认在左侧补空格,右对齐)
-```
-
-**precision**
-
-```java
-可选非负十进制数  用于指定浮点数类型参数的精度, 设置显示小数的位数
-eg:		String("%.2f",2.129)	==>		2.12
-```
-
-**flags**
-
-| 标志 |                       说明                       |
-| :--: | :----------------------------------------------: |
-|  -   |             相应参数转换结果将左对齐             |
-|  +   |    相应参数转换结果总是包括整数和负数的正负号    |
-|  0   | 相应参数转换结果将在数字前用零填充以满足指定宽度 |
-| 空格 |      相应参数转换结果将在正数前面加一个空格      |
-|  ,   | 相应参数转换结果将在整数或浮点数中添加分组分隔符 |
-|  (   |         相应参数转换结果将负数扩在括号内         |
-
-**argument_index**
-
-```java
-用于表明参数在参数列表中的位置
-String.format("%2$d,%1$d", 1, 2);
-```
-
-# 29 类StringBuilder/StringBuffer
-
-### 创建可变字符串对象
-
-类StringBuffer可以安全的用于多线程编程, 类StringBuilder 运行速度更快
-
-#### 1.类StringBuilder
-
-```java
-创建无字符的对象    public StringBuilder();// 初始容量为16个字符
-创建指定容量对象    public StringBuilder(int capacity);// 初始容量为 capacity
-创建指定字符串str的对象    public StringBUilder(String str);// 默认长度为 str + 16
-
-eg:
-StringBuilder strBuilder1 = new StringBuilder();
-StringBuilder strBuilder2 = new StringBuilder(32);
-StringBuilder strBuilder3 = new StringBuilder("hello Java!");
-```
-
-#### 2.类StringBuffer
-
-```java
-创建一个空对象    public StringBuffer();	// 初始容量为16个字符
-创建指定容量对象    public StringBuffer(int capacity);// 初始容量为 capacity
-创建指定字符串str的对象    public StringBuffer(String str);// 默认长度为 str + 16
-
-eg:
-StringBuffer strBuffer1 = new StringBuffer();
-StringBuffer strBuffer2 = new StringBuffer(32);
-StringBuffer strBuffer3 = new StringBuffer("hello Java!");
-```
-
-### 在可变字符串中追加和插入新内容
-
-```java
-追加	append
-StringBuilder strBuilder = new StringBuilder("Hello");
-strBuilder.append(" java!");
-==> strBuilder = "Hello Java!"
-    
-插入	insert
-StringBuilder strBuilder = new StringBuilder("Java!");
-strBUilder.insert(0,"Hello ");
-==> strBuilder = "Hello Java!"
-```
-
-### 常用操作
-
-```java
-索引字符内容    public char charAt(int index);// 返回 index 处字符
-
-字符串的长度    public int length();	// 返回存储 字符 个数
-
-删除指定区域    public StringBuilder delete(int start, int end);// 包头不包尾
-删除指定字符    public StringBUilder deleteCharAt(int index);
-
-替换指定区域    public StringBuilder replace(int Start, int end, String str);
-
-索引子串内容    public StringBuilder substring(int start);
-索引指定区域子串内容    public StringBuilder substring(int start, int end);
-
-逆转字串内容    public StringBulider reverse();// 返回当前对象
-
-设置字符内容    public void setCharAt(int index, char ch);
-
-设置字符串长度    public void setLength(int newLength);// 长 删, 短 补零
-
-生成String对象    public void String toString();
-
-获取对象的最大容量    public int capacity();		// 返回对象目前容量
-```
 
 # 30 命令行参数
 
@@ -2385,42 +2429,7 @@ class Login implements java.io.Serializable {
 
 **序列化时会自动忽略静态数据成员**
 
-# 35 枚举和泛型
-
-## 35.1 枚举类型
-
-在Java语言中, 枚举类型是一种引用数据类型, 本质上说它是一种**特殊的类**
-
-```java
-枚举类型的定义:
-enum 枚举类型名称 {枚举值1, 枚举值2, 枚举值3, ... ,枚举值n}
-```
-
-**枚举类型的声明与赋值**
-
-```java
-Weekday wd;
-Weekday wd = Weekday.枚举值;
-// 不能显式使用运算符 new 创建枚举类型的实例对象
-```
-
-**常用方法**
-
-```java
-public String toString();	// 返回当前枚举常量的名称
-public final int ordinal();		// 返回会当前常量的序数 (0 ~ length-1)
-
-Weekday[] wds = Weekday.values();	/// 获取枚举类型的全部枚举值
-```
-
-**枚举对象的比较**
-
-```java
-同一枚举类型的不同实例对象的值一定不相同,因此,在比较两个枚举变量引用对象的值是否相同时,不需要调用方法 equal()
-直接使用运算符 == 
-
-在 case 语句中 应使用相应枚举类型中定义的枚举变量, 且枚举常量前不能加限定名
-```
+# 35 泛型
 
 ## 35.2 泛型类 / 接口 / 方法
 

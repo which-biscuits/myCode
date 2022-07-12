@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e6d7c2ff-6bac-44bc-a0b9-b94e4f199d9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/solution1/solution1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/solution1/src/Solution01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/solution2/solution03.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/solution2/solution2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/solution2/src/Solution02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/solution3/solution3.iml" afterDir="false" />
+    <list default="true" id="e6d7c2ff-6bac-44bc-a0b9-b94e4f199d9c" name="Default Changelist" comment="update">
+      <change afterPath="$PROJECT_DIR$/solution3/src/Solution3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/solution4/solution4.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/solution4/src/Solution4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/solution5/src/Solution5.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Markdown/Java基础语法.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Markdown/Java基础语法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../worning.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../worning.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,9 +49,9 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
-  <component name="RunManager" selected="Application.Solution02">
+  <component name="RunManager" selected="Application.Solution4">
     <configuration name="Solution01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Solution01" />
       <module name="solution1" />
@@ -64,6 +62,20 @@
     <configuration name="Solution02" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Solution02" />
       <module name="solution2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solution3" />
+      <module name="solution3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solution4" />
+      <module name="solution4" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -117,6 +129,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Solution4" />
+        <item itemvalue="Application.Solution3" />
         <item itemvalue="Application.Solution02" />
         <item itemvalue="Application.Solution01" />
       </list>
@@ -137,11 +151,18 @@
       <option name="presentableId" value="Default" />
       <updated>1657444603993</updated>
       <workItem from="1657444606820" duration="7468000" />
+      <workItem from="1657458516824" duration="3242000" />
+      <workItem from="1657516390561" duration="3876000" />
+      <workItem from="1657631377452" duration="5537000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="71" key="#Inspections" timestamp="1657452211792">
@@ -152,25 +173,53 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="71" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1657444608462" />
-    <state width="1492" height="210" key="GridCell.Tab.0.bottom" timestamp="1657452217298">
+    <state x="351" y="5" key="CommitChangelistDialog2" timestamp="1657518675333">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1657452217298" />
-    <state width="1492" height="210" key="GridCell.Tab.0.center" timestamp="1657452217298">
+    <state x="351" y="5" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1657518675333" />
+    <state width="1492" height="261" key="GridCell.Tab.0.bottom" timestamp="1657637766044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1657452217298" />
-    <state width="1492" height="210" key="GridCell.Tab.0.left" timestamp="1657452217298">
+    <state width="1492" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.0.center" timestamp="1657637766044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1657452217298" />
-    <state width="1492" height="210" key="GridCell.Tab.0.right" timestamp="1657452217298">
+    <state width="1492" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.0.left" timestamp="1657637766044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1492" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1657452217298" />
-    <state x="178" y="23" key="new project wizard" timestamp="1657451782001">
+    <state width="1492" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.0.right" timestamp="1657637766044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="178" y="23" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1657451782001" />
+    <state width="1492" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.1.bottom" timestamp="1657637766044">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.1.center" timestamp="1657637766044">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.1.left" timestamp="1657637766044">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state width="1492" height="261" key="GridCell.Tab.1.right" timestamp="1657637766044">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1492" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1657637766044" />
+    <state x="270" y="55" key="SettingsEditor" timestamp="1657635682401">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="270" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1657635682401" />
+    <state x="178" y="23" key="new project wizard" timestamp="1657637748893">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="178" y="23" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1657637748893" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1657461225905">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1657461225905" />
   </component>
 </project>
