@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="569869c6-3e2c-47bd-856f-521d8e082b42" name="Default Changelist" comment="update">
-      <change afterPath="$PROJECT_DIR$/Demo02/Demo02.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo02/src/Landlords.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo02/src/MyMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Markdown/Java基础语法.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Markdown/Java基础语法.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo02/src/GameDemo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +105,7 @@
       <updated>1657440143514</updated>
       <workItem from="1657440146288" duration="1900000" />
       <workItem from="1657869009847" duration="3855000" />
-      <workItem from="1657892355193" duration="503000" />
+      <workItem from="1657892355193" duration="818000" />
     </task>
     <servers />
   </component>
