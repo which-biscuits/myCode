@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="569869c6-3e2c-47bd-856f-521d8e082b42" name="Default Changelist" comment="update">
-      <change afterPath="$PROJECT_DIR$/Demo02/src/GameDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo02/src/GameDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo02/src/GameDemo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,8 +105,16 @@
       <updated>1657440143514</updated>
       <workItem from="1657440146288" duration="1900000" />
       <workItem from="1657869009847" duration="3855000" />
-      <workItem from="1657892355193" duration="818000" />
+      <workItem from="1657892355193" duration="849000" />
     </task>
+    <task id="LOCAL-00001" summary="update">
+      <created>1657893184255</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1657893184255</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
