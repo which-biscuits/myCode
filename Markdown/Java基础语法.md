@@ -78,23 +78,21 @@ public static final int TEST = 1;
 // 复制地点: 定义，实例代码块，构造器
 ```
 
-## 权限修饰符
+### **public**
 
-**public**：
+- 权限修饰符, 在任意地方可以访问
 
-- 在任意地方可以访问
+### **protected**
 
-**protected**：
+- 权限修饰符, 可以在本类、本包、其他包继承本类的子类中访问
 
-- 可以在本类、本包、其他包继承本类的子类中访问
-
-**缺省**：
+### **权限修饰符缺省**
 
 - 在本类、本包中访问
 
-**private**：
+### **private**
 
-- 只能在本类中访问
+- 权限修饰符, 只能在本类中访问
 
 ***
 
@@ -320,8 +318,20 @@ do {
 ```java
 for (a ; boolean ; c) {
     语句;
-} // IDEA fori 快捷创建
+}
 ```
+### foreach 语句
+
+- 迭代器遍历的简化写法 可以**遍历集合以及数组**
+- 只能顺序遍历所有内容
+
+```java
+// 数据类型 必须与数组元素类型相同
+for (数据类型 变量名 : 集合 or 数组) {	
+    语句
+}
+```
+
 ***
 
 ##  跳转语句
@@ -764,6 +774,480 @@ Animal animal = new Animal(){
 ```
 ***
 
+## 泛型
+
+- **泛型 : **将程序中的数据类型参数化, 通过它可以定义类型安全的泛型类 / 接口 / 方法
+- 泛型和集合都**只支持引用数据类型**不支持基本数据类型
+- JDK 1.7 开始之后，泛型后面的数据类型可以省略
+
+```java
+Comparable<Integer> c = new Integer("1");
+// 进一步指明了可以与当前对象C进行比较的那些对象的类型是 Integer
+// 主要用于定义类型安全的泛型集合类型
+System.out.println(c.compareTo("1"));	// 编译错误
+```
+
+### 泛型特点
+
+**泛型类 / 接口 可以带有多个类型参数**
+
+```java
+public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Cloneable, Serialize {
+    ...
+}
+```
+
+**受限类型参数**
+
+- 无论限制条件类型为类或接口 必须使用关键字 extends
+- 类和接口类型之间以符号 & 连接
+
+```java
+单受限:
+class MyList<E extends java.lang.Number> {...}	// 类型参数E必须使用Number及其子类
+
+多受限:
+class MyList<E extends NUmber & Comparable<E> & java,io.Serializable> {...}
+```
+
+**java语言泛型的实现 擦拭 Erasure :**
+
+- 编译时消除程序中的所有泛型信息, 并将其转化成等价的非泛型代码
+  - 擦除尖括号中的所有类型参数信息, java.util.List<Integer> ==> java.util.List
+  - 将所有类型参数都替换为Object, 对带限制条件的类型参数, 替换为限制条件中的第一个限定类型
+  - 擦除类型参数信息后, 在所有类型不正确的地方, 插入适当的强制类型转换
+
+### 泛型类
+
+- 类型参数是一个标识符, 按照规范, 通常用单个大写字母表示(E、T、K、V)
+- 类型参数不能用于创建对象, 也不能用于instanceof运算等
+- 创建泛型类或接口时, 指定的类型实参本身可以不是一个实际的类型
+- **泛型没有继承关系**
+
+```java
+// 定义泛型类Point
+public class Point<T> {
+    public final T x;
+    
+    public Point(T x) {	
+        this.x = x;
+    }
+}
+使用:
+// 类型实参必须为引用类型
+Point<Integer> point2 = new Point<Integer>(new Integer(2), 4);	// 自动装箱
+```
+
+### **泛型方法**
+
+- Java语言中的所有方法均可以声明特定于其执行范围的类型参数
+- 方法的类型参数应使用尖括号括起来放在方法修饰符的后面, 返回值类型的前面
+- 泛型方法可以带有多个类型参数以及限制条件
+- 不能创建泛型数组
+
+```java
+public static <T> void fromArrayToList(T[] arr, GenericList<T> list) {...}
+```
+
+- 调用泛型方法时,可以在方法名前面用尖括号指定方法的类型实参
+
+```java
+GenericList<Integer> list = new GenericList<Integer>();
+MyClass.<Integer>fromArrayToList(arr, list);
+MyClass.fromArrayToList(arr, list);	// 类型实参可省略
+// 调用泛型方法时, 如果没有显式指定方法的类型参数, 编译器一般能根据方法调用表达式或其所在语句推断出正确的类型参数
+```
+
+### 泛型接口
+
+- 在实现接口时传入确定的数据类型，重写的方法即对该数据类型的操作
+
+```java
+public interface Map<K, V> {
+    V put(K key, V value);
+    ...
+}
+```
+
+### 通配符
+
+- 在**使用泛型**时，代表一切类型
+
+```java
+在 Java 中, 假设 A 是 B 的子类
+G<T> 是一个泛型类(或接口), G<T> 并不是G<B>的子类型
+
+GenericList<?> list = new GenericList<Ingeter>();	// 自动类型转换
+list.add("1");	//编译错误
+list.add(new Object());		// 编译错误
+在通配符中, 链表list的元素类型是未知的, 不能将任何类型的对象添加到其中, 可以从一个元素类型位置的链表中取出元素.
+```
+
+**通配符的受限形式**
+
+- 受限条件中只能有一个类或接口类型
+
+```java
+// 上受限类型 / 上限通配符 :
+// 类型 ? 必须为 T 或其子类
+public static <T> void copy(List<? extends T> dest) {...}	
+
+// 下受限类型 / 下限通配符 :
+// 类型 ? 必须为 T 或其父类
+public static <T> void copy(List<? super T> dest) {...}	
+```
+
+
+***
+
+## 集合
+
+- 集合是一个大小可变的容器。
+- 容器中的每个数据称为一个元素。数据==元素。
+- 集合的特点是：类型可以不确定，大小不固定。集合有很多种，不同的集合特点和使用场景不同。
+- 数组：类型和长度一旦定义出来就都固定了。
+
+**Collection 接口**：
+
+- Java中所有集合直接或间接实现Collection接口
+- **集合架构常见集合的继承(实现)关系**
+  1. **Set集合接口**：集合中的元素 **无序、不重复、无索引**
+     - **HashSet 实现类**：无序、不重复、无索引
+       - **LinkedHashSet 实现类**：有序、不重复、无索引
+     - **TreeSet 实现类**：按照元素大小默认升序排序、不重复、无索引
+  2. **List集合接口**：集合**以特定顺序容纳元素、有索引**
+     - **ArrayList 实现类**：添加的元素是有序、可重复、有索引，查询快，增删慢
+     - **LinkedList 实现类**：添加的元素是有序、可重复、有索引，增删快，查询慢
+
+### Collection 接口
+
+```java
+Collection 的定义:
+public interface Collection<E> extends Iterable<E> {
+    // 移除当前集合中的所有元素
+    void clear();
+    // 将集合与指定对象作相等性比较
+    boolean equals(Object o);	
+    // 返回当前集合的hash值
+    int hashCode();	
+    // 当前集合中是否不含任何元素
+    boolean isEmpty();	
+    // 返回当前集合中元素的个数
+    int size();
+    
+    // 确保当前集合中包含指定元素, 没有则返回 false
+    boolean add(E o);
+    // 将指定集合中的所有元素添加到当前集合中, 添加了其中任一元素则返回True
+    boolean addAll(Collection<? extends E> c);
+    
+    // 是否包含指定元素
+    boolean contains(Object o);	
+    // 当前集合是否包含指定集合中的所有元素
+    boolean contains(Collection<?> c);
+    
+    // 移除当前集合中的第一个指定元素
+    boolean remove(Object o);	
+    // 从当前集合中移除所有包含在指定集合中的元素
+    boolean removeAll(Collection<?> c);	
+    // 在当前集合中仅保留指定集合中也含有的元素
+    boolean retainAll(Collection<?> c);	
+    
+    // 返回一个包含当前集合中所有元素的数组
+    Object[] toArray();	
+    // 返回一个包含当前集合中所有元素的数组, 返回数组的元素类型和参数指定的元素类型
+    <T> T[] toArray(T[] a);	
+}
+```
+
+***
+
+### HashSet
+
+**Set 集合去重原理**：
+
+- 对于**有值特性**的，Set集合可以直接判断进行去重复
+- 对于**引用数据类型**的类对象：
+  1. Set集合会让两两对象，先调用自己的**hashCode()**方法得到彼此的哈希值（所谓的内存地址）
+  2. 然后比较两个对象的哈希值是否相同，如果不相同则直接认为两个对象不重复。
+  3. 如果哈希值相同，会继续让两个对象进行**equals**比较内容是否相同，如果相同认为真的重复了，如果不相同认为不重复。
+
+**存储原理**：
+
+- 基于**哈希表**存储数据，增删改查的性能都很好，无序、不重复
+- **JDK 1.8之前**：哈希表 = 数组 + 链表  + （哈希算法）
+- **JDK 1.8之后**：哈希表 = 数组 + 链表 + 红黑树  + （哈希算法）
+- 当链表长度超过阈值 **8** 时，将链表转换为红黑树，这样大大减少了查找时间。
+
+```java
+Set<String> sets = new HashSet<>();
+```
+
+***
+
+### LinkedHashSet
+
+- **有序**、不重复、无索引
+- 底层依然是使用哈希表存储元素的，但是每个元素都额外带一个链来维护添加顺序
+- 存储顺序的链会占内存空间、
+
+***
+
+### TreeSet
+
+- 按照元素大小**默认升序排序**、不重复、无索引
+- TreeSet集合的**底层是基于TreeMap**
+
+**排序方法**：
+
+- **有值特性的元素**直接可以升序排序。（浮点型，整型）
+- **字符串类型**的元素会依字符顺序，按照字符的编号排序。
+- 对于**自定义的引用数据类型**，TreeSet默认无法排序，执行的时候直接报错，不知道排序规则。
+
+**自定义的引用数据类型的排序实现**：
+
+1. 实现比较接口 `Comparable`
+2. TreeSet 的比较器 **Comparator方法**
+
+```java
+Set<Employee> employees1 = new TreeSet<>(new Comparator<Employee>() {
+    @Override
+    public int compare(Employee o1, Employee o2) {
+        // o1比较者   o2被比较者
+        // 如果程序员认为比较者大于被比较者 返回正数！
+        // 如果程序员认为比较者小于被比较者 返回负数！
+        // 如果程序员认为比较者等于被比较者 返回0！
+        return o1.getAge() - o2.getAge();
+    }
+});
+```
+
+**java优先使用 Comparator 方法**
+
+***
+
+### List 接口
+
+```java
+public interface List<E> extends Collection<E> {
+    // 在当前集合的指定位置插入指定元素
+    void add(int index, E element);	
+    // 在当前集合的指定位置插入指定集合中的所有元素
+    boolean addAll(int index, Collection<? extends E> c);	
+    
+    // 返回当前集合中指定位置的元素
+	E get(int index);	
+    // 用指定元素替换当前集合指定位置的元素,并返回被替换的元素
+    E set(int index, E element);
+     // 移除当前集合中指定位置的元素, 并返回该元素
+    E remove(int index);
+    
+    // 返回指定元素的当前集合中第一次出现的位置, 或 -1
+    int indexOf(Object o);	
+    // 返回指定元素在当前集合中最后一次出现的位置, 或 -1
+    int lastIndexOf(Object o);
+    
+    // 返回当前集合元素的ListIterator对象, 迭代器指向当前集合的起始位置
+    ListIterator<E> listIterator();	
+    // 返回当前集合元素的ListIterator对象, 迭代器指向index位置
+    ListIterator<E> listIterator(int index);	
+    
+    // 返回一个包含当前集合位置fromIndex 至 toIndex-1 中元素的子集
+    list<E> subList(int fromIndex, int toIndex);	
+}
+
+public interface ListIterator<E> extends Iterator<E> {
+    void add(E o);	// 在当前迭代器指向的集合的指定位置前插入指定元素
+    boolean hasPrevious();	// 检查当前迭代器指向的集合的当前位置前是否还有其他元素
+    int nextIndex();	// 返回当前迭代器指向的集合中的下一个元素的位置
+    E previous();	// 返回当前迭代器指向集合中的前一个元素
+    int perviousIndex();	// 返回当前迭代器指向集合中的前一个元素的位置
+    void set(E o);	// 用指定元素替换当前迭代器最近返回的元素
+}
+```
+
+***
+
+### ArrayList
+
+- 添加的元素是有序、可重复、有索引
+- 基于数组存储数据，**查询快，增删慢**
+- 实现List 接口的所有方法
+
+```java
+List<String> lists = new ArrayList<>();
+```
+
+***
+
+### LinkedList
+
+- 添加的元素是有序、可重复、有索引
+- 基于链表存储数据，**增删快，查询慢**
+- **双向链表**，增删改查前后的元素更快
+- 实现了 **Deque** 接口
+
+```java
+LinkedList<String> lists = new LinkedList<>();
+```
+
+***
+
+### Map 接口
+
+**特点**：
+- Map集合的特点都是**由键决定**的。
+- Map集合的键是**无序,不重复的，无索引**的。
+- Map集合后面重复的键对应的元素会覆盖前面的整个元素！
+- Map集合的值无要求。
+- Map集合的键值对都可以为null。
+
+**Map集合的遍历**：
+
+1. 键找值
+
+```java
+for (String key : map.keySet()) {
+// 通过键取对应的值
+Integer value = maps.get(key);
+System.out.println(key + "=" + value);
+}
+```
+
+2. 键值对
+
+```java
+// 1.把Map集合转换成一个Set集合:
+Set<Map.Entry<String,Integer>> entries = maps.entrySet();
+// 2.此时键值对元素的类型就确定了，类型是键值对实体类型：Map.Entry<K, V>
+// 3.接下来就可以用foreach遍历这个Set集合，类型用Map.Entry<K, V>
+for (Map.Entry<String, Integer> entry : entries) {
+String key = entry.getKey();
+Integer value = entry.getValue();
+System.out.println(key + "=>" + value);
+}
+```
+
+3. Lambda表达式
+
+```java
+maps.forEach((k, v)-> System.out.println(k+"==>"+v));
+```
+
+***
+
+### HashMap
+
+- 元素按照键是**无序**，不重复，无索引，值不做要求。
+
+```java
+// 把指定的键与指定的值添加到 Map 集合中
+public V put(K key, V value);
+// 添加一个Map中的所有键值对
+public void putAll(Map<? extends K, ? extends V> m);
+// 把指定的键 所对应的键值对元素 在 Map 集合中删除，返回被删除元素的值
+public V remove(Object key)
+// 根据指定的键，在Map集合中获取对应的值。
+public V get(Object key);
+
+// 清空 Map
+public void clear();
+// 是否为空
+public boolean isEmpty();
+// Map 大小
+public int size()
+
+// 获取 Map 集合中所有的 键，存储到 Set 集合中
+public Set<K> keySet();
+// 获取到 Map 集合中所有的键值对对象的集合( Set 集合)
+public Set<Map.Entry<K,V>> entrySet();
+// 获取 Map 所有 值 的集合
+public Collection<V> values();
+
+// 判断该集合中是否有此键
+public boolean containKey(Object key);
+// 判断该集合中是否有此值
+public boolean containsValue(Object value);
+```
+
+***
+
+### LinkedHashMap
+
+- 元素按照键是**有序**，不重复，无索引，值不做要求
+- 基于哈希表按照键存储数据的
+
+***
+
+### TreeMap
+
+- TreeMap集合按照键是可排序不重复的键值对集合。(**默认升序**)
+
+- 所以TreeMap集合指定大小规则有2种方式：
+
+  1. 直接为对象的类实现比较器规则接口Comparable，重写比较方法
+
+  2. 直接为集合设置比较器Comparator对象,重写比较方法
+
+***
+
+## 迭代器
+
+**Iterator 接口**
+
+```java
+// 迭代器接口的定义
+public interface Iterator<E> {
+    // 返回当前迭代器指向的集合中的下一个元素
+    E next();
+    // 检查当前迭代器指向的集合中是否还有其他元素可迭代, 如有, 返回true
+    Boolean hasNext();
+    // 从当前迭代器所指向的集合中移除迭代器最近返回的元素
+    void remove();
+}
+```
+
+**迭代器的获取**
+
+```java
+Iterator<String> it = lists.iterator();
+```
+
+***
+
+## 可变参数
+
+- 参数用在形参中可以接收多个数据。
+- 可变参数的格式：数据类型... 参数名称
+
+**可变参数的作用**：
+
+- 传输参数非常灵活，方便。
+- 可以不传输参数。
+- 可以传输一个参数。
+- 可以传输多个参数。
+- 可以传输一个数组。
+
+**可变参数在方法内部本质上就是一个数组**
+**注意事项**：
+
+1. 一个形参列表中**可变参数只能有一个**
+2. 可变参数**必须放在形参列表的最后面**
+
+```java
+// 定义
+public static void sum(int...nums);
+
+// 使用
+sum(); // 可以不传输参数。
+sum(10); // 可以传输一个参数。
+sum(10,20,30); // 可以传输多个参数。
+sum(new int[]{10,30,50,70,90}); // 可以传输一个数组。
+```
+
+
+
+***
+
 # 单例设计模式
 
 **什么是单例 SingleIntance**：
@@ -816,7 +1300,41 @@ Animal animal = new Animal(){
 
 # 内置类
 
-## Math 类
+## System
+
+**终止当前虚拟机**：
+
+```java
+public static void exit(int status);	// 0 -> 正常终止
+System.exit(0);
+```
+
+**获取系统当前的毫秒值**：
+
+```java
+public static native long currentTimeMillis();
+System.currentTimeMillis();
+```
+
+**数组的拷贝**：
+
+```java
+/**
+ 	@param      src      the source array.
+    @param      srcPos   starting position in the source array.
+    @param      dest     the destination array.
+    @param      destPos  starting position in the destination data.
+    @param      length   the number of array elements to be copied.
+ */
+public static native void arraycopy(Object src,  int  srcPos,Object dest, int destPos, int length);
+System.arraycopy(src, srcPos, dest, destPos, length);
+```
+
+***
+
+## Math
+
+- **静态类**，不能创建对象，**不可被继承**
 
 **数学常量**
 
@@ -869,18 +1387,54 @@ public static long round( double a);	// 返回floor(a+0.5d)
 **其他常用方法**
 
 ```java
-abs( object o );	// 方法重载 返回 int long float double 型参数的绝对值
-max( object o );	// 方法重载 返回 int long float double 型参数的较大值
-min( object o );	// 方法重载 返回 int long float double 型参数的较小值
-random();	// 0.0 - 1.1 的伪随机 double 类型
+public static int abs( Object o );	// 方法重载 返回 int long float double 型参数的绝对值
+public static Object max( Object o );	// 方法重载 返回 int long float double 型参数的较大值
+public static Object min( Object o );	// 方法重载 返回 int long float double 型参数的较小值
+public static double random();	// 0.0 - 1.0 的伪随机 double 类型
 ```
+
+***
 
 ## BigInteger / BigDecimal
 
-> `BigInteger`  对象 可以表示任意精度和大小的整数
+- 用于解决基础浮点运算出现的**数据失真问题**
+- Java中小数运算有可能会有精度问题，如果要解决这种精度问题，可以使用BigDecimal
 
-> BigInteger num1 = new BigInteger("9999999999999");
-> BigDecimal nu`m2 = new BigDecimal("3.1415678");
+**概述**：
+
+| 相关内容 | 具体描述                                                     |
+| -------- | :----------------------------------------------------------- |
+| 包       | java.math                                                                  使用时需要导包 |
+| 类声明   | public class BigDecimal extends Number implements Comparable<BigDecimal> |
+| 描述     | BigDecimal类提供了算术，缩放操作，舍入，比较，散列和格式转换的操作。提供了更加精准的数据计算方式 |
+
+**构造方法**：
+
+| 构造方法名             | 描述                                            |
+| ---------------------- | ----------------------------------------------- |
+| BigDecimal(double val) | 将double类型的数据封装为BigDecimal对象          |
+| BigDecimal(String val) | 将 BigDecimal 的字符串表示形式转换为 BigDecimal |
+
+注意：推荐使用第二种方式，第一种存在精度问题；
+
+**常用方法**：
+
+| 方法声明                                       | 描述     |
+| ---------------------------------------------- | -------- |
+| `public BigDecimal add(BigDecimal value)`      | 加法运算 |
+| `public BigDecimal subtract(BigDecimal value)` | 减法运算 |
+| `public BigDecimal multiply(BigDecimal value)` | 乘法运算 |
+| `public BigDecimal divide(BigDecimal value)`   | 触发运算 |
+
+- **注意**：对于divide方法来说，如果除不尽的话，就会出现java.lang.ArithmeticException异常。此时可以使用divide方法的另一个重载方法；
+- BigDecimal divide(BigDecimal divisor, int scale, int roundingMode): divisor：除数对应的BigDecimal对象；scale:精确的位数；roundingMode取舍模式
+
+`BigInteger`  对象 可以表示任意精度和大小的整数
+
+```java
+BigInteger num1 = new BigInteger("9999999999999");
+BigDecimal num2 = new BigDecimal("3.1415678");
+```
 
 
 ***
@@ -964,38 +1518,31 @@ public static boolean equals(Object a,Object b);
 
 - 包装类的对象不可变,创建后值无法修改
 - 将基本数据类型包装成对象
+- 引用数据类型的默认值可以为 `null`
 
 ```java
 Object <== Boolean / Number / Character
 Number <== Byte / Short / Integer / Long / Float / Double
 ```
+**自动装箱与拆箱**：
 
-**构造方法**
-
-均无默认构造方法
-
+- **自动装箱**：可以直接把基本数据类型的值或者变量赋值给包装类。
+- **自动拆箱**：可以把包装类的变量直接赋值给基本数据类型。
 ```java
-// 字符对象的一种构造方法
-public Character( char value );
-// 基本数据类型对象的两种构造方法
-public Integer( int value );
-public Integer( String s );
-// 当 s = "True" 时为true 不区分大小写	else ==> false
-public Boolean( String s );		
+Integer intObject = 1;
+int num = intObject;
 ```
 
 **valueOf()**
 
-​	创建对象并初始化,返回该对象
+- 创建对象并初始化,返回该对象
 
 ```java
-Integer integerObject = Integer.valueOf(1);		// 以相应的基本数据类型为参数
-Double doubleObject = Double.valueOf("1.2");	// 以相应的字符串为参数
+// 以相应的基本数据类型为参数
+Integer integerObject = Integer.valueOf(1);
+// 以相应的字符串为参数
+Double doubleObject = Double.valueOf("1.2");
 ```
-
-**toString()**
-
-​	返回特征字符串
 
 **String ==> 基本数据类型**
 
@@ -1006,37 +1553,20 @@ double d = Double.parseDouble("4.5");
 
 **equals()**
 
-​	在包装类中被覆盖为  比较两个对象内容是否相同
+- 在包装类中被覆盖为  比较两个对象内容是否相同
 
 **hashCode()**
 
-​	在包装类中被覆盖为 返回数据值
-
-**获取对象的值**
-
-```java
-boolean b = booleanObject.booleanValue();
-char c = characterObject.charValue();
-```
+- 在包装类中被覆盖为 返回数据值
 
 **类的最大最小值**
 
-除 Boolean 类外 , 每个包装类中都定义有静态常量	MAX_VALUE / MIN_VALUE
+- 除 Boolean 类外 , 每个包装类中都定义有静态常量	`MAX_VALUE / MIN_VALUE`
 
 ```java
 Integer.MAX_VALUE;
 Double.MIN_VALUE;
 ```
-
-**自动装箱与拆箱**
-
-```java
-Integer intObject = 1;		// 自动装箱
-int num = intObject;		// 自动拆箱
-(4 < 5)? 4:true;	// 
-```
-
-
 
 ***
 
@@ -1386,6 +1916,301 @@ long time = new Date().getTime();
 
 ***
 
+## DateFormat
+
+**作用**：
+
+- 可以把“日期对象”或者“时间毫秒值”格式化成我们喜欢的时间形式。（格式化时间）
+- 可以把字符串的时间形式解析成日期对象。（解析字符串时间）
+- **抽象类**，不能直接使用
+
+***
+
+## SimpleDateFormat
+
+- DateFormat 的子类
+- `java.text.SimpleDateFormat`
+
+```java
+// 指定时间的格式创建简单日期格式化对象
+public SimpleDateFormat(String pattern);
+SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss EEE a")
+// 把日期对象格式化为指定的日期格式，返回的是格式化的字符串
+public final String format(Date date);
+// 把时间毫秒值格式化为指定的日期格式，返回的是格式化的字符串
+public final String format(Object time);
+// 把字符串的时间解析成日期对象
+public Date parse(String source) throws ParseException;
+```
+
+|  格式字符 |    含义    | 类型  |    Examples    |
+| :------: | :-------: | :--: | :------------: |
+| G | 时代指示器 | Text | AD；BC |
+| y | 年 | Year  | `1996`;`96` |
+| Y | 周年 | Year  | `2009`;`09` |
+| M | 月份 | Month | `July`;`Jul`;`07` |
+| L | 月份 | Month | `July`;`Jul`;`07` |
+| w | Week in year | Number | 27 |
+| W | Week in year | Number | 2 |
+| D | Day in year | Number | 189 |
+| d | Day in month | Number | 10 |
+| F | Day of week in month | Number | 2 |
+| E | Day name in week | Text | `Tuesday`; `Tue` |
+| u | Day number of week | Number | 1 |
+| a | Am/pm marker | Text | AM；PM |
+| H | Hour in day (0-23) | Number | 0 |
+| k | Hour in day (1-24) | Number | 24 |
+| K | Hour in am/pm (0-11) | Number | 0 |
+| h | Hour in am/pm (1-12) | Number | 12 |
+| m | Minute in hour | Number | 30 |
+| s | Second in minute | Number | 55 |
+| S | Millisecond | Number | 978 |
+| z | 时区 | General time zone |`PST`;`GMT-08:00` |
+|  |  |  | Pacific Standard Time |
+| Z | 时区 | RFC 822 time zone | `-0800` |
+| X | 时区 | ISO 8601 time zone | `-08`;`-0800`;`-08:00` |
+
+- **Text:**对于格式化，如果模式字母的数量是4以上，则使用完整的形式;  否则，如果有的话，使用简短或缩写形式。 对于解析，两种形式都是接受的，与模式字母的数量无关。  
+- **Number:**对于格式化，模式字母的数量是最小位数，而较短的数字将零填充到此数量。  对于解析，模式字母的数量将被忽略，除非需要分隔两个相邻的字段。 
+- **Year:**如果格式化程序的[`Calendar`](../../java/text/DateFormat.html#getCalendar--)是公历，则应用以下规则。
+  - 对于格式化，如果模式字母数为2，那么年份将被截断为2位数; 否则被解释为[number](#number) 。 
+  - 对于解析，如果模式字母的数量大于2，则年份将按字面解释，而不管数字的数量。 所以使用“MM / dd /  yyyy”模式，“01/11/12”解析到公元12年1月11日 
+  - 为了使用缩写年份模式（“y”或“yy”）进行解析，  `SimpleDateFormat`必须解释相对于某个世纪的缩写年份。  它是通过将日期调整为在创建`SimpleDateFormat`实例之后的80年之前和20年之后进行的。  例如，使用1997年1月1日创建的“MM / dd /  yy”模式和`SimpleDateFormat`实例，字符串“01/11/12”将被解释为2012年1月11日，而字符串“05/04 /  64“将被解释为1964年5月4日。在解析期间，只有由[`Character.isDigit(char)`](../../java/lang/Character.html#isDigit-char-)定义的两个数字组成的字符串将被解析为默认世纪。  任何其他数字字符串，例如一位数字字符串，三位或三位以上数字字符串，或两位数字字符串（不全部为数字）（例如“-1”），均按字面解释。  所以“01/02/3”或“01/02/003”的解析方式与公元3年1月2日相同。 同样，“01/02 /  -3”在公元前4年1月2日被解析。 
+
+***
+
+## Calendar
+
+- **抽象类**，不能直接创建对象
+
+```java
+// 通过静态方法，返回日历类的对象
+public static Calendar getInstance();
+Calendar calendar = Calender.getInstance();
+
+// 取日期中的某个字段信息
+public int get(int field);
+int year = calendar.get(Calendar.YEAR);
+
+// 拿到此刻日期对象
+public final Date getTime();
+
+// 拿到此刻时间毫秒值
+public long getTimeInMillis();
+
+// 修改日历的某个字段信息
+public void set(int field,int value);
+calendar.set(Calendar.DAY_OF_YEAR , 701);
+
+// 为某个字段增加/减少指定的值
+public void add(int field,int amount);
+calendar.add(Calendar.DAY_OF_YEAR , 701);
+```
+***
+
+## Collections
+
+```java
+// 将所有指定元素 elements添加到指定集合 c 中
+public static <T> boolean addAll(Collection<? super T> c, T...elements);
+Collections.addAll(names,"曹操","贾乃亮","王宝强","陈羽凡");
+
+// 根据自然顺序对指定List集合中的元素从小到大排序. 
+public static <T extends Comparable<? super T> > void sort(List<T> list);
+
+// 在一个已经按元素的自然顺序从小到大排序的指定List集合中查找指定元素key, 或 负值
+public static <T> int binarySearch(List<? extends Comparable<? super T> > list, T key);	
+
+// 将集合src中的所有元素复制到dest中的相同位置.
+public static <T> void copy(List<? super T> dest, List<? extends T> src);	
+
+// 根据元素的自然顺序, 返回指定Collection集合中的最大元素.
+public static <T extends Object & Comparable<? super T> > T max(Collection<? extends T> coll);	
+
+// 根据元素的自然顺序, 返回指定Collection集合中的最小元素.
+public static <T extends Object & Comparable<? super T> > T min(Collection<? extends T> coll);	
+
+// 将指定List集合中的所有元素反转到相应的位置
+public static void reverse(list<? > list);	
+
+// 打乱List集合的顺序
+public static void shuffle(List<?> list);
+```
+
+***
+
+# 数据结构
+
+## 红黑树
+
+- **自平衡的二叉查找树**
+
+**特点**：
+
+1. 每一个节点或是红色的，或者是黑色的。
+2. 根节点必须是黑色
+3. 每个叶节点(Nil)是黑色的；（如果一个节点没有子节点或者父节点，则该节点相应的指针属性值为Nil，这些Nil视为叶节点）
+4. 如果某一个节点是红色，那么它的子节点必须是黑色(不能出现两个红色节点相连的情况)
+5. 对每一个节点，从该节点到其所有后代叶节点的简单路径上，均包含相同数目的黑色节点；
+
+![](https://raw.githubusercontent.com/which-biscuits/pigGo/main/1562653205543.png)
+
+- **元素插入**：每一次插入完毕以后，使用黑色规则进行校验，如果不满足红黑规则，就需要通过变色，左旋和右旋来调整树，使其满足红黑规则；
+
+## Queue 接口
+
+典型的队列是一种**"先进先出(FIFO)"**集合, 即元素从集合的某一端放入, 另一端取出, 并且元素放入集合的顺序与取出的顺序相同
+
+```java
+public interface Queue<E> extends Collection<E> {
+    boolean add(E e);	// 将指定元素添加到当前队列的尾部
+    boolean offer(E e);	// 将指定元素添加到当前队列的尾部
+    E remove();			// 获取并移除当前队列头部的元素
+    E poll();			// 获取并移除当前队列头部的元素
+    E element();		// 获取但不删除当前队列头部的元素
+    E peek();			// 获取但不移除当前队列头部的元素
+   
+}
+```
+
+***
+
+## Deque 接口
+
+- 双端队列, 双端队列允许在它的双端同时添加和移除元素
+
+```java
+继承于Queue,定义了支持双端队列操作的方法:
+// 以下方法在操作失败时抛出异常
+void addFirst(E e);	// 将指定元素插入当前双端队列的头部
+void addLast(E e);	// 将指定元素插入当前双端队列的尾部
+
+E removeFirst();	// 获取并移除当前双端队列头部的元素
+E removeLast();		// 获取并移除当前双端队列尾部的元素
+
+E getFirst();	// 获取但不移除当前双端队列头部的元素
+E getLast();	// 获取但不移除当前双端队列尾部的元素
+
+// 以下方法在操作失败时返回false
+boolean offerFirst(E e);	// 将指定元素插入到当前双端队列的头部
+boolean offerLast(E e);		// 将指定元素插入到当前双端队列的尾部
+
+// 以下方法在操作失败时返回null
+E pollFirst();	// 获取并移除当前双端队列头部的元素
+E pollLast();	// 获取并移除当前双端队列尾部的元素
+
+E peekFirst();	// 获取但不移除当前双端队列头部的元素
+E peekLast();	// 获取但不移除当前双端队列尾部的元素
+```
+
+***
+
+# 正则表达式
+
+- **Regex**
+- 链接 [[RoadToCoding](https://www.r2coding.com/#/README?id=正则表达式)]:
+
+**正则表达式匹配**:
+
+```java
+public boolean matches(String regex);
+String string = "forTest123456";
+string.matches("\\w{4, }");
+```
+
+**正则表达式分割**：
+
+```java
+public String[] split(String regex);
+string.split("\\w");
+```
+
+**正则表达式替换**：
+
+```java
+public String replaceAll(String regex, String replacement)
+string.replaceAll("\\w", "/");
+```
+
+**正则匹配模式**：
+
+```java
+// 1.定义爬取规则
+String regex = "([\u4E00-\u9FA5·]{2,16})|([a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z])";
+// 2.编译正则表达式成为一个匹配规则对象
+Pattern pattern = Pattern.compile(regex);
+// 3.通过匹配规则对象得到一个匹配数据内容的匹配器对象
+Matcher matcher = pattern.matcher("wzx王子潇wzx");
+// 4.通过匹配器去内容中爬取出信息
+while(matcher.find()){
+    System.out.println(matcher.group());
+}
+```
+
+## 字符：
+
+| **表达式** | **描述**                                               |
+| ---------- | ------------------------------------------------------ |
+| `[abc]`    | 字符集。匹配集合中所含的任一字符。                     |
+| `[^abc]`   | 否定字符集。匹配任何不在集合中的字符。                 |
+| `[a-z]`    | 字符范围。匹配指定范围内的任意字符。                   |
+| `.`        | 匹配除换行符以外的任何单个字符。                       |
+| `\`        | 转义字符。                                             |
+| `\w`       | 匹配任何字母数字，包括下划线（等价于`[A-Za-z0-9_]`）。 |
+| `\W`       | 匹配任何非字母数字（等价于`[^A-Za-z0-9_]`）。          |
+| `\d`       | 数字。匹配任何数字。                                   |
+| `\D`       | 非数字。匹配任何非数字字符。                           |
+| `\s`       | 空白。匹配任何空白字符，包括空格、制表符等。           |
+| `\S`       | 非空白。匹配任何非空白字符。                           |
+
+## **分组和引用**：
+
+| **表达式**       | **描述**                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| `(expression)`   | 分组。匹配括号里的整个表达式。                               |
+| `(?:expression)` | 非捕获分组。匹配括号里的整个字符串但不获取匹配结果，拿不到分组引用。 |
+| `\num`           | 对前面所匹配分组的引用。比如`(\d)\1`可以匹配两个相同的数字，`(Code)(Sheep)\1\2`则可以匹配`CodeSheepCodeSheep`。 |
+
+## **锚点和边界**：
+
+| **表达式** | **描述**                                                     |
+| ---------- | ------------------------------------------------------------ |
+| `^`        | 匹配字符串或行开头。                                         |
+| `$`        | 匹配字符串或行结尾。                                         |
+| `\b`       | 匹配单词边界。比如`Sheep\b`可以匹配`CodeSheep`末尾的`Sheep`，不能匹配`CodeSheepCode`中的`Sheep` |
+| `\B`       | 匹配非单词边界。比如`Code\B`可以匹配`HelloCodeSheep`中的`Code`，不能匹配`HelloCode`中的`Code`。 |
+
+## **数量表示**：
+
+| **表达式** | **描述**                                   |
+| ---------- | ------------------------------------------ |
+| `?`        | 匹配前面的表达式0个或1个。即表示可选项。   |
+| `+`        | 匹配前面的表达式至少1个。                  |
+| `*`        | 匹配前面的表达式0个或多个。                |
+| `|`        | 或运算符。并集，可以匹配符号前后的表达式。 |
+| `{m}`      | 匹配前面的表达式m个。                      |
+| `{m,}`     | 匹配前面的表达式最少m个。                  |
+| `{m,n}`    | 匹配前面的表达式最少m个，最多n个。         |
+
+## **预查断言**：
+
+| **表达式** | **描述**                                                     |
+| ---------- | ------------------------------------------------------------ |
+| `(?=)`     | 正向预查。比如`Code(?=Sheep)`能匹配`CodeSheep`中的`Code`，但不能匹配`CodePig`中的`Code`。 |
+| `(?!)`     | 正向否定预查。比如`Code(?!Sheep)`不能匹配`CodeSheep`中的`Code`，但能匹配`CodePig`中的`Code`。 |
+| `(?<=)`    | 反向预查。比如`(?<=Code)Sheep`能匹配`CodeSheep`中的`Sheep`，但不能匹配`ReadSheep`中的`Sheep`。 |
+| `(?<!)`    | 反向否定预查。比如`(?<!Code)Sheep`不能匹配`CodeSheep`中的`Sheep`，但能匹配`ReadSheep`中的`Sheep`。 |
+
+## **特殊标识**：
+
+| **表达式** | **描述**                   |
+| ---------- | -------------------------- |
+| `/.../i`   | 忽略大小写。               |
+| `/.../g`   | 全局匹配。                 |
+| `/.../m`   | 多行修饰符。用于多行匹配。 |
+
+***
+
 # 12 对象的存在时间与垃圾回收器
 
 ```JAVA
@@ -1471,14 +2296,6 @@ arr[2] = new int[7];
 
 ```java
 int[][] arr1 = {{1,2,},{3,4,},}
-```
-
-### foreach 语句
-
-```java
-for (数据类型 变量名 : 数组) {	// 数据类型 必须与数组元素类型相同
-    语句
-}
 ```
 
 ### 数据的传递
@@ -2558,302 +3375,3 @@ class Login implements java.io.Serializable {
 **对未实现序列化接口的数据成员 无法进行序列化**
 
 **序列化时会自动忽略静态数据成员**
-
-# 35 泛型
-
-## 35.2 泛型类 / 接口 / 方法
-
-**泛型 : **将程序中的数据类型参数化, 通过它可以定义类型安全的泛型类 / 接口 / 方法
-
-```java
-Comparable<Integer> c = new Integer("1");
-// 进一步指明了可以与当前对象C进行比较的那些对象的类型是 Integer
-// 主要用于定义类型安全的泛型集合类型
-System.out.println(c.compareTo("1"));	// 编译错误
-```
-
-**泛型类**
-
-类型参数是一个标识符, 按照规范, 通常用单个大写字母表示
-
-类型参数不能用于创建对象, 也不能用于instanceof运算等
-
-创建泛型类或接口时, 指定的类型实参本身可以不是一个实际的类型
-
-```java
-public class Point<T> {	// 定义泛型类Point
-    public final T x;
-    public Point(T x) {	// 定义泛型类的构造方法时不能带尖括号部分
-        this.x = x;
-    }
-}
-使用:
-// 类型实参必须为引用类型
-Point<Integer> point2 = new Point<Integer>(new Integer(2), 4);	// 自动装箱
-```
-
-**泛型类 / 接口 可以带有多个类型参数**
-
-```java
-public interface Map<K, V> {
-    V put(K key, V value);
-    ...
-}
-public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Cloneable, Serialize {
-    ...
-}
-```
-
-**受限类型参数**
-
-```java
-// 无论限制条件类型为类或接口 必须使用关键字 extends
-单受限:
-class MyList<E extends java.lang.Number> {...}	// 类型参数E必须使用Number及其子类
-
-多受限:
-// 类和接口类型之间以符号 & 连接
-class MyList<E extends NUmber & Comparable<E> & java,io.Serializable> {...}
-```
-
-**泛型方法**
-
-Java语言中的所有方法均可以声明特定于其执行范围的类型参数
-
-方法的类型参数应使用尖括号括起来放在方法修饰符的后面, 返回值类型的前面
-
-泛型方法可以带有多个类型参数以及限制条件
-
-```java
-public static <T> void fromArrayToList(T[] arr, GenericList<T> list) {...}
-```
-
-调用泛型方法时,可以在方法名前面用尖括号指定方法的类型实参
-
-```java
-GenericList<Integer> list = new GenericList<Integer>();
-MyClass.<Integer>fromArrayToList(arr, list);
-MyClass.fromArrayToList(arr, list);	// 类型实参可省略
-// 调用泛型方法时, 如果没有显式指定方法的类型参数, 编译器一般能根据方法调用表达式或其所在语句推断出正确的类型参数
-```
-
-## 35.3 通配符
-
-```java
-在 Java 中, 假设 A 是 B 的子类
-G<T> 是一个泛型类(或接口), G<T> 并不是G<B>的子类型
-
-GenericList<?> list = new GenericList<Ingeter>();	// 自动类型转换
-list.add("1");	//编译错误
-list.add(new Object());		// 编译错误
-在通配符中, 链表list的元素类型是未知的, 不能将任何类型的对象添加到其中, 可以从一个元素类型位置的链表中取出元素.
-```
-
-**通配符的受限形式的受限条件中只能有一个类或接口类型**
-
-```java
-上受限类型 / 上限通配符 :
-public static <T> void copy(List<? extends T> dest) {...}	// 类型?必须为T或其子类
-
-下受限类型 / 下限通配符 :
-public static <T> void copy(List<? super T> dest) {...}	// 类型必须为T或其父类
-```
-
-**使用案例**
-
-```java
-public static <T> void add(GenericList<T> list1, GenericList<T> list2) {...}
-
-add((GenericList<Integer>) list1, (GenericList<Object>) list2);	// 编译错误
-无法为T找到一个合法的实际类型
-
-修改方法:
-public static <T> void add(GenericList<T> list1, GenericList<? super T> list2) {...}
-// 可以将元素是子类型的数组赋值给父类型的数组引用
-```
-
-## 35.4 java语言泛型的实现和局限性
-
-**擦拭 Erasure :**
-
-> 编译时消除程序中的所有泛型信息, 并将其转化成等价的非泛型代码
->
-> 1. 擦除尖括号中的所有类型参数信息, java.util.List<Integer> ==> java.util.List
-> 2. 将所有类型参数都替换为Object, 对带限制条件的类型参数, 替换为限制条件中的第一个限定类型
-> 3. 擦除类型参数信息后, 在所有类型不正确的地方, 插入适当的强制类型转换
-
-**局限性 : **
-
-> 基本数据类型不能用作类型实参
->
-> 类型参数不能用于创建对象
->
-> 类型参数和泛型类型不能用于instanceof运算
->
-> 不能创建泛型数组
-
-```java
-static <T > void speak(T speaks) {
-    speaker.talk();	// 编译错误
-}
-因 擦拭 的编译方法, 无法在 Object 类中调用自定义的 talk() 方法
-
-修改方法 定义 Speakers 接口:
-static <T extends Speakers> void speak(T speaks) {...}
-```
-
-# 36 集合
-
-```java
-Collection:
-集合中的每个元素都是一个独立的对象, 其中 List 集合以特定顺序容纳元素; set集合中不能有重复的元素; Queue集合只允许在一端插入一段输出; Deque 集合允许在它的两端同时插入和移除元素
-
-Map:
-集合中的每个元素都是一对key / value 对象, 且同一集合中, 每个元素的键都不能相同, 通过Map集合, 可以将一个对象映射到另一个对象
-```
-
-**集合架构常见集合的继承(实现)关系**
-
-## **36.1 集合操作**
-
-```java
-Collection:
-boolean add(E);
-boolean add(int index, E);
-
-Map:
-V put (K key, V value);
-```
-
-**泛型集合**
-
-```java
-List<Integer> ints = new ArrayList<Integer>();
-```
-
-## **36.2 迭代器与foreach语句**
-
-```java
-// 迭代器对象的创建
-public interface java.lang.Iterable<T> {
-    Iterator<T> interator;
-}
-Iterator<T> it = ints.interator;	// 迭代器对象
-```
-
-## Iterator 接口
-
-```java
-// 迭代器接口的定义
-public interface Iterator<E> {
-    E next();	// 返回当前迭代器指向的集合中的下一个元素
-    Boolean hasNext();	// 检查当前迭代器指向的集合中是否还有其他元素可迭代, 如有, 返回true
-    void remove();	// 从当前迭代器所指向的集合中移除迭代器最近返回的元素
-}
-```
-
-
-
-## **36.3 Collection 接口**
-
-```java
-Collection 的定义:
-public interface Collection<E> extends Iterable<E> {
-    boolean add(E o);	// 确保当前集合中包含指定元素, 没有则返回 false
-    boolean addAll(Collection<? extends E> c);	// 将指定集合中的所有元素添加到当前集合中, 添加了其中任一元素则返回True
-    void clear();	// 移除当前集合中的所有元素
-    boolean contains(Object o);	// 是否包含指定元素
-    boolean contains(Collection<?> c);	// 当前集合是否包含指定集合中的所有元素
-    boolean equals(Object o);	// 将集合与指定对象作相等性比较
-    int hashCode();	// 返回当前集合的hash值
-    boolean isEmpty();	// 当前集合中是否不含任何元素
-    boolean remove(Object o);	// 移除当前集合中的一个指定元素
-    boolean removeAll(Collection<?> c);	// 从当前集合中移除所有包含在指定集合中的元素
-    boolean retainAll(Collection<?> c);	// 在当前集合中仅保留指定集合中也含有的元素
-    int size();	// 返回当前集合中元素的个数
-    Object[] toArray();	// 返回一个包含当前集合中所有元素的数组
-    <T> T[] toArray(T[] a);	// 返回一个包含当前集合中所有元素的数组, 返回数组的元素类型和参数指定的元素类型
-}
-```
-
-## 36.4 List 接口
-
-```java
-public interface List<E> extends Collection<E> {
-    void add(int index, E element);	// 在当前集合的指定位置插入指定元素
-    boolean addAll(int index, Collection<? extends E> c);	// 在当前集合的指定位置插入指定集合中的所有元素
-	E get(int index);	// 返回当前集合中指定位置的元素
-    int indexOf(Object o);	// 返回指定元素的当前集合中第一次出现的位置, 或 -1
-    int lastIndexOf(Object o);	// 返回指定元素在当前集合中最后一次出现的位置, 或 -1
-    ListIterator<E> listIterator();	// 返回当前集合元素的ListIterator对象, 迭代器指向当前集合的起始位置
-    ListIterator<E> listIterator(int index);	// 返回当前集合元素的ListIterator对象, 迭代器指向index位置
-    E remove(int index);	// 移除当前集合中指定位置的元素, 并返回该元素
-    E set(int index, E element);	// 用指定元素替换当前集合指定位置的元素,并返回被替换的元素
-    list<E> subList(int fromIndex, int toIndex);	// 返回一个包含当前集合位置fromIndex 至 toIndex-1 中元素的子集
-}
-
-public interface ListIterator<E> extends Iterator<E> {
-    void add(E o);	// 在当前迭代器指向的集合的指定位置前插入指定元素
-    boolean hasPrevious();	// 检查当前迭代器指向的集合的当前位置前是否还有其他元素
-    int nextIndex();	// 返回当前迭代器指向的集合中的下一个元素的位置
-    E previous();	// 返回当前迭代器指向集合中的前一个元素
-    int perviousIndex();	// 返回当前迭代器指向集合中的前一个元素的位置
-    void set(E o);	// 用指定元素替换当前迭代器最近返回的元素
-}
-```
-
-## 36.5 Queue 接口
-
-典型的队列是一种**"先进先出(FIFO)"**集合, 即元素从集合的某一端放入, 另一端取出, 并且元素放入集合的顺序与取出的顺序相同
-
-```java
-public interface Queue<E> extends Collection<E> {
-    boolean add(E e);	// 将指定元素添加到当前队列的尾部
-    boolean offer(E e);	// 将指定元素添加到当前队列的尾部
-    E remove();	// 获取并移除当前队列头部的元素
-    E poll();	// 获取并移除当前队列头部的元素
-    E element();	// 获取但不删除当前队列头部的元素
-    E peek();	// 获取但不移除当前队列头部的元素
-   
-}
-```
-
-## 36.6 Deque 接口
-
-双端队列, 双端队列允许在它的双端同时添加和移除元素
-
-```java
-继承于Queue,定义了支持双端队列操作的方法:
-// 以下方法在操作失败时抛出异常
-void addFirst(E e);	// 将指定元素插入当前双端队列的头部
-void addLast(E e);	// 将指定元素插入当前双端队列的尾部
-E removeFirst();	// 获取并移除当前双端队列头部的元素
-E removeLast();		// 获取并移除当前双端队列尾部的元素
-E getFirst();	// 获取但不移除当前双端队列头部的元素
-E getLast();	// 获取但不移除当前双端队列尾部的元素
-
-// 以下方法在操作失败时返回false
-boolean offerFirst(E e);	// 将指定元素插入到当前双端队列的头部
-boolean offerLast(E e);		// 将指定元素插入到当前双端队列的尾部
-
-// 以下方法在操作失败时返回null
-E pollFirst();	// 获取并移除当前双端队列头部的元素
-E pollLast();	// 获取并移除当前双端队列尾部的元素
-E peekFirst();	// 获取但不移除当前双端队列头部的元素
-E peekLast();	// 获取但不移除当前双端队列尾部的元素
-```
-
-## 36.7 Collections 类
-
-```java
-public static <T> boolean addAll(Collection<? super T> c, T...elements);	// 将所有指定元素 elements添加到指定集合 c 中
-public static <T extends Comparable<? super T> > void sort(List<T> list);	// 根据自然顺序对指定List集合中的元素从小到大排序. 
-public static <T> int binarySearch(List<? extends Comparable<? super T> > list, T key);	// 在一个已经按元素的自然顺序从小到大排序的指定List集合中查找指定元素key, 或 负值
-public static <T> void copy(List<? super T> dest, List<? extends T> src);	// 将集合src中的所有元素复制到dest中的相同位置.
-public static <T extends Object & Comparable<? super T> > T max(Collection<? extends T> coll);	// 根据元素的自然顺序, 返回指定Collection集合中的最大元素.
-public static <T extends Object & Comparable<? super T> > T min(Collection<? extends T> coll);	// 根据元素的自然顺序, 返回指定Collection集合中的最小元素.
-public static void reverse(list<? > list);	// 将指定List集合中的所有元素反转到相应的位置
-```
-
-#### 
-
