@@ -149,6 +149,90 @@ boolean a = "布尔类型" // false or true
 
 `final double PI = 3.1415926535 `
 
+***
+
+## 数组
+
+**数组引用的声明**
+
+```java
+数据类型[] 数据名;
+数据类型 数据名[];		// 源于 C语言 , 不推荐
+数组名.length ==> 返回数组长度
+```
+
+**数组的创建**
+
+元素个数的表达式的值必须 >= 0 且为整数	~~long~~
+
+```java
+数组名 = new 数据类型[元素个数表达式];
+```
+
+**元素的访问**
+
+```java
+数组名[下表表达式]		下表表达式  0 ==> MAX-1
+```
+
+**对象数组**
+
+数组中存放的是 **对象引用** ,访问前需要通过 new 创建实例
+
+```java
+class1[] class = new class[3];
+```
+
+**初始化数组**
+
+```java
+int[] arr = new int[]{1,2,3,};		// 第二个int后的方框不可指定元素个数
+int[] arr = {1,2,3,};
+```
+
+**多维数组**
+
+```java
+1:
+int[][] arr = new int[3][4];	// 不推荐使用
+
+2:
+int[][] arr = new int[3][];
+arr[0] = new int[4];    // 多维数组可不等长
+arr[1] = new int[3];
+arr[2] = new int[7];
+```
+
+**多维数组初始化**
+
+```java
+int[][] arr1 = {{1,2,},{3,4,},}
+```
+
+**数据的传递**
+
+```java
+public void fun(int[] a) {...}; 
+```
+
+**可变参数列表**
+
+- 以数组为参数 , 将**同一类型不定数目**的变量一次性传递
+- 数据类型...参数名    生成 **可变参数列表**
+
+```java
+public void fun(int...array) {...}
+```
+
+**返回值-数组**
+
+```java
+int[] a = new int[10];
+return a;	// 返回的只是一个引用数组的引用
+```
+
+***
+
 ## 运算符
 
 **算数运算符**
@@ -1214,7 +1298,7 @@ Iterator<String> it = lists.iterator();
 
 ***
 
-## 可变参数
+## 可变参数列表
 
 - 参数用在形参中可以接收多个数据。
 - 可变参数的格式：数据类型... 参数名称
@@ -1244,7 +1328,393 @@ sum(10,20,30); // 可以传输多个参数。
 sum(new int[]{10,30,50,70,90}); // 可以传输一个数组。
 ```
 
+***
 
+# 异常
+
+- Java语言中, 所有的异常类型都派生自类`java.lang.Throwable`
+- 其包含两个子类:
+  - **java.lang.Error**：表示系统错误, 程序一般不需要也不应该对这种类型的异常进行处理
+  - **java.lang.Exception**：表示可能从任何Java方法或运行期偶发事件中抛出的异常
+
+**特点**：
+
+- 运行时异常被抛出可以不处理。可以自动抛出,编译时异常必须处理.按照规范都应该处理!
+- 重写方法申明抛出的异常，应该与父类被重写方法申明抛出的异常一样或者范围更小
+- 方法默认都**可以自动抛出运行时异常**！  throws RuntimeException可以省略不写!!
+- 当多异常处理时，捕获处理，前边的异常类不能是后边异常类的父类。
+- 在try/catch后可以追加finally代码块，其中的代码一定会被执行，通常用于资源回收操作。
+
+## Exception
+
+- **编译时异常**：继承自Exception的异常或者其子类，**编译阶段就会报错**，必须程序员处理的。否则代码编译就不能通过！！
+
+**Exception异常类的常用子类**
+
+| 异常类型                         | 说明                                                         |
+| -------------------------------- | :----------------------------------------------------------- |
+| **`ClassNotFoundException`**     | **没有找到欲加载的类**                                       |
+| **`CloneNotSupportedException`** | **调用方法clone复制对象,<br/>但定义该对象的类没有实现接口Cloneable** |
+| **`IllegalAccessException`**     | **非法访问类和类的成员**                                     |
+| **`InterruptedException`**       | **当线程在活动之前或活动期间<br/>处于等待/休眠/占用且该线程被中断** |
+| **`NoSuchFieldException`**       | **类中不包含指定名称的数据成员**                             |
+| **`NoSuchMethodException`**      | **无法找到指定方法**                                         |
+| **`RuntimeException`**           | **可能在Java虚拟机正常运行期间抛出的异常的父类**             |
+| **`IOException`**                | **发生某种I/O错误**                                          |
+| **`FileNotFoundException`**      | **试图打开指定路径名的文件失败**                             |
+| **`MalformedURLException`**      | **出现错误的URL**                                            |
+| **`UnknownHostException`**       | **无法确认主机的IP地址**                                     |
+
+## RuntimeException
+
+- **运行时异常**: 继承自RuntimeException的异常或者其子类，编译阶段是不会出错的，它是在运行时阶段可能出现，运行时异常可以处理也可以不处理，编译阶段是不会出错的，但是运行阶段可能出现，还是建议提前处理！！
+
+**RuntimeException异常类的子类**
+
+| **异常类型**                          | **说明**                                                     |
+| :------------------------------------ | :----------------------------------------------------------- |
+| **`ArithmeticException`**             | **出现异常的运算条件**                                       |
+| **`ArrayStoreException`**             | **将错误类型的对象存储到一个对象数组中**                     |
+| **`ClassCastException`**              | **试图将对象强制转换为不是实例的子类**                       |
+| **`IllegalArgumentException`**        | **方法调用时传递的参数不合法**                               |
+| **`IndexOutOfBoundsException`**       | **索引值超出范围**                                           |
+| **`NegativeArraySizeException`**      | **试图创建元素个数为负数的数组**                             |
+| **`NullPointerException`**            | **试图访问空对象时**                                         |
+| **`SecurityException`**               | **存在安全侵犯时**                                           |
+| **`ArrayIndexOutOfBoundsException`**  | **用非法索引值访问数组**                                     |
+| **`StringIndexOutOfBoundsException`** | **字符串索引值超出范围**                                     |
+| **`IllegalThreadStateException`**     | **线程没有处于请求操作所要求的适当状态时**                   |
+| **`NumberFormatException`**           | **字符串无法转换成适当格式数值类型**                         |
+| **`InputMismatchException`**          | **当获取的标记与期望类型的模式不匹配,<br />或者该标记超出期望类型的范围内时** |
+
+**Exception类的构造方法**
+
+```java
+public Exception();
+public Exception(String message);
+```
+
+**Throwable类获取异常信息**
+
+```java
+// 返回当前异常的详细信息 
+String getMessage();
+// 返回当前异常的简要描述    
+String toString();
+//在标准错误输出上打印当前异常及其栈追踪信息
+void printStackTrace();
+```
+
+## 自定义异常类
+
+- 自定义异常类时,应该使它派生于类**`Exception`**或它的子类
+
+```java
+class MyException extends Exception {
+    public MyException() {}
+    public MyExceptino(String Message) {
+        super(message);
+    }
+}
+```
+
+## 抛出和声明异常
+
+- 当程序运行出现错误时, **Java语言预定义的异常**会由系统创建一个相应的异常类对象并抛出
+- **其他异常(如用户自定义异常)**必须在程序中中使用**throw**显式抛出
+
+- Java语言预定义的异常也可以使用关键字throw在程序中显式抛出
+
+- 对于**必检异常**，必须使用**throws**在该方法的方法头中声明异常的类型
+
+```java
+static int method(int a, int b) throws MyException, ArithmeticException {
+    if(a < 0) throw new MyException("被除数不能小于零");
+    if(b == 0) throw new ArithmeticException("除数不能等于零");
+    return a / b;
+}
+```
+
+方法覆盖时,当父类中被覆盖的方法没有声明某必检异常,子类中的覆盖方法也不能声明
+
+## 捕获异常
+
+`try`    `catch`    `finally`
+
+```java
+try {
+    // 可能出现异常的代码;
+} catch(Type1 id1) {
+    // 对 Type1 类异常进行处理的代码;
+} catch(Type2 id2) {
+    // 对 Type2 类异常进行处理的代码;
+} catch(Exception e1) {
+    // 确保捕获所有异常,但放置靠前则之后的 catch块都会失效;
+} finally {
+    // 无论是否出现异常,都会执行;
+}
+```
+
+***
+
+
+
+# 多线程
+
+**什么是进程**：
+- 程序是静止的，运行中的程序就是进程。
+- 进程的三个特征：
+    1. 动态性 ： 进程是运行中的程序，要动态的占用内存，CPU和网络等资源。
+    2. 独立性 ： 进程与进程之间是相互独立的，彼此有自己的独立内存区域。
+    3. 并发性 ： 假如CPU是单核，同一个时刻其实内存中只有一个进程在被执行。CPU会分时轮询切换依次为每个进程服务，因为切换的速度非常快，给我们的感觉这些进程在同时执行，这就是并发性。
+
+**并行**：同一个时刻同时有多个在执行。
+
+**什么是线程**：
+
+- 线程是属于进程的。一个进程可以包含多个线程，这就是多线程。
+- 线程是进程中的一个独立执行单元。
+- 线程创建开销相对于进程来说比较小。
+- 线程也支持“并发性”。
+
+**线程的作用**：
+
+- 可以提高程序的效率，线程也支持并发性，可以有更多机会得到CPU。
+- 多线程可以解决很多业务模型。
+- 大型高并发技术的核心技术。
+- 设计到多线程的开发可能都比较难理解。
+
+## `Thread`类
+
+**继承`Thread`类的方式**
+
+```java
+public class ThreadDemo {
+    public static void main(String[] args) {
+        // 3.创建一个线程对象
+        Thread t = new MyThread();
+        // 4.调用线程对象的start()方法启动线程,最终还是执行run()方法！
+        t.start();
+    }
+}
+// 1.定义一个线程类继承Thread类。
+class MyThread extends Thread{
+    // 2.重写run()方法
+    @Override
+    public void run() {
+        // 线程的执行方法。
+        System.out.println("子线程输出");
+    }
+}
+```
+
+**继承`Thread`类的优缺点**：
+
+- **优点**：编码简单。
+- **缺点**：线程类已经继承了Thread类无法继承其他类了，功能不能通过继承拓展（单继承的局限性）
+
+```java
+// -- 给当前线程取名字。
+public void setName(String name);
+// -- 线程存在默认名称，子线程的默认名称是：Thread-索引。
+// -- 主线程的默认名称就是：main
+// -- 获取当前线程的名字。
+public void getName();
+
+// -- 获取当前线程对象，这个代码在哪个线程中，就得到哪个线程对象。
+public static Thread currentThread();
+// -- 让当前线程休眠多少毫秒再继续执行。
+public static void sleep(long time);
+```
+
+## `Runnable`接口
+
+通过实现接口`java.lang.Runnable`, 在方法run中定义相应线程的子任务代码
+
+```java
+// 1.创建一个线程任务类实现Runnable接口。
+public class testRunnable implements Runnable {
+    public static void main(String[] args) {
+        // 3.创建一个线程任务对象(注意：线程任务对象不是线程对象，只是执行线程的任务的)
+        Runnable target = new testRunnable();
+        // 4.把线程任务对象包装成线程对象.且可以指定线程名称
+        Thread t = new Thread(target,"1号线程");
+        // 5.调用线程对象的start()方法启动线程
+        t.start();
+    }
+    // 2.重写run()方法
+    @Override
+    public void run() {
+        // 线程的执行方法。
+        System.out.println("子线程输出");
+    }
+}
+```
+
+## 线程属性
+
+Java语言中,每个线程都有一个优先级, 而且, 程序中每个显式创建的线程都可以标记为守护线程
+
+### 线程优先级
+
+```java
+// 更改当前线程的优先级
+new Thread(threadA).setPriority(num);
+
+// 返回当前线程的优先级
+new Thread(threadB).getPriority();
+
+Java语言中,线程有10个优先级
+最低优先级常量    Thread. MIN_PRIORITY = 10;
+最高优先级常量    Thread. MAX_PRIORITY = 1;
+默认优先级常量    THread. NORM_PRIORITY = 5;
+```
+
+Java线程的优先级通常会被映射到其运行平台操作系统的优先级上。Windows操作系统只有七个优先级别, 这种映射关系是不确定的
+
+### 守护线程
+
+Java语言中, 线程分为用户线程和守护线程两类。 
+
+主线程为用户线程，在用户线程中创建的线程默认为用户线程。
+
+==守护线程==也成为后台线程,这种线程与用户线程的区别在于当一个程序中的所有用户线程都结束运行时,程序会立即结束执行,不管当前是否还有守护线程正在运行
+
+守护线程通常用来在后台为其他线程提供服务, 它不属于程序中的必要部分
+
+```java
+设置为守护线程    new Thread(threadA).setDaemon(true);    // 必须在当前线程启动之前调用，主线程无法转换为守护线程
+判断是否为守护线程    new Thread(threadB).isDaemon();
+
+返回对当前正在运行的线程对象的引用    Thread thread = Thread.currentThread();
+返回线程的名称    new Thread(threadB).getName();    // 每个线程都有默认的名称 thread-0
+设置线程的名称    new Thread(threadB).setName();
+设置休眠时间    Thread.sleep(1000);    // 毫秒
+```
+
+## 线程池
+
+### 线程池的创建
+
+```java
+创建一个可根据需要创建新线程的线程池
+import java.util.concurrent.Executors;
+ExecutorService exec = Executors.newCathedThreadPool();
+当某一个线程在60s内没有被使用时,系统会自动终止并从缓存中移除它
+
+创建一个可重用的包含指定数量线程的线程池
+ExecutorService exec = Executors.newFixedThreadPool(3);
+```
+
+### 线程池的操作
+
+```java
+线程池的关闭    exec.shutdown();    // 线程池必须显式关闭
+添加子任务    exec.execute(new TestExecutor("Thread",3));
+```
+
+### 使用Lock锁实现同步
+
+多线程程序中, 一个资源可以被多个并发线程共享, 如果不加以防范, 就有可能引起资源冲突
+
+```java
+import java.util.concurrent.locks.*;
+private final banklock = new ReentrantLock();
+
+banklock.lock();
+try {
+    临界区
+} finally {
+    banklock.unlock();
+}
+
+当某一线程执行到此处时,如果当前锁可用,则获得这个锁,并给下方代码加锁,线程执行完成后进行解锁.
+当前一线程解锁前,其他线程执行其中的加锁语句时进入等待,直至当前锁被释放.
+```
+
+### 使用`synchronized`实现同步
+
+当一个线程需要执行某个被关键字synchronized保护的代码时,他将首先检查==当前对象==内置的锁是否可用, 如果可用,就获得该锁,执行其中的代码,然后释放该锁.
+
+**同步方法**
+
+当前线程必须获得当前对象的内置锁
+
+```java
+public synchronized double getBalance() {
+    return balance;
+}
+```
+
+**同步块**
+
+当前线程必须获得指定对象的内置锁
+
+```java
+public double getBalance() {
+    synchronized(指定对象名) {    // 对象名是指用于保护随后临界区中代码的内置锁所属对象的引用名
+        return balance;
+    }
+}
+```
+
+### 线程间协作
+
+对于synchronized保护的临界区, 可通过调用下述方法实现线程间协作
+
+==下述方法必须出现在同步方法或者同步块中,且只能通过用于保护当前临界区的内置锁所属对象调用
+
+```java
+## 使用wait方法将导致当前线程释放掉它拥有的当前对象的内置锁
+使当前线程的等待,直到其他线程同一对象调用方法 notify or notifyAll
+public final void wait() throws InterruptedException;
+或者等待时间超出参数指定的时间
+public final void wait(int timeout) throws InterruptedException;
+
+唤醒正在当前对象内置锁上等待的所有线程
+public final void notifyAll();
+唤醒任意一个正在当前对象内置锁上等待的线程
+public final void notify();
+
+```
+
+### 线程的状态
+
+- Java语言使用内部枚举类型==java.lang.Thread.State==描述六种状态
+
+- 调用类Thread.getState();可以获取当前线程的状态
+
+**新生状态**
+
+- 创建一个新的线程对象,在尚未启动前,该线程就处于新生状态, 
+
+`Thread.State.NEW`
+
+**可运行状态**
+
+- 一个处于可运行状态的线程可能正在运行也可能没有运行,这取决于线程调度器是否给他分配了CPU
+
+- 线程调度器只会给处于可运行状态的线程分配CPU, 并且倾向于先给优先级高的线程分配CPU时间片
+
+`Thread.State.RUNNABLE`
+
+**阻塞状态**
+
+- 当线程试图获取对象的内置锁被其他线程拥有时,线程进入阻塞状态
+
+`Thread.State.BLOCKED`
+
+**等待状态**
+
+`Thread.State.WAITING`
+
+**计时等待状态**
+
+`Thread.State.TIMED_WAITING`
+
+**终止状态**
+
+`Thread.State.TERMINATED`
 
 ***
 
@@ -2053,7 +2523,7 @@ public static void shuffle(List<?> list);
 4. 如果某一个节点是红色，那么它的子节点必须是黑色(不能出现两个红色节点相连的情况)
 5. 对每一个节点，从该节点到其所有后代叶节点的简单路径上，均包含相同数目的黑色节点；
 
-![](https://raw.githubusercontent.com/which-biscuits/pigGo/main/1562653205543.png)
+![1562653205543](images/1562653205543.png)
 
 - **元素插入**：每一次插入完毕以后，使用黑色规则进行校验，如果不满足红黑规则，就需要通过变色，左旋和右旋来调整树，使其满足红黑规则；
 
@@ -2233,95 +2703,6 @@ BigInteger num3 = num1.divide(num2);
 ```
 ***
 
-# 18 对象类型转换
-
-- 子类对象 可向上转换为 父类对象	// **无法访问在子类中新定义的成员**
-- 当父类对象 引用 子类对象时    可以**强制类型转换**为 子类对象
-
-***
-
-# 26 数组
-
-### 		数组引用的声明
-
-```java
-数据类型[] 数据名;
-数据类型 数据名[];		// 源于 C语言 , 不推荐
-数组名.length ==> 返回数组长度
-```
-
-### 	数组的创建
-
-元素个数的表达式的值必须 >= 0 且为整数	~~long~~
-
-```java
-数组名 = new 数据类型[元素个数表达式];
-```
-
-### 	元素的访问
-
-```java
-数组名[下表表达式]		下表表达式  0 ==> MAX-1
-```
-
-### 	对象数组
-
-数组中存放的是 **对象引用** ,访问前需要通过 new 创建实例
-
-```java
-class1[] class = new class[3];
-```
-
-### 初始化数组
-
-```java
-int[] arr = new int[]{1,2,3,};		// 第二个int后的方框不可指定元素个数
-int[] arr = {1,2,3,};
-```
-
-### 多维数组
-
-```java
-1:
-int[][] arr = new int[3][4];	// 不推荐使用
-
-2:
-int[][] arr = new int[3][];
-arr[0] = new int[4];    // 多维数组可不等长
-arr[1] = new int[3];
-arr[2] = new int[7];
-```
-
-### 多维数组初始化
-
-```java
-int[][] arr1 = {{1,2,},{3,4,},}
-```
-
-### 数据的传递
-
-```java
-public void fun(int[] a) {...}; 
-```
-
-### 可变参数列表
-
-- 以数组为参数 , 将**同一类型不定数目**的变量一次性传递
-- 数据类型...参数名    生成 **可变参数列表**
-
-```java
-public void fun(int...array) {...}
-```
-
-### 返回值-数组
-
-```java
-int[] a = new int[10];
-return a;	// 返回的只是一个引用数组的引用
-```
-
-
-
 # 30 命令行参数
 
 类的**main**方法 有一个String 数组类型的参数, 可通过**命令行**给其传参
@@ -2329,311 +2710,6 @@ return a;	// 返回的只是一个引用数组的引用
 ```java
 c:\test>java class1 2.6 + 4 "Hello Java!"	// 参数列表,有空格时需要双引号引出, 参数以空格划分字符串
 ```
-
-# 31 异常处理
-
-## 异常和异常类
-
-> Java语言中, 所有的异常类型都派生自类==java.lang.Throwable==    其包含两个子类:
->
-> ==java.lang.Error==    表示系统错误, 程序一般不需要也不应该对这种类型的异常进行处理
->
-> ==java.lang.Exception==    表示可能从任何Java方法或运行期偶发事件中抛出的异常
-
-**EXception异常类的常用子类**
-
-|               异常类型               |                            说明                             |
-| :----------------------------------: | :---------------------------------------------------------: |
-|   java.lang.ClassNotFoundException   |                     没有找到欲加载的类                      |
-| java.lang.CloneNotSupportedException | 调用方法clone复制对象,但定义该对象的类没有实现接口Cloneable |
-|   java.lang.IllegalAccessException   |                    非法访问类和类的成员                     |
-|    java.lang.InterruptedException    | 当线程在活动之前或活动期间处于等待/休眠/占用且该线程被中断  |
-|    java.lang.NoSuchFieldException    |                类中不包含指定名称的数据成员                 |
-|   java.lang.NoSuchMethodException    |                      无法找到指定方法                       |
-|      java.lang.RuntimeException      |        可能在Java虚拟机正常运行期间抛出的异常的父类         |
-|         java.io.IOException          |                       发生某种I/O错误                       |
-|    java.io.FileNotFoundException     |                试图打开指定路径名的文件失败                 |
-|    java.net.MalformedURLException    |                        出现错误的URL                        |
-|    java.net.UnknownHostException     |                    无法确认主机的IP地址                     |
-
-**RuntimeException**为Java虚拟机正常运行期间抛出的异常,是Java解释器执行正常指令时产生的异常,表示编译器无法发现的编译错误
-
-**RuntimeException异常类的子类**
-
-|                 异常类型                  |                             说明                             |
-| :---------------------------------------: | :----------------------------------------------------------: |
-|       java.lang.ArithmeticException       |                      出现异常的运算条件                      |
-|       java.lang.ArrayStoreException       |             将错误类型的对象存储到一个对象数组中             |
-|       java.lang.ClassCastException        |              试图将对象强制转换为不是实例的子类              |
-|    Java.lang.IllegalArgumentException     |                  方法调用时传递的参数不合法                  |
-|    java.lang.IndexOutOfBoundsException    |                        索引值超出范围                        |
-|   java.lang.NegativeArraySizeException    |                 试图创建元素个数为负数的数组                 |
-|      java.lang.NullPointerException       |                       试图访问空对象时                       |
-|        java.lang.SecurityException        |                        存在安全侵犯时                        |
-| java.lang.ArrayIndexOutOfBoundsException  |                     用非法索引值访问数组                     |
-| java.lang.StringIndexOutOfBoundsException |                     字符串索引值超出范围                     |
-|   java.lang.IllegalThreadStateException   |            线程没有处于请求操作所要求的适当状态时            |
-|      java.lang.NumberFormatException      |               字符串无法转换成适当格式数值类型               |
-|     java.util.InputMismatchException      | 当获取的标记与期望类型的模式不匹配,<br />或者该标记超出期望类型的范围内时 |
-
-**Exception类的构造方法**
-
-```java
-public Exception();
-public Exception(String message);
-```
-
-**Throwable类获取异常信息**
-
-```java
-返回当前异常的详细信息    String getMessage();
-返回当前异常的简要描述    String toString();
-
-在标准错误输出上打印当前异常及其栈追踪信息    void printStackTrace();
-```
-
-## 自定义异常类
-
-> 自定义异常类时,应该使它派生于类==Exception==或它的子类
-
-```java
-class MyException extends Exception {
-    public MyException() {}
-    public MyExceptino(String Message) {
-        super(message);
-    }
-}
-```
-
-## 抛出和声明异常
-
-> 当程序运行出现错误时, ==Java语言预定义的异常==会由系统创建一个相应的异常类对象并抛出
->
-> ==其他异常(如用户自定义异常)==必须在程序中中使用==throw==显式抛出
->
-> Java语言预定义的异常也可以使用关键字throw在程序中显式抛出
->
-> 对于==必检异常==,必须使用==throws==在该方法的方法头中声明异常的类型
-
-```java
-static int method(int a, int b) throws MyException, ArithmeticException {
-    if(a < 0) throw new MyException("被除数不能小于零");
-    if(b == 0) throw new ArithmeticException("除数不能等于零");
-    return a / b;
-}
-```
-
-方法覆盖时,当父类中被覆盖的方法没有声明某必检异常,子类中的覆盖方法也不能声明
-
-## 捕获异常
-
-`try`    `catch`    `finally`
-
-```java
-try {
-    可能出现异常的代码;
-} catch(Type1 id1) {
-    对 Type1 类异常进行处理的代码;
-} catch(Type2 id2) {
-    对 Type2 类异常进行处理的代码;
-} catch(Exception e1) {
-    确保捕获所有异常,但放置靠前则之后的 catch块都会失效;
-} finally {
-    无论是否出现异常,都会执行;
-}
-```
-
-# 32 多线程
-
-## 32.1 创建任务和线程
-
-通过实现接口==java.lang.Runnable==, 在方法run中定义相应线程的子任务代码
-
-```java
-public class testRunnable implements Runnable {
-    String str;
-    int num;
-    public testRunnable(String str, int num) {
-        this.str = str;
-        this.num = num;
-    }
-    public static void main(String[] args) {
-        testRunnable threadA = new testRunnable("threadA",30);
-        testRunnable threadB = new testRunnable("threadB",20);
-        new Thread(threadA).start();
-        new Thread(threadB).start();
-    }
-    public void run() {
-        for(int index=0;index<num;index++)
-        	System.out.println(str);
-    }
-}
-```
-
-## 32.2 线程属性
-
-Java语言中,每个线程都有一个优先级, 而且, 程序中每个显式创建的线程都可以标记为守护线程
-
-### 32.2.1 线程优先级
-
-```java
-更改当前线程的优先级
-new Thread(threadA).setPriority(num);
-
-返回当前线程的优先级
-new Thread(threadB).getPriority();
-
-Java语言中,线程有10个优先级
-最低优先级常量    Thread. MIN_PRIORITY = 10;
-最高优先级常量    Thread. MAX_PRIORITY = 1;
-默认优先级常量    THread. NORM_PRIORITY = 5;
-```
-
-Java线程的优先级通常会被映射到其运行平台操作系统的优先级上。Windows操作系统只有七个优先级别, 这种映射关系是不确定的
-
-### 32.2.2 守护线程
-
-Java语言中, 线程分为用户线程和守护线程两类。 
-
-主线程为用户线程，在用户线程中创建的线程默认为用户线程。
-
-==守护线程==也成为后台线程,这种线程与用户线程的区别在于当一个程序中的所有用户线程都结束运行时,程序会立即结束执行,不管当前是否还有守护线程正在运行
-
-守护线程通常用来在后台为其他线程提供服务, 它不属于程序中的必要部分
-
-```java
-设置为守护线程    new Thread(threadA).setDaemon(true);    // 必须在当前线程启动之前调用，主线程无法转换为守护线程
-判断是否为守护线程    new Thread(threadB).isDaemon();
-
-返回对当前正在运行的线程对象的引用    Thread thread = Thread.currentThread();
-返回线程的名称    new Thread(threadB).getName();    // 每个线程都有默认的名称 thread-0
-设置线程的名称    new Thread(threadB).setName();
-设置休眠时间    Thread.sleep(1000);    // 毫秒
-```
-
-## 32.3 线程池
-
-### 32.3.1 线程池的创建
-
-```java
-创建一个可根据需要创建新线程的线程池
-import java.util.concurrent.Executors;
-ExecutorService exec = Executors.newCathedThreadPool();
-当某一个线程在60s内没有被使用时,系统会自动终止并从缓存中移除它
-
-创建一个可重用的包含指定数量线程的线程池
-ExecutorService exec = Executors.newFixedThreadPool(3);
-```
-
-### 32.3.2 线程池的操作
-
-```java
-线程池的关闭    exec.shutdown();    // 线程池必须显式关闭
-添加子任务    exec.execute(new TestExecutor("Thread",3));
-```
-
-### 32.3.3 使用Lock锁实现同步
-
-多线程程序中, 一个资源可以被多个并发线程共享, 如果不加以防范, 就有可能引起资源冲突
-
-```java
-import java.util.concurrent.locks.*;
-private final banklock = new ReentrantLock();
-
-banklock.lock();
-try {
-    临界区
-} finally {
-    banklock.unlock();
-}
-
-当某一线程执行到此处时,如果当前锁可用,则获得这个锁,并给下方代码加锁,线程执行完成后进行解锁.
-当前一线程解锁前,其他线程执行其中的加锁语句时进入等待,直至当前锁被释放.
-```
-
-### 32.3.4 使用synchronized实现同步
-
-当一个线程需要执行某个被关键字synchronized保护的代码时,他将首先检查==当前对象==内置的锁是否可用, 如果可用,就获得该锁,执行其中的代码,然后释放该锁.
-
-**同步方法**
-
-当前线程必须获得当前对象的内置锁
-
-```java
-public synchronized double getBalance() {
-    return balance;
-}
-```
-
-**同步块**
-
-当前线程必须获得指定对象的内置锁
-
-```java
-public double getBalance() {
-    synchronized(指定对象名) {    // 对象名是指用于保护随后临界区中代码的内置锁所属对象的引用名
-        return balance;
-    }
-}
-```
-
-### 32.3.5 线程间协作
-
-对于synchronized保护的临界区, 可通过调用下述方法实现线程间协作
-
-==下述方法必须出现在同步方法或者同步块中,且只能通过用于保护当前临界区的内置锁所属对象调用
-
-```java
-## 使用wait方法将导致当前线程释放掉它拥有的当前对象的内置锁
-使当前线程的等待,直到其他线程同一对象调用方法 notify or notifyAll
-public final void wait() throws InterruptedException;
-或者等待时间超出参数指定的时间
-public final void wait(int timeout) throws InterruptedException;
-
-唤醒正在当前对象内置锁上等待的所有线程
-public final void notifyAll();
-唤醒任意一个正在当前对象内置锁上等待的线程
-public final void notify();
-
-```
-
-### 32.3.6 线程的状态
-
-> Java语言使用内部枚举类型==java.lang.Thread.State==描述六种状态
->
-> 调用类Thread.getState();可以获取当前线程的状态
-
-**新生状态**
-
-创建一个新的线程对象,在尚未启动前,该线程就处于新生状态, 
-
-Thread.State.NEW
-
-**可运行状态**
-
-一个处于可运行状态的线程可能正在运行也可能没有运行,这取决于线程调度器是否给他分配了CPU
-
-线程调度器只会给处于可运行状态的线程分配CPU, 并且倾向于先给优先级高的线程分配CPU时间片
-
-Thread.State.RUNNABLE
-
-**阻塞状态**
-
-当线程试图获取对象的内置锁被其他线程拥有时,线程进入阻塞状态
-
-Thread.State.BLOCKED
-
-**等待状态**
-
-Thread.State.WAITING
-
-**计时等待状态**
-
-Thread.State.TIMED_WAITING
-
-**终止状态**
-
-Thread.State.TERMINATED
 
 # 33 图形用户界面
 

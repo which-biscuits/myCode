@@ -113,8 +113,12 @@ class Card implements Comparable<Card>{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Card card = (Card) o;
         return Objects.equals(number, card.number) && Objects.equals(color, card.color);
     }
