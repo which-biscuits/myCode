@@ -28,7 +28,15 @@
 > `const	goto `	无实际用途,目前仅为**占位符**
 >
 
-### **instanceof**
+### volatile
+
+- 并发编程下，多线程修改变量，会出现线程间变量的不可见性
+- 按照**JMM模型**，所有的成员变量和静态变量都存在于主内存中，主内存中的变量可以被多个线程共享。每个线程都存在一个专属于自己的工作内存，工作内存一开始存储的是成员变量的副本。所以线程很多时候都是直接访问自己工作内存中的该变量，其他线程对主内存变量值的修改将不可见！！
+
+- 通过`volatile`修饰变量，实现并发编程中变量的可见性
+- `volatile`**只能保证可见性，不能保证原子性**（不保证线程安全）
+
+### instanceof
 
 ```java
 B instanceof A
@@ -36,7 +44,7 @@ if ((B是指定类A || B派生于A || B实现了指定接口A) && B != null) { r
 else { return false; }
 ```
 
-### **final**
+### final
 
 1. 任何一个变量被 final 修饰后 一旦初始化,其值便不可改变
 
@@ -78,11 +86,11 @@ public static final int TEST = 1;
 // 复制地点: 定义，实例代码块，构造器
 ```
 
-### **public**
+### public
 
 - 权限修饰符, 在任意地方可以访问
 
-### **protected**
+### protected
 
 - 权限修饰符, 可以在本类、本包、其他包继承本类的子类中访问
 
@@ -90,7 +98,7 @@ public static final int TEST = 1;
 
 - 在本类、本包中访问
 
-### **private**
+### private
 
 - 权限修饰符, 只能在本类中访问
 
@@ -1330,6 +1338,13 @@ sum(new int[]{10,30,50,70,90}); // 可以传输一个数组。
 
 ***
 
+## 原子性
+
+- 指在一次操作或者多次操作中，要么**所有的操作全部都得到了执行**并且不会受到任何因素的干扰而中断，**要么所有的操作都不执行**。 
+- 
+
+***
+
 # 异常
 
 - Java语言中, 所有的异常类型都派生自类`java.lang.Throwable`
@@ -1531,6 +1546,14 @@ public static void sleep(long time);
 
 通过实现接口`java.lang.Runnable`, 在方法run中定义相应线程的子任务代码
 
+- 线程任务类只是实现了Runnable接口，可以继续继承其他类，而且可以继续实现其他接口（避免了单继承的局限性）
+- 同一个线程任务对象可以被包装成多个线程对象
+- 适合多个多个线程去共享同一个资源
+- 实现解耦操作，线程任务代码可以被多个线程共享，线程任务代码和线程独立。
+- 线程池可以放入实现Runable或Callable线程任务对象。
+- `Thread`类本身也是实现了`Runnable`接口的。
+- **不能直接得到线程执行的结果，也不能抛出异常**（重写的`run()`方法是无参、无返回值、无异常函数）
+
 ```java
 // 1.创建一个线程任务类实现Runnable接口。
 public class testRunnable implements Runnable {
@@ -1551,11 +1574,81 @@ public class testRunnable implements Runnable {
 }
 ```
 
-## 线程属性
+**匿名内部类简化写法**：
 
-Java语言中,每个线程都有一个优先级, 而且, 程序中每个显式创建的线程都可以标记为守护线程
+```java
+Runnable runnable = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("test");
+    }
+};
+Runnable runnable = () -> System.out.println("test");
+```
 
-### 线程优先级
+## `Callable`接口
+
+- 线程任务类只是实现了Callable接口，可以继续继承其他类，而且可以继续实现其他接口（避免了单继承的局限性）
+- 同一个线程任务对象可以被包装成多个线程对象
+- 适合多个多个线程去共享同一个资源（后面内容）
+- 实现解耦操作，线程任务代码可以被多个线程共享，线程任务代码和线程独立。
+- 线程池可以放入实现Runable或Callable线程任务对象。(后面了解)
+- **能直接得到线程执行的结果**！
+
+```java
+// 1.创建一个线程任务类实现 Callable 接口，申明线程返回的结果类型
+class MyCallable implements Callable<String>{
+    // 2.重写线程任务类的call方法！
+    @Override
+    public String call() throws Exception {
+        return "执行结果"
+    }
+    public static void main(String[] args) {
+        // 3.创建一个Callable的线程任务对象
+        Callable call = new MyCallable();
+        // 4.把Callable任务对象包装成一个未来任务对象
+        FutureTask<String> task = new FutureTask<>(call);
+        // 5.把未来任务对象包装成线程对象
+        Thread thread = new Thread(task);
+        // 6.启动线程对象
+        thread.start();
+        // 7. 在最后去获取线程执行的结果,如果线程没有结果，让出CPU等线程执行完再来取结果
+        try {
+            // 获取call方法返回的结果（正常/异常结果）
+            String rs = task.get(); 
+            System.out.println(rs);
+        }  catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**`FutureTask`的作用**：
+
+- 实现了`Runnable`接口:这样就可以被包装成线程对象！
+- 未来任务对象可以在线程执行完毕之后去得到线程执行的结果`object.get()`。
+
+**`FutureTask`的缺点**：
+
+- 如果线程长时间没有返回值或抛出异常，会导致线程阻塞
+
+```java
+public V get() throws InterruptedException, ExecutionException;
+```
+
+- 等待固定时长，如果在这个时长内程序还是没有运行完成，就会出现 juc.TimeOutException 异常
+
+```java
+public V get(long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException;
+// timeout:等待时长 unit:时间单位
+futureTask.get(2, TimeUnit.SECONDS);
+```
+
+## 线程优先级
+
+- Java语言中,每个线程都有一个优先级, 而且, 程序中每个显式创建的线程都可以标记为守护线程
 
 ```java
 // 更改当前线程的优先级
@@ -1565,20 +1658,20 @@ new Thread(threadA).setPriority(num);
 new Thread(threadB).getPriority();
 
 Java语言中,线程有10个优先级
-最低优先级常量    Thread. MIN_PRIORITY = 10;
-最高优先级常量    Thread. MAX_PRIORITY = 1;
-默认优先级常量    THread. NORM_PRIORITY = 5;
+最低优先级常量    Thread.MIN_PRIORITY = 10;
+最高优先级常量    Thread.MAX_PRIORITY = 1;
+默认优先级常量    THread.NORM_PRIORITY = 5;
 ```
 
-Java线程的优先级通常会被映射到其运行平台操作系统的优先级上。Windows操作系统只有七个优先级别, 这种映射关系是不确定的
+- Java线程的优先级通常会被映射到其运行平台操作系统的优先级上。**Windows操作系统只有七个优先级别**, 这种映射关系是不确定的
 
-### 守护线程
+## 守护线程
 
-Java语言中, 线程分为用户线程和守护线程两类。 
+- Java语言中, 线程分为用户线程和守护线程两类。 
 
-主线程为用户线程，在用户线程中创建的线程默认为用户线程。
+- 主线程为用户线程，在用户线程中创建的线程默认为用户线程。
 
-==守护线程==也成为后台线程,这种线程与用户线程的区别在于当一个程序中的所有用户线程都结束运行时,程序会立即结束执行,不管当前是否还有守护线程正在运行
+- 守护线程也成为后台线程,这种线程与用户线程的区别在于当一个程序中的所有用户线程都结束运行时,程序会立即结束执行,不管当前是否还有守护线程正在运行
 
 守护线程通常用来在后台为其他线程提供服务, 它不属于程序中的必要部分
 
@@ -1594,26 +1687,68 @@ Java语言中, 线程分为用户线程和守护线程两类。
 
 ## 线程池
 
-### 线程池的创建
+**线程池的作用**：
+
+- 降低资源消耗：
+
+  减少了创建和销毁线程的次数，**每个工作线程都可以被重复利用**，可执行多个任务。
+
+- 提高响应速度：
+
+  不需要频繁的创建线程，如果有线程可以直接用，不会出现系统僵死！
+
+- 提高线程的可管理性：
+
+  线程池可以约束系统最多只能有多少个线程，**不会因为线程过多而死机**
+
+**线程池的核心思想**：
+
+- 线程复用，同一个线程可以被重复使用，来处理多个任务。
+
+**线程池的创建**：
 
 ```java
-创建一个可根据需要创建新线程的线程池
-import java.util.concurrent.Executors;
-ExecutorService exec = Executors.newCathedThreadPool();
-当某一个线程在60s内没有被使用时,系统会自动终止并从缓存中移除它
+// 当某一个线程在60s内没有被使用时,系统会自动终止并从缓存中移除它
+ExecutorService pools = Executors.newCathedThreadPool();
 
-创建一个可重用的包含指定数量线程的线程池
-ExecutorService exec = Executors.newFixedThreadPool(3);
+// 创建一个可重用的包含指定数量线程的线程池
+ExecutorService pools = Executors.newFixedThreadPool(3);
 ```
 
-### 线程池的操作
+**提交`Runnable`接口任务**：
 
 ```java
-线程池的关闭    exec.shutdown();    // 线程池必须显式关闭
-添加子任务    exec.execute(new TestExecutor("Thread",3));
+pools.submit(new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("test");
+    }
+})
 ```
 
-### 使用Lock锁实现同步
+**提交`Callable`接口任务**：
+
+```java
+Future<String> task = pools.submit(new Callable<String>() {
+    @Override
+    public String call() throws Exception {
+        return "test";
+    }
+});
+// 获取返回值 主线程程会等待 task 线程结束
+String result = task.get()
+```
+
+**线程池的显式结束**：
+
+```java
+// 等所有线程任务完成之后关闭线程池
+exec.shutdown();
+// 立即关闭线程池
+exec.shutdownNow();
+```
+
+## `Lock`锁
 
 多线程程序中, 一个资源可以被多个并发线程共享, 如果不加以防范, 就有可能引起资源冲突
 
@@ -1632,13 +1767,16 @@ try {
 当前一线程解锁前,其他线程执行其中的加锁语句时进入等待,直至当前锁被释放.
 ```
 
-### 使用`synchronized`实现同步
+## `synchronized`同步方法
 
-当一个线程需要执行某个被关键字synchronized保护的代码时,他将首先检查==当前对象==内置的锁是否可用, 如果可用,就获得该锁,执行其中的代码,然后释放该锁.
+- 当一个线程需要执行某个被关键字synchronized保护的代码时,他将首先检查内置的锁是否可用
+  - 如果可用,就获得该锁,执行其中的代码,然后释放该锁.
 
-**同步方法**
+**锁对象**：
 
-当前线程必须获得当前对象的内置锁
+- **实例方法**：同步方法默认用this作为的锁对象。
+
+- **静态方法**：同步方法默认用类名.class作为的锁对象。
 
 ```java
 public synchronized double getBalance() {
@@ -1646,39 +1784,46 @@ public synchronized double getBalance() {
 }
 ```
 
-**同步块**
+## `synchronized`同步块
 
-当前线程必须获得指定对象的内置锁
+- 当前线程必须获得指定对象的内置锁
+- 把出现线程安全问题的核心代码给上锁，每次只能一个线程进入，执行完毕以后自动解锁，其他线程才可以进来执行。
+
+**锁对象**：
+
+- 锁对象建议使用共享资源。
+- 在实例方法中建议用**this**作为锁对象。此时this正好是共享资源！
+- 在**静态方法**中建议用类名.class字节码作为锁对象。
 
 ```java
 public double getBalance() {
-    synchronized(指定对象名) {    // 对象名是指用于保护随后临界区中代码的内置锁所属对象的引用名
+    // 对象名是指用于保护随后临界区中代码的内置锁所属对象的引用名
+    synchronized(指定对象名) {    
         return balance;
     }
 }
 ```
 
-### 线程间协作
+## 线程间协作
 
-对于synchronized保护的临界区, 可通过调用下述方法实现线程间协作
+- 对于`synchronized`保护的临界区, 可通过调用下述方法实现线程间协作
 
-==下述方法必须出现在同步方法或者同步块中,且只能通过用于保护当前临界区的内置锁所属对象调用
+- 下述方法必须出现在同步方法或者同步块中,且只能通过用于保护当前临界区的内置锁所属对象调用
 
 ```java
-## 使用wait方法将导致当前线程释放掉它拥有的当前对象的内置锁
-使当前线程的等待,直到其他线程同一对象调用方法 notify or notifyAll
+// 使用wait方法将导致当前线程释放掉它拥有的当前对象的内置锁
+// 使当前线程的等待,直到其他线程同一对象调用方法 notify or notifyAll
 public final void wait() throws InterruptedException;
-或者等待时间超出参数指定的时间
+// 或者等待时间超出参数指定的时间
 public final void wait(int timeout) throws InterruptedException;
 
-唤醒正在当前对象内置锁上等待的所有线程
+// 唤醒正在当前对象内置锁上等待的所有线程
 public final void notifyAll();
-唤醒任意一个正在当前对象内置锁上等待的线程
+// 唤醒任意一个正在当前对象内置锁上等待的线程
 public final void notify();
-
 ```
 
-### 线程的状态
+## 线程的状态
 
 - Java语言使用内部枚举类型==java.lang.Thread.State==描述六种状态
 
@@ -1686,13 +1831,13 @@ public final void notify();
 
 **新生状态**
 
-- 创建一个新的线程对象,在尚未启动前,该线程就处于新生状态, 
+- **创建一个新的线程对象**,在尚未启动前,该线程就处于新生状态, 
 
 `Thread.State.NEW`
 
 **可运行状态**
 
-- 一个处于可运行状态的线程可能正在运行也可能没有运行,这取决于线程调度器是否给他分配了CPU
+- 一个处于可运行状态的线程可能正在运行也可能没有运行,这取决于**线程调度器是否给他分配了CPU**
 
 - 线程调度器只会给处于可运行状态的线程分配CPU, 并且倾向于先给优先级高的线程分配CPU时间片
 
@@ -1700,21 +1845,54 @@ public final void notify();
 
 **阻塞状态**
 
-- 当线程试图获取对象的内置锁被其他线程拥有时,线程进入阻塞状态
+- 当线程**试图获取对象的内置锁被其他线程拥有时**,线程进入阻塞状态
 
 `Thread.State.BLOCKED`
 
 **等待状态**
 
+- 获得锁对象后，调用`wait()`方法
+
 `Thread.State.WAITING`
 
 **计时等待状态**
+
+- 调用`wait(time) / sleep(time)`方法
 
 `Thread.State.TIMED_WAITING`
 
 **终止状态**
 
+- 执行完毕或出现了异常
+
 `Thread.State.TERMINATED`
+
+## 死锁
+**死锁产生的四个必要条件**：
+
+- **互斥使用**，即当资源被一个线程使用(占有)时，别的线程不能使用。
+- **不可抢占**，资源请求者不能强制从资源占有者手中夺取资源，资源只能由资源占有者主动释放。
+- **请求和保持**，即当资源请求者在请求其他的资源的同时保持对原有资源的占有。
+
+- **循环等待**，即存在一个等待循环队列：p1要p2的资源，p2要p1的资源。这样就形成了一个等待环路
+
+当上述四个条件**都成立的时候，便形成死锁**。当然，死锁的情况下如果打破上述任何一个条件，便可让死锁消失
+
+***
+
+# Java内存模型
+
+概述：JMM(Java Memory Model)Java内存模型,是java虚拟机规范中所定义的一种内存模型。
+
+Java内存模型(Java Memory Model)描述了Java程序中各种变量(线程共享变量)的访问规则，以及在JVM中将变量存储到内存和从内存中读取变量这样的底层细节。
+
+所有的共享变量都存储于主内存。这里所说的变量指的是实例变量和类变量。不包含局部变量，因为局部变量是线程私有的，因此不存在竞争问题。每一个线程还存在自己的工作内存，线程
+
+的工作内存，保留了被线程使用的变量的工作副本。线程对变量的所有的操作(读，取)都必须在工作内存中完成，而不能直接读写主内存中的变量，不同线程之间也不能直接访问
+
+对方工作内存中的变量，线程间变量的值的传递需要通过主内存完成。
+
+![](https://raw.githubusercontent.com/which-biscuits/pigGo/main/JVM.png)
 
 ***
 
@@ -2523,7 +2701,7 @@ public static void shuffle(List<?> list);
 4. 如果某一个节点是红色，那么它的子节点必须是黑色(不能出现两个红色节点相连的情况)
 5. 对每一个节点，从该节点到其所有后代叶节点的简单路径上，均包含相同数目的黑色节点；
 
-![1562653205543](images/1562653205543.png)
+![](https://raw.githubusercontent.com/which-biscuits/pigGo/main/java_red_black_tree.png)
 
 - **元素插入**：每一次插入完毕以后，使用黑色规则进行校验，如果不满足红黑规则，就需要通过变色，左旋和右旋来调整树，使其满足红黑规则；
 
@@ -2711,11 +2889,11 @@ BigInteger num3 = num1.divide(num2);
 c:\test>java class1 2.6 + 4 "Hello Java!"	// 参数列表,有空格时需要双引号引出, 参数以空格划分字符串
 ```
 
-# 33 图形用户界面
+# 图形用户界面
 
-## 33.1 框架
+## 框架
 
-### 33.1.1 创建框架
+### 创建框架
 
 **类javax.swing.JFrame**
 
@@ -2739,7 +2917,7 @@ public class FrameDemo {
 }
 ```
 
-### 33.1.2 添加组件
+### 添加组件
 
 ```java
 添加组件    add();
@@ -2780,9 +2958,9 @@ class FrameWithButton1 extends JFrame {    // 创建JFrame类的子类
 }
 ```
 
-## 33.2 事件处理
+## 事件处理
 
-### 33.2.1 事件和事件源
+### 事件和事件源
 
 事件源: 触发某一事件的组件    (并非所有的事件源都是GUI组件)
 
@@ -2808,7 +2986,7 @@ class FrameWithButton1 extends JFrame {    // 创建JFrame类的子类
 |  Component   |  组件移动 / 改变大小   |     ComponentEvent      |
 |  JScrollBar  |       移动滚动条       |     AdjustmentEvent     |
 
-### 33.2.2 事件监听器
+### 事件监听器
 
 组件触发某一特定事件后,相关事件监听器将接收并对事件做出相应的处理
 
@@ -2864,7 +3042,7 @@ public class JButtonEvent1 extends JFrame{
 
 
 
-## 33.3 监听接口适配器
+## 监听接口适配器
 
 在某些监听器接口定义了多个方法, 但是在实际编程中, 往往只会使用其中的部分方法, 即程序中只需要实现接口中的部分方法
 
@@ -2897,7 +3075,7 @@ public class TestWindowAdapter {
 }
 ```
 
-## 33.4 布局管理器
+## 布局管理器
 
 **使用方法 : **创建相应的布局管理器类对象, 然后调用类**Container** 中的方法**setLayout**将此对象设置为该容器的布局管理器
 
@@ -2914,7 +3092,7 @@ public class BorderJButton extends JFrame{
 }
 ```
 
-### 33.4.1 BorderLayout
+### BorderLayout
 
 将容器的内部空间划分为 **东 / 西 / 南 / 北 / 中 ** 五个区域, 它们分别以常量来表示
 
@@ -2947,7 +3125,7 @@ public BorderJButton() {
 
 
 
-### 33.4.2 FlowLayout
+### FlowLayout
 
 根据容器的组件排列方式属性, 简单的将容器中的组件按添加的先后顺序依次摆放, 默认情况下, 容器中每一行的组件都是居中对齐的
 
@@ -2972,7 +3150,7 @@ public FlowJButton() {
 }
 ```
 
-### 33.4.3 GridLayout
+### GridLayout
 
 把容器的空间平均划分成若干行乘若干列的矩形网格, 每个网格中只能添加一个组件. 
 
@@ -3000,7 +3178,7 @@ public GridJButton() {
 }
 ```
 
-### 33.4.4 CardLayout
+### 容器
 
 将容器当作一个卡片盒 而把添加到容器中的每一个组件当作一张卡片, 每次只有一张卡片是可见的
 
@@ -3045,7 +3223,7 @@ public CardJButton() {
 }
 ```
 
-## 33.5 文本组件
+## 文本组件
 
 Swing组件中, 具有用户输入和编辑文本功能的常用组件只有 **文本域 : JTextField / 文本区 : JTextArea / 密码域 : JPassword**
 
@@ -3058,7 +3236,7 @@ public boolean isEditable();	// 返回当前文本组件是否可编辑
 public void setEditable(boolean b);	// 将当前文本组件设置为 可编辑 / 不可编辑
 ```
 
-### 33.5.1 文本域
+### 文本域
 
 创建文本域需要使用类 **javax.swing.JTextField**
 
@@ -3082,7 +3260,7 @@ public int setHorizontalALignment(int alignment);	// 设置当前文本的水平
 public void setFont(Font f);	// 设置当前文本域中文本的字体
 ```
 
-### 33.5.2 文本区
+### 文本区
 
 创建文本区需要使用类 **Javax.swing.JTextArea**
 
@@ -3106,7 +3284,7 @@ public void setRows(int rows);	//设置当前文本区的行数
 public int getLineCount();	// 返回当前文本区中所包含文本的行数
 ```
 
-### 33.5.3 密码域
+### 密码域
 
 密码域是一种特殊的文本域,它也允许用户编辑单行文本
 
@@ -3121,7 +3299,7 @@ public char[] getPassword();
 public void setEchoChar(char c);
 ```
 
-## 33.5.4 面板
+## 面板
 
 用来容纳组件的容器, 面板不能独立存在, 只能添加到其他容器中, 面板也可以添加到其他面板中
 
@@ -3135,13 +3313,13 @@ northPanel.add(passwordField);
 add(northPanel, BorderLayout.NORTH);	// 将其加入到页面中
 ```
 
-## 33.6 选择组件
+## 选择组件
 
 Swing组件中, 常用的选择组件有 按钮 JButton / 复选框 JCheckBox / 单选按钮 JRadioButton / 组合框 JComboBox
 
  / 列表 JLIst / 滑块 JSlider 等
 
-### 33.6.1 按钮
+### 按钮
 
 **构造方法**
 
@@ -3174,7 +3352,7 @@ public void setVerticalTextPosition(int textPosition);	// 设置按钮上文本�
 // SwingContants.CENTER(默认值) \ SwingConstants.TOP \ SwingContants.BOTTOM
 ```
 
-### 33.6.2 标签
+### 标签
 
 与按钮相同, 标签也可以显示文本和图像, 但无点击事件,
 
@@ -3193,7 +3371,7 @@ public JLabel(String text, Icon image, int horizontalAlignment);	// 创建具有
 
 与按钮相似, 可调用方法设置或返回标签上的文本或图标, 对齐方式 , 相对位置
 
-### 33.6.3 复选框
+### 复选框
 
 复选框是一个很小的方框, 方框旁边可以表有文本或图标, 复选框有两种状态 **选中 / 未选中**
 **构造方法**
@@ -3208,7 +3386,7 @@ public JCheckBox(String text, Icon icon);	// 创建一个标有指定文本和�
 public JCheckBox(String text, Icon icon, boolean selected);	// 创建标有文本和图标的复选框, 指定选中状态
 ```
 
-### 33.6.4 单选按钮
+### 单选按钮
 
 创建单选按钮后, 需要将其归属到某个组中, 通过类 Javax.swing.ButtonGroup 进行分组 通过 add方法将按钮添加其中
 
@@ -3226,7 +3404,7 @@ public JRadioButton(String text, Icon icon);	// 创建一个指定文本和图�
 public JRadioButton(String text, Icon icon, boolean selected);	// 创建标有文本和图标的单选框, 指定选中状态
 ```
 
-### 33.6.5 边框
+### 边框
 
 为组件设置边框, 可用于区分不同的单选框组
 
@@ -3238,7 +3416,7 @@ Border etched = BorderFactory.createEtchedBorder();	// 创建一个蚀刻边框
 Border titled = BorderFactory.createTitledBorder(etched, "标题");
 ```
 
-### 33.6.6 组合框
+### 组合框
 
 > 组合框 也称下拉式列表, 是一些项目的简单列表, 与单选按钮类似, 用户可以从中选择一个
 
@@ -3262,7 +3440,7 @@ public int getSelectedIndex();	// 返回组合框中被选择的选项的索引�
 public Object getSelectedItem();	// 返回组合框中被选中的选项
 ```
 
-### 33.6.7 列表
+### 列表
 
 在屏幕上持续占用指定行数的空间, 允许用户选中多个 : ctrl   /   shift
 
