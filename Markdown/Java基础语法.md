@@ -12,8 +12,11 @@
 ***
 
 ## 关键字
+
+- `const	goto `	无实际用途,目前仅为**占位符**
+
 |            |            |              |             |                |
-| :--------: | :--------: | :----------: | :---------: | :------------: |
+|:----------:|:----------:|:------------:|:-----------:|:--------------:|
 | `abstract` | `continue` |    `for`     |    `new`    |    `switch`    |
 |  `assert`  | `default`  |    `goto`    |  `package`  | `synchronized` |
 | `boolean`  |    `do`    |     `if`     |  `private`  |     `this`     |
@@ -25,8 +28,17 @@
 |  `class`   | `finally`  |    `long`    | `strictfp`  |   `volatile`   |
 |  `const`   |  `float`   |   `native`   |   `super`   |    `while`     |
 
-> `const	goto `	无实际用途,目前仅为**占位符**
->
+### transient
+
+- **瞬态**：关闭对象成员的序列化
+
+```java
+class Login implements java.io.Serializable {
+    private String name;
+    // 对象序列化时, 忽略数据成员
+    private transient String passward;	
+}
+```
 
 ### volatile
 
@@ -141,7 +153,7 @@ boolean a = "布尔类型" // false or true
 
 ***
 
-## 变量及基本运算
+## 变量
 
 **变量**
 
@@ -156,6 +168,15 @@ boolean a = "布尔类型" // false or true
 标识符字母均 大写
 
 `final double PI = 3.1415926535 `
+
+## 	基本运算方法
+
+```java
+加	add		减	subtract
+乘	multipiy	除	divide
+
+BigInteger num3 = num1.divide(num2);
+```
 
 ***
 
@@ -989,297 +1010,6 @@ public static <T> void copy(List<? extends T> dest) {...}
 public static <T> void copy(List<? super T> dest) {...}	
 ```
 
-
-***
-
-## 集合
-
-- 集合是一个大小可变的容器。
-- 容器中的每个数据称为一个元素。数据==元素。
-- 集合的特点是：类型可以不确定，大小不固定。集合有很多种，不同的集合特点和使用场景不同。
-- 数组：类型和长度一旦定义出来就都固定了。
-
-**Collection 接口**：
-
-- Java中所有集合直接或间接实现Collection接口
-- **集合架构常见集合的继承(实现)关系**
-  1. **Set集合接口**：集合中的元素 **无序、不重复、无索引**
-     - **HashSet 实现类**：无序、不重复、无索引
-       - **LinkedHashSet 实现类**：有序、不重复、无索引
-     - **TreeSet 实现类**：按照元素大小默认升序排序、不重复、无索引
-  2. **List集合接口**：集合**以特定顺序容纳元素、有索引**
-     - **ArrayList 实现类**：添加的元素是有序、可重复、有索引，查询快，增删慢
-     - **LinkedList 实现类**：添加的元素是有序、可重复、有索引，增删快，查询慢
-
-### Collection 接口
-
-```java
-Collection 的定义:
-public interface Collection<E> extends Iterable<E> {
-    // 移除当前集合中的所有元素
-    void clear();
-    // 将集合与指定对象作相等性比较
-    boolean equals(Object o);	
-    // 返回当前集合的hash值
-    int hashCode();	
-    // 当前集合中是否不含任何元素
-    boolean isEmpty();	
-    // 返回当前集合中元素的个数
-    int size();
-    
-    // 确保当前集合中包含指定元素, 没有则返回 false
-    boolean add(E o);
-    // 将指定集合中的所有元素添加到当前集合中, 添加了其中任一元素则返回True
-    boolean addAll(Collection<? extends E> c);
-    
-    // 是否包含指定元素
-    boolean contains(Object o);	
-    // 当前集合是否包含指定集合中的所有元素
-    boolean contains(Collection<?> c);
-    
-    // 移除当前集合中的第一个指定元素
-    boolean remove(Object o);	
-    // 从当前集合中移除所有包含在指定集合中的元素
-    boolean removeAll(Collection<?> c);	
-    // 在当前集合中仅保留指定集合中也含有的元素
-    boolean retainAll(Collection<?> c);	
-    
-    // 返回一个包含当前集合中所有元素的数组
-    Object[] toArray();	
-    // 返回一个包含当前集合中所有元素的数组, 返回数组的元素类型和参数指定的元素类型
-    <T> T[] toArray(T[] a);	
-}
-```
-
-***
-
-### HashSet
-
-**Set 集合去重原理**：
-
-- 对于**有值特性**的，Set集合可以直接判断进行去重复
-- 对于**引用数据类型**的类对象：
-  1. Set集合会让两两对象，先调用自己的**hashCode()**方法得到彼此的哈希值（所谓的内存地址）
-  2. 然后比较两个对象的哈希值是否相同，如果不相同则直接认为两个对象不重复。
-  3. 如果哈希值相同，会继续让两个对象进行**equals**比较内容是否相同，如果相同认为真的重复了，如果不相同认为不重复。
-
-**存储原理**：
-
-- 基于**哈希表**存储数据，增删改查的性能都很好，无序、不重复
-- **JDK 1.8之前**：哈希表 = 数组 + 链表  + （哈希算法）
-- **JDK 1.8之后**：哈希表 = 数组 + 链表 + 红黑树  + （哈希算法）
-- 当链表长度超过阈值 **8** 时，将链表转换为红黑树，这样大大减少了查找时间。
-
-```java
-Set<String> sets = new HashSet<>();
-```
-
-***
-
-### LinkedHashSet
-
-- **有序**、不重复、无索引
-- 底层依然是使用哈希表存储元素的，但是每个元素都额外带一个链来维护添加顺序
-- 存储顺序的链会占内存空间、
-
-***
-
-### TreeSet
-
-- 按照元素大小**默认升序排序**、不重复、无索引
-- TreeSet集合的**底层是基于TreeMap**
-
-**排序方法**：
-
-- **有值特性的元素**直接可以升序排序。（浮点型，整型）
-- **字符串类型**的元素会依字符顺序，按照字符的编号排序。
-- 对于**自定义的引用数据类型**，TreeSet默认无法排序，执行的时候直接报错，不知道排序规则。
-
-**自定义的引用数据类型的排序实现**：
-
-1. 实现比较接口 `Comparable`
-2. TreeSet 的比较器 **Comparator方法**
-
-```java
-Set<Employee> employees1 = new TreeSet<>(new Comparator<Employee>() {
-    @Override
-    public int compare(Employee o1, Employee o2) {
-        // o1比较者   o2被比较者
-        // 如果程序员认为比较者大于被比较者 返回正数！
-        // 如果程序员认为比较者小于被比较者 返回负数！
-        // 如果程序员认为比较者等于被比较者 返回0！
-        return o1.getAge() - o2.getAge();
-    }
-});
-```
-
-**java优先使用 Comparator 方法**
-
-***
-
-### List 接口
-
-```java
-public interface List<E> extends Collection<E> {
-    // 在当前集合的指定位置插入指定元素
-    void add(int index, E element);	
-    // 在当前集合的指定位置插入指定集合中的所有元素
-    boolean addAll(int index, Collection<? extends E> c);	
-    
-    // 返回当前集合中指定位置的元素
-	E get(int index);	
-    // 用指定元素替换当前集合指定位置的元素,并返回被替换的元素
-    E set(int index, E element);
-     // 移除当前集合中指定位置的元素, 并返回该元素
-    E remove(int index);
-    
-    // 返回指定元素的当前集合中第一次出现的位置, 或 -1
-    int indexOf(Object o);	
-    // 返回指定元素在当前集合中最后一次出现的位置, 或 -1
-    int lastIndexOf(Object o);
-    
-    // 返回当前集合元素的ListIterator对象, 迭代器指向当前集合的起始位置
-    ListIterator<E> listIterator();	
-    // 返回当前集合元素的ListIterator对象, 迭代器指向index位置
-    ListIterator<E> listIterator(int index);	
-    
-    // 返回一个包含当前集合位置fromIndex 至 toIndex-1 中元素的子集
-    list<E> subList(int fromIndex, int toIndex);	
-}
-
-public interface ListIterator<E> extends Iterator<E> {
-    void add(E o);	// 在当前迭代器指向的集合的指定位置前插入指定元素
-    boolean hasPrevious();	// 检查当前迭代器指向的集合的当前位置前是否还有其他元素
-    int nextIndex();	// 返回当前迭代器指向的集合中的下一个元素的位置
-    E previous();	// 返回当前迭代器指向集合中的前一个元素
-    int perviousIndex();	// 返回当前迭代器指向集合中的前一个元素的位置
-    void set(E o);	// 用指定元素替换当前迭代器最近返回的元素
-}
-```
-
-***
-
-### ArrayList
-
-- 添加的元素是有序、可重复、有索引
-- 基于数组存储数据，**查询快，增删慢**
-- 实现List 接口的所有方法
-
-```java
-List<String> lists = new ArrayList<>();
-```
-
-***
-
-### LinkedList
-
-- 添加的元素是有序、可重复、有索引
-- 基于链表存储数据，**增删快，查询慢**
-- **双向链表**，增删改查前后的元素更快
-- 实现了 **Deque** 接口
-
-```java
-LinkedList<String> lists = new LinkedList<>();
-```
-
-***
-
-### Map 接口
-
-**特点**：
-- Map集合的特点都是**由键决定**的。
-- Map集合的键是**无序,不重复的，无索引**的。
-- Map集合后面重复的键对应的元素会覆盖前面的整个元素！
-- Map集合的值无要求。
-- Map集合的键值对都可以为null。
-
-**Map集合的遍历**：
-
-1. 键找值
-
-```java
-for (String key : map.keySet()) {
-// 通过键取对应的值
-Integer value = maps.get(key);
-System.out.println(key + "=" + value);
-}
-```
-
-2. 键值对
-
-```java
-// 1.把Map集合转换成一个Set集合:
-Set<Map.Entry<String,Integer>> entries = maps.entrySet();
-// 2.此时键值对元素的类型就确定了，类型是键值对实体类型：Map.Entry<K, V>
-// 3.接下来就可以用foreach遍历这个Set集合，类型用Map.Entry<K, V>
-for (Map.Entry<String, Integer> entry : entries) {
-String key = entry.getKey();
-Integer value = entry.getValue();
-System.out.println(key + "=>" + value);
-}
-```
-
-3. Lambda表达式
-
-```java
-maps.forEach((k, v)-> System.out.println(k+"==>"+v));
-```
-
-***
-
-### HashMap
-
-- 元素按照键是**无序**，不重复，无索引，值不做要求。
-
-```java
-// 把指定的键与指定的值添加到 Map 集合中
-public V put(K key, V value);
-// 添加一个Map中的所有键值对
-public void putAll(Map<? extends K, ? extends V> m);
-// 把指定的键 所对应的键值对元素 在 Map 集合中删除，返回被删除元素的值
-public V remove(Object key)
-// 根据指定的键，在Map集合中获取对应的值。
-public V get(Object key);
-
-// 清空 Map
-public void clear();
-// 是否为空
-public boolean isEmpty();
-// Map 大小
-public int size()
-
-// 获取 Map 集合中所有的 键，存储到 Set 集合中
-public Set<K> keySet();
-// 获取到 Map 集合中所有的键值对对象的集合( Set 集合)
-public Set<Map.Entry<K,V>> entrySet();
-// 获取 Map 所有 值 的集合
-public Collection<V> values();
-
-// 判断该集合中是否有此键
-public boolean containKey(Object key);
-// 判断该集合中是否有此值
-public boolean containsValue(Object value);
-```
-
-***
-
-### LinkedHashMap
-
-- 元素按照键是**有序**，不重复，无索引，值不做要求
-- 基于哈希表按照键存储数据的
-
-***
-
-### TreeMap
-
-- TreeMap集合按照键是可排序不重复的键值对集合。(**默认升序**)
-
-- 所以TreeMap集合指定大小规则有2种方式：
-
-  1. 直接为对象的类实现比较器规则接口Comparable，重写比较方法
-
-  2. 直接为集合设置比较器Comparator对象,重写比较方法
-
 ***
 
 ## 迭代器
@@ -1338,11 +1068,302 @@ sum(new int[]{10,30,50,70,90}); // 可以传输一个数组。
 
 ***
 
-## 原子性
+# 集合
+
+- 集合是一个大小可变的容器。
+- 容器中的每个数据称为一个元素。数据==元素。
+- 集合的特点是：类型可以不确定，大小不固定。集合有很多种，不同的集合特点和使用场景不同。
+- 数组：类型和长度一旦定义出来就都固定了。
+
+**Collection 接口**：
+
+- Java中所有集合直接或间接实现Collection接口
+- **集合架构常见集合的继承(实现)关系**
+  1. **Set集合接口**：集合中的元素 **无序、不重复、无索引**
+     - **HashSet 实现类**：无序、不重复、无索引
+       - **LinkedHashSet 实现类**：有序、不重复、无索引
+     - **TreeSet 实现类**：按照元素大小默认升序排序、不重复、无索引
+  2. **List集合接口**：集合**以特定顺序容纳元素、有索引**
+     - **ArrayList 实现类**：添加的元素是有序、可重复、有索引，查询快，增删慢
+     - **LinkedList 实现类**：添加的元素是有序、可重复、有索引，增删快，查询慢
+
+## Collection 接口
+
+```java
+Collection 的定义:
+public interface Collection<E> extends Iterable<E> {
+    // 移除当前集合中的所有元素
+    void clear();
+    // 将集合与指定对象作相等性比较
+    boolean equals(Object o);	
+    // 返回当前集合的hash值
+    int hashCode();	
+    // 当前集合中是否不含任何元素
+    boolean isEmpty();	
+    // 返回当前集合中元素的个数
+    int size();
+    
+    // 确保当前集合中包含指定元素, 没有则返回 false
+    boolean add(E o);
+    // 将指定集合中的所有元素添加到当前集合中, 添加了其中任一元素则返回True
+    boolean addAll(Collection<? extends E> c);
+    
+    // 是否包含指定元素
+    boolean contains(Object o);	
+    // 当前集合是否包含指定集合中的所有元素
+    boolean contains(Collection<?> c);
+    
+    // 移除当前集合中的第一个指定元素
+    boolean remove(Object o);	
+    // 从当前集合中移除所有包含在指定集合中的元素
+    boolean removeAll(Collection<?> c);	
+    // 在当前集合中仅保留指定集合中也含有的元素
+    boolean retainAll(Collection<?> c);	
+    
+    // 返回一个包含当前集合中所有元素的数组
+    Object[] toArray();	
+    // 返回一个包含当前集合中所有元素的数组, 返回数组的元素类型和参数指定的元素类型
+    <T> T[] toArray(T[] a);	
+}
+```
+
+***
+
+## HashSet
+
+**Set 集合去重原理**：
+
+- 对于**有值特性**的，Set集合可以直接判断进行去重复
+- 对于**引用数据类型**的类对象：
+  1. Set集合会让两两对象，先调用自己的**hashCode()**方法得到彼此的哈希值（所谓的内存地址）
+  2. 然后比较两个对象的哈希值是否相同，如果不相同则直接认为两个对象不重复。
+  3. 如果哈希值相同，会继续让两个对象进行**equals**比较内容是否相同，如果相同认为真的重复了，如果不相同认为不重复。
+
+**存储原理**：
+
+- 基于**哈希表**存储数据，增删改查的性能都很好，无序、不重复
+- **JDK 1.8之前**：哈希表 = 数组 + 链表  + （哈希算法）
+- **JDK 1.8之后**：哈希表 = 数组 + 链表 + 红黑树  + （哈希算法）
+- 当链表长度超过阈值 **8** 时，将链表转换为红黑树，这样大大减少了查找时间。
+
+```java
+Set<String> sets = new HashSet<>();
+```
+
+***
+
+## LinkedHashSet
+
+- **有序**、不重复、无索引
+- 底层依然是使用哈希表存储元素的，但是每个元素都额外带一个链来维护添加顺序
+- 存储顺序的链会占内存空间、
+
+***
+
+## TreeSet
+
+- 按照元素大小**默认升序排序**、不重复、无索引
+- TreeSet集合的**底层是基于TreeMap**
+
+**排序方法**：
+
+- **有值特性的元素**直接可以升序排序。（浮点型，整型）
+- **字符串类型**的元素会依字符顺序，按照字符的编号排序。
+- 对于**自定义的引用数据类型**，TreeSet默认无法排序，执行的时候直接报错，不知道排序规则。
+
+**自定义的引用数据类型的排序实现**：
+
+1. 实现比较接口 `Comparable`
+2. TreeSet 的比较器 **Comparator方法**
+
+```java
+Set<Employee> employees1 = new TreeSet<>(new Comparator<Employee>() {
+    @Override
+    public int compare(Employee o1, Employee o2) {
+        // o1比较者   o2被比较者
+        // 如果程序员认为比较者大于被比较者 返回正数！
+        // 如果程序员认为比较者小于被比较者 返回负数！
+        // 如果程序员认为比较者等于被比较者 返回0！
+        return o1.getAge() - o2.getAge();
+    }
+});
+```
+
+**java优先使用 Comparator 方法**
+
+***
+
+## List 接口
+
+```java
+public interface List<E> extends Collection<E> {
+    // 在当前集合的指定位置插入指定元素
+    void add(int index, E element);	
+    // 在当前集合的指定位置插入指定集合中的所有元素
+    boolean addAll(int index, Collection<? extends E> c);	
+    
+    // 返回当前集合中指定位置的元素
+	E get(int index);	
+    // 用指定元素替换当前集合指定位置的元素,并返回被替换的元素
+    E set(int index, E element);
+     // 移除当前集合中指定位置的元素, 并返回该元素
+    E remove(int index);
+    
+    // 返回指定元素的当前集合中第一次出现的位置, 或 -1
+    int indexOf(Object o);	
+    // 返回指定元素在当前集合中最后一次出现的位置, 或 -1
+    int lastIndexOf(Object o);
+    
+    // 返回当前集合元素的ListIterator对象, 迭代器指向当前集合的起始位置
+    ListIterator<E> listIterator();	
+    // 返回当前集合元素的ListIterator对象, 迭代器指向index位置
+    ListIterator<E> listIterator(int index);	
+    
+    // 返回一个包含当前集合位置fromIndex 至 toIndex-1 中元素的子集
+    list<E> subList(int fromIndex, int toIndex);	
+}
+
+public interface ListIterator<E> extends Iterator<E> {
+    void add(E o);	// 在当前迭代器指向的集合的指定位置前插入指定元素
+    boolean hasPrevious();	// 检查当前迭代器指向的集合的当前位置前是否还有其他元素
+    int nextIndex();	// 返回当前迭代器指向的集合中的下一个元素的位置
+    E previous();	// 返回当前迭代器指向集合中的前一个元素
+    int perviousIndex();	// 返回当前迭代器指向集合中的前一个元素的位置
+    void set(E o);	// 用指定元素替换当前迭代器最近返回的元素
+}
+```
+
+***
+
+## ArrayList
+
+- 添加的元素是有序、可重复、有索引
+- 基于数组存储数据，**查询快，增删慢**
+- 实现List 接口的所有方法
+
+```java
+List<String> lists = new ArrayList<>();
+```
+
+***
+
+## LinkedList
+
+- 添加的元素是有序、可重复、有索引
+- 基于链表存储数据，**增删快，查询慢**
+- **双向链表**，增删改查前后的元素更快
+- 实现了 **Deque** 接口
+
+```java
+LinkedList<String> lists = new LinkedList<>();
+```
+
+***
+
+## Map 接口
+
+**特点**：
+
+- Map集合的特点都是**由键决定**的。
+- Map集合的键是**无序,不重复的，无索引**的。
+- Map集合后面重复的键对应的元素会覆盖前面的整个元素！
+- Map集合的值无要求。
+- Map集合的键值对都可以为null。
+
+**Map集合的遍历**：
+
+1. 键找值
+
+```java
+for (String key : map.keySet()) {
+// 通过键取对应的值
+Integer value = maps.get(key);
+System.out.println(key + "=" + value);
+}
+```
+
+2. 键值对
+
+```java
+// 1.把Map集合转换成一个Set集合:
+Set<Map.Entry<String,Integer>> entries = maps.entrySet();
+// 2.此时键值对元素的类型就确定了，类型是键值对实体类型：Map.Entry<K, V>
+// 3.接下来就可以用foreach遍历这个Set集合，类型用Map.Entry<K, V>
+for (Map.Entry<String, Integer> entry : entries) {
+String key = entry.getKey();
+Integer value = entry.getValue();
+System.out.println(key + "=>" + value);
+}
+```
+
+3. Lambda表达式
+
+```java
+maps.forEach((k, v)-> System.out.println(k+"==>"+v));
+```
+
+***
+
+## HashMap
+
+- 元素按照键是**无序**，不重复，无索引，值不做要求。
+
+```java
+// 把指定的键与指定的值添加到 Map 集合中
+public V put(K key, V value);
+// 添加一个Map中的所有键值对
+public void putAll(Map<? extends K, ? extends V> m);
+// 把指定的键 所对应的键值对元素 在 Map 集合中删除，返回被删除元素的值
+public V remove(Object key)
+// 根据指定的键，在Map集合中获取对应的值。
+public V get(Object key);
+
+// 清空 Map
+public void clear();
+// 是否为空
+public boolean isEmpty();
+// Map 大小
+public int size()
+
+// 获取 Map 集合中所有的 键，存储到 Set 集合中
+public Set<K> keySet();
+// 获取到 Map 集合中所有的键值对对象的集合( Set 集合)
+public Set<Map.Entry<K,V>> entrySet();
+// 获取 Map 所有 值 的集合
+public Collection<V> values();
+
+// 判断该集合中是否有此键
+public boolean containKey(Object key);
+// 判断该集合中是否有此值
+public boolean containsValue(Object value);
+```
+
+***
+
+## LinkedHashMap
+
+- 元素按照键是**有序**，不重复，无索引，值不做要求
+- 基于哈希表按照键存储数据的
+
+***
+
+## TreeMap
+
+- TreeMap集合按照键是可排序不重复的键值对集合。(**默认升序**)
+
+- 所以TreeMap集合指定大小规则有2种方式：
+
+  1. 直接为对象的类实现比较器规则接口Comparable，重写比较方法
+
+  2. 直接为集合设置比较器Comparator对象,重写比较方法
+
+***
+
+# 原子性
 
 - 指在一次操作或者多次操作中，要么**所有的操作全部都得到了执行**并且不会受到任何因素的干扰而中断，**要么所有的操作都不执行**。 
 
-### 保证原子性：加锁
+## 保证原子性：加锁
 
 - 某一个线程进入`synchronized`代码块前后，执行过程入如下：
   - 线程获得锁
@@ -1362,7 +1383,7 @@ new Thread(new Runnable() {
 }).start();
 ```
 
-### 保证原子性：原子类
+## 保证原子性：原子类
 
 - `java.util.concurrent.atomic`包(简称**Atomic包** start JDK1.5)，
 
@@ -1403,7 +1424,7 @@ int addAndGet(int data);
 int getAndSet(int value);
 ```
 
-### CAS机制
+## CAS机制
 
 - CAS的全成是： Compare And Swap(比较再交换); 是现代CPU广泛支持的一种对内存中的共享数据进行操作的一种特殊指令。CAS可以将read-modify-check-write
 - 原子操作**直接由处理器保证**。
@@ -2260,54 +2281,6 @@ String[] arrs1 = Stream<String>.toArray(String[]::new);
 
 ***
 
-# `File` 类
-
-- 代表操作系统的文件对象。
-- 是用来操作操作系统的文件对象的，删除文件，获取文件信息，创建文件（文件夹）...
-- 广义来说操作系统认为文件包含（**文件和文件夹**）
-- **尽量使用相对路径(确保程序的跨平台性) 运行指定相对或绝对路径名**
-
-**构造器：**
-
-```java
-// 根据路径获取文件对象
-public File(String pathname);
-// 根据父路径和文件名称获取文件对象！
-public File(String parent , String child);
-// 根据父文件夹对象和文件名获取文件对象
-public File(File parent , String child);
-
-File file = new File("./Data.txt");
-```
-
-**常用方法：**
-
-```java
-public boolean canRead();		// 判断当前文件是否可读	
-public boolean canWrite();		// 判断当前文件是否可读	
-public boolean exists();		// 判断当前文件或对象是否存在	
-public boolean isDirectory();	// 判断是否为已存在的目录		
-public boolean isFile();		// 判断是否为已存在的文件		
-public boolean isHidden();		// 判断是否为一个隐藏文件		
-
-public boolean delete();		// 删除当前文件或目录 只能删除空文件夹
-public String getName();		// 返回当前文件或目录的名称	
-public String getParent();		// 返回当前对象或目录的父目录的路径名	
-public String getPath();		// 返回定义当前File对象或目录的路径名	
-public File getAbsoluteFile();	// 返回此抽象路径名的绝对形式。
-public long lastModified();		// 返回最后一次被修改的时间	
-public long length();			// 返回文件的长度(字节)		
-public String[] list();			// 返回目录中的一级文件名称
-public File[] listFiles();		// 返回目录中的一级文件对象
-
-public boolean mkdir();			// 创建当前File对象表示的目录		
-public boolean mkdirs();		// 创建当前File对象表示的目录即所有不存在的父目录	
-
-public boolean renameTo(File dest);		// 重命名		
-```
-
-***
-
 # IO流
 
 **字符集：**
@@ -2431,7 +2404,296 @@ public FileOutputStream(File file , boolean append);
 public FileOutputStream(String file , boolean append);
 ```
 
-***
+## `FileReader`
+
+- 以内存为基准，把磁盘文件的数据以**字符**的形式读入到内存，读取文本文件内容到内存中去。
+- 字符流一个一个字符的读取文本内容输出，**可以解决中文读取输出乱码**的问题
+
+**构造器：**
+
+```java
+// 创建一个字符输入流与源文件对象接通。
+public FileReader(File file);
+// 创建一个字符输入流与源文件路径接通。
+public FileReader(String filePath);
+```
+
+**方法：**
+
+```java
+// 读取一个字符的编号返回！ 读取完毕返回-1
+public int read();
+// 读取一个字符数组，读取多少个字符就返回多少个数量，读取完毕返回-1
+public int read(char[] buffer);
+```
+
+## `FileWriter`
+
+- 以内存为基准，把内存中的数据按照字符的形式写出到磁盘文件中去，就是把内存的数据以字符写出到文件中去。
+
+**构造器：**
+
+```java
+// 创建一个字符输出流管道通向目标文件对象。
+public FileWriter(File file);
+// 创建一个字符输出流管道通向目标文件路径。
+public FileWriter(String filePath);
+// 创建一个追加数据的字符输出流管道通向目标文件对象。
+public FileWriter(File file,boolean append);
+// 创建一个追加数据的字符输出流管道通向目标文件路径。
+public FileWriter(String filePath,boolean append);
+```
+
+**方法：**
+
+```java
+// 写一个字符出去
+public void write(int c);
+// 写一个字符串出去：
+public void write(String c);
+// 写一个字符数组出去
+public void write(char[] buffer);
+// 写字符串的一部分出去
+public void write(String c ,int pos ,int len);
+// 写字符数组的一部分出去
+public void write(char[] buffer ,int pos ,int len);
+```
+
+## 缓存IO流
+
+## `bufferedInputStream`
+
+- 可以把低级的字节输入流**包装**成一个高级的缓冲字节输入流管道
+- 提高字节输入流读数据的性能
+- 缓冲字节输入流管道自带了一个**8KB的缓冲池**，每次可以直接借用操作系统的功能最多提取8KB的数据到缓冲池中去，直接从缓冲池读取数据，所以性能较好！
+
+**构造器：**
+
+```java
+public BufferedInputStream(InputStream in);
+```
+
+## `bufferedOutputStream`
+- 可以把低级的字节输出流**包装**成一个高级的缓冲字节输出流，从而提高写数据的性能。
+- 缓冲字节输出流自带了**8KB缓冲池**,数据就直接写入到缓冲池中去，性能极高
+
+**构造器：**
+
+```java
+public BufferedOutputStream(OutputStream os);
+```
+
+## `bufferedReader`
+
+- 字符缓冲输入流可以把字符输入流包装成一个高级的缓冲字符输入流，可以提高字符输入流读数据的性能。
+- 缓冲字符输入流默认会有一个**8K的字符缓冲池**,可以提高读字符的性能。
+
+**构造器：**
+
+```java
+public BufferedReader(Reader reader)
+```
+
+**方法：**
+
+```java
+// 读取一行数据返回，读取完毕返回null
+public String readLine();
+
+while ((line = bufferReader.readLine()) != null) {
+    System.out.println(line);0
+}
+```
+
+## `bufferedWriter`
+
+- 把字符输出流包装成一个高级的缓冲字符输出流，提高写字符数据的性能。
+- 高级的字符缓冲输出流多了一个8k的字符缓冲池，写数据性能极大提高了!
+
+**构造器：**
+
+```java
+public BufferedWriter(Writer writer);
+```
+
+**方法：**
+
+```java
+// 新建一行 
+public void newLine();
+```
+
+## `InputStreamReader`
+
+- 可以解决字符流读取不同编码乱码的问题。
+- 可以把原始的字节流按照当前默认的代码编码转换成字符输入流。
+- 也可以把原始的字节流按照指定编码转换成字符输入流
+
+**构造器：**
+
+```java
+// 可以使用当前代码默认编码转换成字符流，几乎不用！
+public InputStreamReader(InputStream is);
+// 可以指定编码把字节流转换成字符流
+public InputStreamReader(InputStream is,String charset);
+```
+
+## `OutputStreamWriter`
+
+- 可以指定编码把字节输出流转换成字符输出流。
+- 可以指定写出去的字符的编码。
+
+**构造器：**
+
+```java
+// 用当前默认编码UTF-8把字节输出流转换成字符输出流
+public OutputStreamWriter(OutputStream os);
+// 指定编码把字节输出流转换成字符输出流
+public OutputStreamWriter(OutputStream os , String charset);
+```
+
+## 对象序列化
+
+## `DataInputStream` && `DataOutputStream`
+
+- **以指定类型读取或写入数据**
+
+- 继承`FilterInputStream` && `FilterOutputStream`
+
+**构造器：**
+
+```java
+public DataInputStream(InputStream in);
+public DataOutputStream(OutputStream out);
+```
+
+**方法：**
+
+```java
+读取方法：
+readBoolean / readChar / readShort / readByte / readInt / readLong / readFloat / readDouble / readUTF(读取字符串)
+写入方法
+writeBoolean / writeChar / writeShort/ writeByte / writeInt / writeLong / writeFloat / writeDouble / writeUTF(写入字符串)
+```
+
+DataOutputStream 输出与平台无关的二进制, PrintStream 用于格式化输出, 可以以文本方式阅读
+
+## `PrintStream` && `PrintWriter`
+
+- 可视化文本格式输出, `System.out` 就是`PrintStream`的一个**对象**
+- `PrintStream` 同时支持字节流输出
+- `PrintWeiter`同时支持字符输出流
+- **自动将流包装**为 `buffered` 缓冲流
+
+**构造器：**
+
+```java
+public PrintStream(OutputStream os):
+public PrintStream(String filepath):
+```
+
+**方法：**
+
+- 同`System.out`
+
+```java
+// 打印流重定向
+PrintStream printStream = new PrintStream("log.txt");
+System.setOut(printStream);
+```
+
+
+
+## `ObjectOutputStream` && `ObjectInputStream`
+
+- InputStream 的子类, 并实现了DataOutputStream的全部功能
+- OutputStream 的子类, 并实现了DataOutputStream的全部功能
+
+**构造器：**
+
+```java
+public ObjectInputStream(InputStream in);
+public ObjectOutputStream(OutputStream out);
+```
+
+**方法：**
+
+```java
+WriteObject(Object obj);
+ReadObject(Object obj); 
+```
+
+**注意 : **
+
+- 对象的读取顺序应与对象的写入顺序一致
+
+- 读取对象的类文件应被加载完毕
+
+- 可序列化对象: 实现了接口`Java.io.Serializable`
+- **对未实现序列化接口的数据成员 无法进行序列化**
+- **序列化时会自动忽略静态数据成员**
+
+**transient (瞬态) : **关闭对象成员的序列化
+
+```java
+class Login implements java.io.Serializable {
+    private String name;
+    private transient String passward;	// 对象序列化时, 忽略数据成员
+}
+```
+
+**序列化版本号：**
+
+```java
+// 加入序列版本号
+private static final long serialVersionUID = 1L;
+```
+
+- **序列化对象和反序列化使用的版本号一致**才能使用，否则报错
+
+## 资源释放
+
+- 资源使用完毕后，需要显式的关闭资源
+
+**since 1.7：**
+
+- 资源类一定是实现了**`Closeable`**接口，实现这个接口的类就是资源，有`close()`方法，`try-with-resources`会自动调用它的`close()`关闭资源。
+
+```java
+try(
+    InputStream is = new FileInputStream("test.txt");
+    /* 关闭资源！是自动进行的 */
+){}catch (Exception e){
+    e.printStackTrace();
+}
+```
+
+## 随机文件访问
+
+**java.io.RandomAccessFile : 文件的随机访问**
+
+**构造方法：**
+
+```java
+RandomAccessFile(File file, String mode);
+RandomAccessFile(String name, String mode);
+// file / name : 要访问的文件对象或文件名
+// ① r: 以只读方式打开
+// ② rw：打开以便读取和写入
+// ③ rwd:打开以便读取和写入；同步文件内容的更新
+// ④ rws:打开以便读取和写入；同步文件内容和元数据的更新
+```
+
+常用方法：
+
+```java
+// 设置文件光标位置向前偏移pos个字节, 打开文件时光标位于开始位置
+public void seek(long pos) throws IOException;	
+// 返回文件的字节长度
+public long length() throws IOException;	
+// 返回当前偏移的字节数(输入输出流光标位置)
+public long getFilePointer() throws IOException;	
+```
 
 # 单例设计模式
 
@@ -3222,6 +3484,444 @@ public static void reverse(list<? > list);
 public static void shuffle(List<?> list);
 ```
 
+## `File` 类
+
+- 代表操作系统的文件对象。
+- 是用来操作操作系统的文件对象的，删除文件，获取文件信息，创建文件（文件夹）...
+- 广义来说操作系统认为文件包含（**文件和文件夹**）
+- **尽量使用相对路径(确保程序的跨平台性) 运行指定相对或绝对路径名**
+
+**构造器：**
+
+```java
+// 根据路径获取文件对象
+public File(String pathname);
+// 根据父路径和文件名称获取文件对象！
+public File(String parent , String child);
+// 根据父文件夹对象和文件名获取文件对象
+public File(File parent , String child);
+
+File file = new File("./Data.txt");
+```
+
+**常用方法：**
+
+```java
+public boolean canRead();		// 判断当前文件是否可读	
+public boolean canWrite();		// 判断当前文件是否可读	
+public boolean exists();		// 判断当前文件或对象是否存在	
+public boolean isDirectory();	// 判断是否为已存在的目录		
+public boolean isFile();		// 判断是否为已存在的文件		
+public boolean isHidden();		// 判断是否为一个隐藏文件		
+
+public boolean delete();		// 删除当前文件或目录 只能删除空文件夹
+public String getName();		// 返回当前文件或目录的名称	
+public String getParent();		// 返回当前对象或目录的父目录的路径名	
+public String getPath();		// 返回定义当前File对象或目录的路径名	
+public File getAbsoluteFile();	// 返回此抽象路径名的绝对形式。
+public long lastModified();		// 返回最后一次被修改的时间	
+public long length();			// 返回文件的长度(字节)		
+public String[] list();			// 返回目录中的一级文件名称
+public File[] listFiles();		// 返回目录中的一级文件对象
+
+public boolean mkdir();			// 创建当前File对象表示的目录		
+public boolean mkdirs();		// 创建当前File对象表示的目录即所有不存在的父目录	
+
+public boolean renameTo(File dest);		// 重命名		
+```
+
+## `Properties`属性集对象
+
+- **Properties**代表的是一个属性文件，可以把键值对的数据存入到一个属性文件中去。
+- **属性文件**：后缀是.properties结尾的文件,里面的内容都是 key=value。
+- 实现了`Map`接口，在map集合的基础上实现了**将属性集存取到文件**中
+
+**构造器：**
+
+```java
+public Properties();
+```
+
+**方法：**
+
+```java
+// 保存一对属性
+public Object setProperty(String key, String value);
+// 使用此属性列表中指定的键搜索属性值
+public String getProperty(String key);
+
+// 所有键的名称的集合
+public Set<String> stringPropertyNames();
+
+// 保存数据到属性文件中去
+public void store(OutputStream out, String comments);
+// 保存数据到属性文件中去 comments: 保存注释
+public void store(Writer fw, String comments);
+
+// 加载属性文件的数据到属性集对象中去
+public synchronized void load(InputStream inStream);
+// 加载属性文件的数据到属性集对象中去
+public synchronized void load(Reader fr);
+```
+
+***
+
+## `InetAddress`
+
+- 一个该类的对象就代表一个IP地址对象。
+
+**方法：**
+
+```java
+// 获得本地主机IP地址对象。
+static InetAddress getLocalHost();
+// 根据IP地址字符串或主机名获得对应的IP地址对象。
+static InetAddress getByName(String host);
+
+// 获得主机名。
+String getHostName();
+// 获得IP地址字符串。
+String getHostAddress();
+// 目标IP地址在指定时间内是否可达
+public boolean isReachable(int timeout);
+
+inetAddress ip = InetAddress.getByName("www.baidu.com");
+String hostName = ip.getHostName();
+```
+
+***
+
+# UDP通信
+
+**特点：**
+
+* 面向无连接的协议
+* 发送端只管发送，不确认对方是否能收到。
+* 基于数据包进行数据传输。
+* 发送数据的包的大小限制64KB以内
+* 因为面向无连接，速度快，但是不可靠。会丢失数据！
+
+## `DatagramPacket`
+
+- 数据包对象，用来封装要发送或要接收的数据
+
+**构造器：**
+
+```java
+/** -- 发送端用：
+  * 创建发送端数据包对象
+  * buf：要发送的内容，字节数组
+  * length：要发送内容的长度，单位是字节
+  * address：接收端的IP地址对象
+  * port：接收端的端口号
+ */
+new DatagramPacket(byte[] buf, int length, InetAddress address, int port);
+
+/** -- 接收端用：
+  * 创建接收端的数据包对象
+  * buf：用来存储接收到内容
+  * length：能够接收内容的长度
+ */
+new DatagramPacket(byte[] buf, int length);
+```
+
+**方法：**
+
+```java
+// 获得实际接收到的字节个数
+int getLength();
+```
+
+## `DatagramSocket`
+
+- 发送对象，用来发送或接收数据包
+
+**构造器：**
+
+```java
+// 创建发送端的Socket对象，系统会随机分配一个端口号。
+DatagramSocket();
+// 创建接收端的Socket对象并指定端口号
+DatagramSocket(int port);
+```
+
+**方法：**
+
+```java
+// 发送数据包
+void send(DatagramPacket dp);
+// 接收数据包
+void receive(DatagramPacket p);
+```
+
+***
+
+# Socket网络通信
+
+- 面向连接的协议，Socket网络编程
+- **Socket**：一个该类的对象就代表一个**客户端程序**
+- **ServerSocket**：一个该类的对象就代表一个**服务器端程序**
+
+## BIO通信模式
+
+- **同步阻塞式通信**
+
+- （Socket网络编程也就是上面的通信架构）
+- 同步：当前线程要自己进行数据的读写操作。
+- 异步：当前线程可以去做其他事情。
+- 阻塞： 在数据没有的情况下，还是要继续等待着读。
+- 非阻塞：在数据没有的情况下，会去做其他事情，一旦有了数据再来获取。（柜台取款，取个号，然后坐在椅子上做其它事，等号广播会通知你办理）
+- **BIO表示同步阻塞式IO**服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销，当然可以通过线程池机制改善。同步阻塞式性能极差：大量线程，大量阻塞。
+
+## 伪异步通信
+
+- 引入了**线程池**
+- 不需要一个客户端一个线程，可以实现1个线程复用来处理很多个客户端
+- 这种架构，可以避免系统的死机，因为不会出现很多线程，线程可控。
+- **高并发下性能较差差**：线程数量少，数据依然是阻塞的。数据没有来线程还是要等待
+
+## NIO同步非阻塞IO
+
+- 服务器实现模式为请求对应一个线程，
+- 即客户端发送的连接请求都会注册到**多路复用器**上，
+- 多路复用器**轮询**到连接**有I/O请求时才启动一个线程进行处理**。
+- **同步**：线程还是要不断的接收客户端连接，以及处理数据。
+- **非阻塞**：如果一个管道没有数据，不需要等待，可以轮询下一个管道是否有数据
+
+## AIO示异步非阻塞IO
+
+- 服务器实现模式为一个有效请求一个线程，
+- 客户端的I/O请求都是由**操作系统先完成IO操作后再通知服务器应用**来启动线程进行处理。
+- 异步：服务端线程接收到了客户端管道以后就交给底层处理它的io通信。
+- 非阻塞：底层也是客户端有数据才会处理，有了数据以后处理好通知服务器应用来启动线程进行处理。
+
+## `Channel`
+
+- Channel是一个对象，可以通过它读取和写入数据。可以把它看做是IO中的流，不同的是：
+  - Channel是**双向的**，既可以读又可以写，而流是单向的
+  - Channel可以进行**异步**的读写
+  - 对Channel的读写**必须通过buffer对象**
+
+**实现类：**
+
+```java
+FileChannel inChannel = new FileInputStream(new File("test.txt")).getChannel();
+FileChannel outChannel = new FileOutputStream(new File("test.txt")).getChannel();
+```
+
+* FileChannel：从文件读取数据的
+* DatagramChannel：读写UDP网络协议数据
+* SocketChannel：读写TCP网络协议数据
+* ServerSocketChannel：可以监听TCP连接
+
+## `Buffer`
+
+- 包含一些要写入或者读到Stream对象的。**应用程序不能直接对 Channel 进行读写操作**，而**必须通过 Buffer 来进行**，即 Channel 是通过 Buffer 来读写数据的。
+
+**实现类：**
+
+```java
+// 获得容器buffer
+public static ByteBuffer allocate(int capacity);
+ByteBuffer buffer = ByteBuffer.allocate(1024);
+```
+
+- ByteBuffer
+- CharBuffer
+- DoubleBuffer
+- FloatBuffer
+- IntBuffer
+- LongBuffer
+- ShortBuffer
+
+**方法：**
+
+```java
+// 将 buffer 读 / 写模式切换
+public final Buffer flip();
+buffer.flip();
+
+// 从通道中读取 buffer 对象
+public abstract int write(ByteBuffer src);
+outChannel.write(buffer);
+
+// 清空 buffer 缓冲区，清空整个缓冲区
+public final Buffer clear();
+// 清空 buffer 缓冲区，只清空已读部分
+// 任何未读的数据都被移到缓冲区的起始处，新写入的数据将放到缓冲区未读数据的后面。
+public abstract ByteBuffer compact();
+```
+
+
+
+## `Selector`
+
+- 可以注册到很多个Channel上，监听各个Channel上发生的事件，并且能够根据事件情况决定Channel读写。
+
+**构造器：**
+
+```java
+Selector selector = Selector.open();
+```
+
+**方法：**
+
+```java
+// 设置通道为非阻塞 
+public final SelectableChannel configureBlocking(boolean block);
+channel.configureBlocking(false);
+// 多路复用器开始负责使用管道接收客户端的连接请求 -> 然后管理通道
+public final SelectionKey register(Selector sel, int ops);
+channel.register(selector,  SelectionKey.OP_ACCEPT);
+
+// 注册的Channel 必须设置成 异步模式 才可以,否则异步IO就无法工作，这就意味着我们不能把一个 FileChannel 注册到 Selector ，因为 FileChannel 没有异步模式，但是网络编程中的 SocketChannel 是可以的。
+```
+
+**SelectionKey：** 
+
+- 代表这个通道在此 Selector 上注册。当某个 Selector 通知您某个传入事件时，它是通过提供对应于该事件的 SelectionKey 来进行的。
+- SelectionKey 还可以用于取消通道的注册。
+
+**方法：**
+
+```java
+// - The interest set 从通道中获取到的事件
+int interestSet = selectionKey.interestOps();
+boolean isInterestedInAccept  = interestSet & SelectionKey.OP_ACCEPT;
+boolean isInterestedInConnect = interestSet & SelectionKey.OP_CONNECT;
+boolean isInterestedInRead    = interestSet & SelectionKey.OP_READ;
+boolean isInterestedInWrite   = interestSet & SelectionKey.OP_WRITE; 
+    
+// - The ready set 操作就绪集合
+int readySet = selectionKey.readyOps();
+selectionKey.isAcceptable();
+selectionKey.isConnectable();
+selectionKey.isReadable();
+selectionKey.isWritable();
+
+// - The Channel
+Channel  channel  = selectionKey.channel();
+// - The Selector
+Selector selector = selectionKey.selector(); 
+
+// - An attached object (optional) 通道上的附加信息（可用于标识等）
+selectionKey.attach(theObject);
+Object attachedObj = selectionKey.attachment();
+SelectionKey key = channel.register(selector, SelectionKey.OP_READ, theObject);
+
+// 获取 selector 中的 channel 集合
+Set<SelectionKey> selectedKeys = selector.selectedKeys();
+```
+
+## 异步通道
+
+* `AsynchronousSocketChannel`
+* `AsynchronousServerSocketChannel`
+* `AsynchronousFileChannel`
+* `AsynchronousDatagramChannel`
+
+**附加方法：**
+
+```java
+// 异步操作回调函数
+void completed(V result, A attachment);
+void failed(Throwable exc, A attachment);
+```
+
+
+
+## `Socket`
+
+- **客户端程序**
+- 只要执行该方法，就会立即连接指定的服务器程序
+  - 如果**连接不成功**，则会抛出异常。
+  - 如果**连接成功**，则表示三次握手通过。
+
+**构造器：**
+
+```java
+// 根据ip地址字符串和端口号创建客户端Socket对象
+Socket(String host, int port);
+```
+
+**方法：**
+
+```java
+// 获得字节输出流对象
+OutputStream getOutputStream();
+// 获得字节输入流对象
+InputStream getInputStream();
+// 获取通信的远程主机IP信息
+public SocketAddress getRemoteSocketAddress();
+// 通知对方输出结束
+public void shutdownOutput();
+```
+
+## `ServerSocket`
+
+**构造器：**
+
+```java
+public ServerSocket(int port);
+```
+
+**方法：**
+
+```java
+// 等待接收一个客户端的Socket管道连接请求，连接成功返回一个Socket对象
+public Socket accept();
+```
+
+**多请求处理：创建独立线程**
+
+- 线程数量受限于服务端性能
+
+```java
+// 1.注册端口: public ServerSocket(int port)
+ServerSocket serverSocket = new ServerSocket(9999);
+// 2.定义一个循环不断的接收客户端的连接请求
+while(true){
+    // 3.开始等待接收客户端的Socket管道连接。
+    Socket socket = serverSocket.accept();
+    // 4.每接收到一个客户端必须为这个客户端管道分配一个独立的线程来处理与之通信。
+    new Thread(() -> {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line ;
+            while((line = br.readLine())!=null){
+                System.out.println(socket.getRemoteSocketAddress()+"说："+line);
+            }
+        }catch (Exception e){
+            System.out.println(socket.getRemoteSocketAddress()+"下线了~~~~~~");
+        }
+    }).start();
+}
+```
+
+**多请求处理：线程池**
+
+- **优势**：不会引起系统的死机，可以控制并发线程的数量。
+- **劣势**：同时可以并发的线程将受到限制。
+- **适合短连接**
+
+```java
+ServerSocket ss = new ServerSocket(9999);
+
+// 一个服务端只需要对应一个线程池
+HandlerSocketThreadPool handlerSocketThreadPool = new HandlerSocketThreadPool(3, 100);
+
+// 客户端可能有很多个
+while(true){
+    Socket socket = ss.accept() ;
+    System.out.println("有人上线了！！");
+    // 每次收到一个客户端的socket请求，都需要为这个客户端分配一个
+    // 独立的线程 专门负责对这个客户端的通信！！
+    handlerSocketThreadPool.execute(new ReaderClientRunnable(socket));
+}
+```
+
+
+
 ***
 
 # 数据结构
@@ -3332,7 +4032,7 @@ while(matcher.find()){
 }
 ```
 
-## 字符：
+## 字符
 
 | **表达式** | **描述**                                               |
 | ---------- | ------------------------------------------------------ |
@@ -3348,7 +4048,7 @@ while(matcher.find()){
 | `\s`       | 空白。匹配任何空白字符，包括空格、制表符等。           |
 | `\S`       | 非空白。匹配任何非空白字符。                           |
 
-## **分组和引用**：
+## 分组和引用
 
 | **表达式**       | **描述**                                                     |
 | ---------------- | ------------------------------------------------------------ |
@@ -3356,7 +4056,7 @@ while(matcher.find()){
 | `(?:expression)` | 非捕获分组。匹配括号里的整个字符串但不获取匹配结果，拿不到分组引用。 |
 | `\num`           | 对前面所匹配分组的引用。比如`(\d)\1`可以匹配两个相同的数字，`(Code)(Sheep)\1\2`则可以匹配`CodeSheepCodeSheep`。 |
 
-## **锚点和边界**：
+## 锚点和边界
 
 | **表达式** | **描述**                                                     |
 | ---------- | ------------------------------------------------------------ |
@@ -3365,7 +4065,7 @@ while(matcher.find()){
 | `\b`       | 匹配单词边界。比如`Sheep\b`可以匹配`CodeSheep`末尾的`Sheep`，不能匹配`CodeSheepCode`中的`Sheep` |
 | `\B`       | 匹配非单词边界。比如`Code\B`可以匹配`HelloCodeSheep`中的`Code`，不能匹配`HelloCode`中的`Code`。 |
 
-## **数量表示**：
+## 数量表示
 
 | **表达式** | **描述**                                   |
 | ---------- | ------------------------------------------ |
@@ -3377,7 +4077,7 @@ while(matcher.find()){
 | `{m,}`     | 匹配前面的表达式最少m个。                  |
 | `{m,n}`    | 匹配前面的表达式最少m个，最多n个。         |
 
-## **预查断言**：
+## 预查断言
 
 | **表达式** | **描述**                                                     |
 | ---------- | ------------------------------------------------------------ |
@@ -3386,7 +4086,7 @@ while(matcher.find()){
 | `(?<=)`    | 反向预查。比如`(?<=Code)Sheep`能匹配`CodeSheep`中的`Sheep`，但不能匹配`ReadSheep`中的`Sheep`。 |
 | `(?<!)`    | 反向否定预查。比如`(?<!Code)Sheep`不能匹配`CodeSheep`中的`Sheep`，但能匹配`ReadSheep`中的`Sheep`。 |
 
-## **特殊标识**：
+## 特殊标识
 
 | **表达式** | **描述**                   |
 | ---------- | -------------------------- |
@@ -3396,29 +4096,7 @@ while(matcher.find()){
 
 ***
 
-# 12 对象的存在时间与垃圾回收器
-
-```JAVA
-Book b1 = new Book();
-// b1 为创建的对象引用 保存在堆栈中,退出作用域时,其所占内存就会被释放
-// new Book() 创建一个对象 并保存在堆中
-```
-
-当引用某个对象的所有对象引用都退出作用域,则无法访问,但继续占用内存,**自动回收内存**
-
-
-
-## 	基本运算方法
-
-```java
-加	add		减	subtract
-乘	multipiy	除	divide
-
-BigInteger num3 = num1.divide(num2);
-```
-***
-
-# 30 命令行参数
+# 命令行参数
 
 类的**main**方法 有一个String 数组类型的参数, 可通过**命令行**给其传参
 
@@ -3426,675 +4104,464 @@ BigInteger num3 = num1.divide(num2);
 c:\test>java class1 2.6 + 4 "Hello Java!"	// 参数列表,有空格时需要双引号引出, 参数以空格划分字符串
 ```
 
-# 图形用户界面
+# `junit`单元测试
 
-## 框架
+- 单元测试是指程序员写的测试代码给自己的类中的方法进行预期正确性的验证。
+- **单元**：在Java中，一个类就是一个单元
+- **单元测试**：用Junit编写的一小段代码，用来对某个类中的某个方法进行功能测试或业务逻辑测试。
+- **测试类的命名规范**：以Test开头，以业务类类名结尾，使用驼峰命名法
 
-### 创建框架
+**测试方法要求：**
 
-**类javax.swing.JFrame**
+*  必须`public`修饰
+*  **没有返回值没有参数**
+*  必须使注解`@Test`修饰
+
+**测试结果断言：**
 
 ```java
-设置关闭框架时的行为    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // 关闭当前框架时结束运行
-显示框架    setVisible(Boolean);    // 可以在框架第一次显示前,设置框架属性,并向其中添加组件
-设置框架大小    setSize(int weight; int height);    // 默认为0, 只显示标题栏
+/**
+ * 参数一：测试失败的提示信息。
+ * 参数二：期望值。
+ * 参数三：实际值
+ */
+Assert.assertEquals("登录业务功能方法有错误，请检查！","success",rs);
+```
 
+**常用注解：**
 
-public JFrame();    // 创建一个没有标题的框架
-public JFrame(String title);    // 创建一个带有指定标题的框架
+```java
+// @Before：用来修饰实例方法，该方法会在每一个测试方法执行之前执行一次。
+@Before
+public void before();
 
-eg:
-public class FrameDemo {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("测试JFrame");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // 框架关闭时结束运行
-        frame.setSize(300, 100);    // 设置框架大小
-        frame.setVisible(true);    // 显式框架
-    }
+// @After：用来修饰实例方法，该方法会在每一个测试方法执行之后执行一次。
+@After
+public void after();
+
+// @BeforeClass：用来静态修饰方法，该方法会在所有测试方法之前只执行一次。
+@BeforeClass
+public static void beforeClass();
+
+// @AfterClass：用来静态修饰方法，该方法会在所有测试方法之后只执行一次。
+@AfterClass
+public static void afterClass();
+```
+
+# 反射
+
+- 对于任何一个类，在"**运行的时候**"都可以**直接得到这个类全部成分**。
+  - 类的构造器**对象**。（Constructor）
+  - 类的成员变量**对象**。（Field）
+  - 类的成员方法**对象**。（Method）
+- 可以**破坏面向对象的封装性**（暴力反射）
+- 可以**破坏泛型的约束性**（反射不受泛型的约束）
+
+- **核心思想和关键**：得到编译以后的**class文件对象**。
+
+```java
+HelloWorld.java -> javac -> HelloWorld.class;
+Class c = HelloWorld.class;
+
+Class : 字节码文件的类型
+Constructor : 构造器的类型
+Field : 成员变量的类型
+Method : 方法的类型
+```
+
+## `Class`对象
+
+**对象获取：**
+
+```java
+// - 通过类名获取
+Class c1 = Student.class;
+
+// - 通过对象获取
+Student student = new Student();
+Class c2 = student.getClass();
+
+// - 通过**全限**名(全路径限定名称)
+Clas c3 = Class.forName("org.junit.Before");
+```
+
+**`Class`的方法：**
+
+```java
+// 获得类名字符串：类名
+String getSimpleName();
+// 获得类全名：包名+类名
+String getName();  
+```
+
+## `Constructor`对象
+
+**对象获取：**
+
+```java
+// 只能拿**public**修饰的无参构造器
+public Constructor getConstructor();
+// 指定构造器的参数列表，调用有参构造器
+public Constructor getConstructor(Class... parameterTypes);
+// 获取所有的构造器，只能拿**public**修饰的构造器
+public Constructor[] getConstructors();
+
+// 获取任意权限的无参构造器
+public Constructor getDeclaredConstructor();
+// 指定构造器的参数列表，调用有参构造器    
+public Constructor getDeclaredConstructor(Class... parameterTypes);
+// 获取所有申明的构造器，无所谓权限
+public Constructor[] getDeclaredConstructors();
+```
+
+**方法：**
+
+```java
+// 获取构造器参数个数
+public int getParameterCount();
+// 获取构造器参数类型列表
+public Class<?>[] getParameterTypes();
+
+// 创建对象，注入构造器需要的数据。
+T newInstance(Object... initargs);
+// 修改访问权限，true代表暴力攻破权限，false表示保留不可访问权限(暴力反射)
+void setAccessible(true);
+```
+
+## `field对象`
+
+**对象获取：**
+
+```java
+// 根据成员变量名获得对应Field对象，只能获得public修饰
+Field getField(String name);
+// 获得所有的成员变量对应的Field对象，只能获得public的
+Field[] getFields();
+
+// 根据成员变量名获得对应Field对象，只要申明了就可以得到
+Field getDeclaredField(String name);
+// 获得所有的成员变量对应的Field对象，只要申明了就可以得到
+Field[] getDeclaredFields();
+```
+
+**方法：**
+
+```java
+// 获取变量名称
+public String getName();
+// 获取变量类型
+public Class<?> getType();
+// obj: 指定对象, value: 指定值
+public void set(Object obj, Object value);
+// obj: 指定对象
+public Object get(Object obj);
+// 修改访问权限，true代表暴力攻破权限，false表示保留不可访问权限(暴力反射)
+void setAccessible(true);
+```
+
+## `Method`对象
+
+**对象获取：**
+
+```java
+// 根据方法名和参数类型获得对应的方法对象，只能获得public的
+Method getMethod(String name,Class...args);
+// 获得类中的所有成员方法对象，返回数组，只能获得public修饰的且包含父类的
+Method[] getMethods();
+    
+// 根据方法名和参数类型获得对应的方法对象，包括private的
+Method getDeclaredMethod(String name,Class...args);
+// 获得类中的所有成员方法对象，返回数组,只获得本类申明的方法。
+Method[] getDeclaredMethods();
+```
+
+**方法：**
+
+```java
+// obj: 执行方法的对象, args: 方法的参数列表 并获取返回值
+Object invoke(Object obj, Object... args);
+// 返回值参数
+public Class<?> getReturnType();
+// 获取参数个数
+public int getParameterCount();
+// 获取参数类型列表
+public Class<?>[] getParameterTypes();
+```
+
+# 注解
+
+- 在类上，方法上，成员变量，构造器，...上对成分进行编译约束，标记等操作**since JDK1.5**
+- 注解相当一种标记，是类的组成部分，可以给类携带一些额外的信息。
+- 编译器或JVM看的，编译器或JVM可以根据注解来完成对应的功能。
+
+**注解的定义：**
+
+```java
+public @interface Test {
+    /* 内部内容 */
 }
 ```
 
-### 添加组件
+**注解的属性：**
+
+- 格式1：数据类型 属性名();
+
+       - 格式2：数据类型 属性名() default 默认值
+       - 注解的属性需要赋值，默认值则非必须赋值
 
 ```java
-添加组件    add();
-删除组件    remove();
+public @interface Test {
+    
+    String name();
+    String[] authors() default [];   
+}
+@Test(name="注解", authors="")
+```
 
-import javax.swing.*;
-import java.awt.*;
+**特殊属性：**
 
-public class FrameDemo {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("测试JFrame");
-        JButton button = new JButton("按钮");    // 创建一个按钮
-        Container container = frame.getContentPane();    // 取得框架的内容框格
-        container.add(button);    // 将按钮添加到框架的内容框格中
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 100);
-        frame.setVisible(true);
-    }
+- 如果只有一个value属性的情况下，使用value属性的时候**可以省略value名称不写**
+- 多属性时不允许省略
+
+```java
+String value();
+
+@Book("/deleteBook.action")
+@Book(value = "/deleteBook.action" , age = 12)
+```
+
+**元注解：**
+
+- 用于注解 注解的特殊注解
+- `@Target`：约束自定义注解只能在哪些地方使用
+- `@Retention`：申明注解的生命周期
+
+```java
+QTarget
+/* 可使用的值定义在ElementType枚举类中，常用值如下
+ * - TYPE，类，接口
+ * - FIELD, 成员变量
+ * - METHOD, 成员方法
+ * - PARAMETER, 方法参数
+ * - CONSTRUCTOR, 构造器
+ * - LOCAL_VARIABLE, 局部变量
+ */
+@Target({ElementType.FIELD})
+    
+@Retention
+/* 作用：用来标识注解的生命周期(有效存活范围)
+ * 可使用的值定义在RetentionPolicy枚举类中，常用值如下
+ * - SOURCE：注解只作用在源码阶段，生成的字节码文件中不存在
+ * - CLASS：注解作用在源码阶段，字节码文件阶段，运行阶段不存在，默认值.
+ * - RUNTIME：注解作用在源码阶段，字节码文件阶段，运行阶段（开发常用）
+ */
+@Retention({RetentionPolicy.RUNTIME})
+```
+
+**注解解析：**
+
+**`Annotation`**: 注解类型，该类是所有注解的父类。注解都是一个Annotation的对象
+
+**`AnnotatedElement`**:该接口定义了与注解解析相关的方法
+
+```java
+// 所有的类成分Class, Method , Field , Constructor:都实现了AnnotatedElement接口
+// 他们都拥有解析注解的能力
+
+// 获得当前对象上使用的所有注解，返回注解数组。
+Annotation[]  getDeclaredAnnotations();
+// 根据注解类型获得对应注解对象
+T getDeclaredAnnotation(Class<T> annotationClass);
+// 判断当前对象是否使用了指定的注解，如果使用了则返回true，否则false
+boolean isAnnotationPresent(Class<Annotation> annotationClass);
+```
+
+**解析原理：**
+
+- 注解在哪个成分上，我们就先拿哪个成分对象。
+- **注解作用成员方法**，则要获得该成员方法对应的Method对象，再来拿上面的注解
+- **注解作用在类上**，则要该类的Class对象，再来拿上面的注解
+- **注解作用在成员变量上**，则要获得该成员变量对应的Field对象，再来拿上面的注解
+
+# 动态代理
+
+- **拦截对真实对象方法的直接访问，增强真实对象方法的功能**
+- **动态代理**：在程序运行时创建的代理对象
+- 动态代理可以对被代理对象的方法进行增强，可以在不修改方法源码的情况下，增强被代理对象方法的功能，在方法执行前后做任何你想做的事情
+
+**动态代理的获取：**
+
+```java
+public static Object newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h);
+
+/**
+1、obj.getClass().getClassLoader()目标对象通过getClass方法获取类的所有信息后，调用getClassLoader() 方法来获取类加载器。获取类加载器后，可以通过这个类型的加载器，在程序运行时，将生成的代理类加载到JVM即Java虚拟机中，以便运行时需要！ 
+
+2、obj.getClass().getInterfaces()获取被代理类的所有接口信息，以便于生成的代理类可以具有代理类接口中的所有方法。 
+
+3、InvocationHandler 这是调用处理器接口，它自定义了一个 invoke 方法，用于集中处理在动态代理类对象上的方法调用，通常在该方法中实现对委托类方法的处理以及访问.
+*/
+```
+
+**invoke方法：**
+
+```java
+public Object invoke(Object proxy, Method method, Object[] args 
+/**
+1、Object proxy生成的代理对象，在这里不是特别的理解这个对象，但是个人认为是已经在内存中生成的proxy对象。 
+2、Method method：被代理的对象中被代理的方法的一个抽象。
+3、Object[] args：被代理方法中的参数。这里因为参数个数不定，所以用一个对象数组来表示。
+*/
+```
+
+**动态代理的使用：**
+
+```java
+public class LogProxy {
+	// 提供一个方法，用于生产需要被代理对象的代理对象。
+	public static Object getProxy(Object obj) {
+		return Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj
+				.getClass().getInterfaces(), new InvocationHandler() {
+			// 重写函数的运行方法
+			@Override
+			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+				// 先记录开始时间点
+				long startTimer = System.currentTimeMillis();
+				try {
+                    // 真正去触发被代理对象中该方法的执行
+					return method.invoke(obj, args);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				} finally {
+					long endTimer = System.currentTimeMillis();
+					// 在什么时刻执行完，花费了多长时间完成
+					SimpleDateFormat sdf = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					System.out.println(method.getName() + "方法执行->" + sdf.format(endTimer) + "，耗时：" + (endTimer - startTimer));
+				}
+			}
+		});
+	}
 }
 ```
 
-**内容窗格委托**
+# XML
 
-```java
-class FrameWithButton1 extends JFrame {    // 创建JFrame类的子类
-    public FrameWithButton1() {
-        JButton button = new JButton("按钮");
-        button.setSize(100,100);
-        add(button);
-    }
-    public static void main(String[] args) {
-        FrameWithButton1 frame = new FrameWithButton1();
-        frame.setTitle("将一个按钮添加到框架中");
-        frame.setSize(3000,500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-}
+**简介：**
+
+- 英文：Extensible Markup Language 可扩展的标记语言，由各种标记(标签==元素)组成。
+- 可扩展：所有的标签都是自定义的，可以随意扩展的。如：\<abc/>，<hobby>,<sex>
+- 标记语言：整个文档由各种标签组成。清晰，数据结构化！
+- XML是通用格式标准，全球所有的技术人员都知道这个东西，都可能会按照XML的规范存储数据，交互数据！！
+
+**作用：**
+
+- 数据交换：不同的计算机语言之间，不同的操作系统之间，不同的数据库之间，进行数据交换。
+- 配置文件：在后期我们主要用于各种框架的配置文件。
+
+**特点：**
+
+* 用于数据交互，用于数据的存储，**用于做系统的配置文件（大家后期天天会用）**
+* **区分大小写**
+* 非常严谨，只要有错误，解析器就不能解析
+* 可以扩展的，所有的标签都是程序员自己创建出来。
+* **XML文件的后缀为.xml**
+
+## 组成
+
+### 声明（抬头）
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
 ```
 
-## 事件处理
+**声明的三种属性**
 
-### 事件和事件源
+| **文档声明的三个属性** | **说明**                                                     |
+| ---------------------- | ------------------------------------------------------------ |
+| **version**            | 指定XML文件使用的版本，取值是1.0                             |
+| **encoding**           | 当前XML文件使用的编码(字符集)                                |
+| **standalone**         | 指定当前这个XML文件是否是一个独立的文件，<br>省略的，默认是独立文件。 |
 
-事件源: 触发某一事件的组件    (并非所有的事件源都是GUI组件)
+**版本说明**
 
-**常见事件及相应的事件源类型**
-
-当一个组件可以触发某种事件时, 该组件的所有子类也可以触发同样的事件
-
-|    事件源    |        用户操作        |          事件           |
-| :----------: | :--------------------: | :---------------------: |
-|   JButton    |        点击按钮        |       ActionEvent       |
-|  JTextField  |    在文本域按回车键    |       ActionEvent       |
-|  JCheckBox   |       点击复选框       | ActionEvent / ItemEvent |
-| JRadioButton |      点击单选按钮      | ActionEvent / ItemEvent |
-|  JComboBox   |        选定选项        | ActionEvent / ItemEvent |
-|    JList     |        选定选项        |   ListSelectionEvent    |
-|  JMenuItem   |       选定菜单项       | ActionEvent / ItemEvent |
-|   JSlider    |        滑动滑块        |       ChangeEvent       |
-|    Window    |    窗口打开 / 关闭     |       WindowEvent       |
-|  Component   |     点击或移动鼠标     |       MouseEvent        |
-|  Component   |  按下或释放键盘上的键  |        KeyEvent         |
-|  Container   | 在容器中添加或删除组件 |     ContainerEvent      |
-|  Component   |   组件获得或失去焦点   |       FocusEvent        |
-|  Component   |  组件移动 / 改变大小   |     ComponentEvent      |
-|  JScrollBar  |       移动滚动条       |     AdjustmentEvent     |
-
-### 事件监听器
-
-组件触发某一特定事件后,相关事件监听器将接收并对事件做出相应的处理
-
-想要监听器接收某个组件触发的某种事件,就必须在该事件源中注册它
-
-**注册** 调用事件源提供的注册方法来声明某个对象是该事件的监听器
-
-每个监听器都是一个对象, 其所属类必须实现Java语言定义的相应监听器接口
-
-|        事件        |                  监听器接口及注册方法                  |                          监听器方法                          |
-| :----------------: | :----------------------------------------------------: | :----------------------------------------------------------: |
-|    ActionEvent     |        ActionListener<br />addActionLIstener();        |                actionPerformed(ActionEvent e)                |
-|  AdjustmentEvent   |    AdjustmentListener<br />addAdjustmentListener();    |          adjustmentValueChanged(AdjustmentEvent e)           |
-|   ComponentEvent   |     ComponentListener<br />addComponentListener();     | componentResized(ComponentEvent e)<br />componentMoved(ComponentEvent e)<br />componentShown(ComponentEvent e)<br />componentHidden(ComponentEvent e) |
-|   ContainerEvent   |     ContainerListener<br />addContainerLIstener();     | componentAdded(ContainerEvent e)<br />componentRemoved(ContainerEvent e) |
-|     FocusEvent     |         FocusListener<br />addFocusListener();         |    focusGained(FocusEvent e)<br />focusLost(FocusEvent e)    |
-|     ItemEvent      |          ItemListener<br />addItemListener();          |                itemStateChanged(ItemEvent e)                 |
-|      KeyEvent      |          KeyListener<br />addItemListener();           | KeyTyped(KeyEvent e)<br />keyPressed(KeyEvent e)<br />keyReleased(KeyEvent e) |
-|     MouseEvent     |         MouseListener<br />addMouseListener();         | mouseChicked(MouseEvent e)<br />mousePressed(MouseEvent e)<br />mouseReleased(MouseEvent e)<br />mouseEnter(MouseEvent e)<br />mouseExited(MouseEvent e) |
-|     MouseEvent     |   MouseMotionListener<br />addMouseMotionListener();   |   mouseDragged(MouseEvent e)<br />mouseMoved(MouseEvent e)   |
-|     TextEvent      |          TextListener<br />addTextListener();          |                textValueChanged(TextEvent e)                 |
-|    WindowEvent     |        WindowLIstener<br />addWindowLIstener();        | windowOpened(WindowEvent e)<br />windowClosing(WindowEvent e)<br />windowClosed(WindowEvent e)<br />windowIconified(WindowEvent e)<br />windowDeiconified(WindowEvent e)<br />windowActived(WindowEvent e)<br />windowDeactivated(WindowEvent e) |
-|    ChangeEvent     |        ChangeListener<br />addChangeListener();        |                 stateChanged(ChangeEvent e)                  |
-| ListSelectionEvent | LIstSelectionListener<br />addListSelectionListener(); |              valueChange(ListSelectionEvent e)               |
-
-```java
-import javax.swing.*;
-import java.awt.event.*;
-
-public class JButtonEvent1 extends JFrame{
-    public JButtonEvent1() {
-        JButton button = new JButton("按钮");
-        button.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println(((JButton) e.getSource()).getText());
-                    }
-                }
-        );
-        add(button);
-    }
-
-    public static void main(String[] args) {
-        JButtonEvent1 frame = new JButtonEvent1();
-        frame.setTitle("演示动作时间处理");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(100,100);
-        frame.setVisible(true);
-    }
-}
+```
+**W3C **在1988年2月发布1.0版本，2004年2月又发布1.1版本，因为1.1版本不能向下兼容1.0版本，所以1.1没有人用。在2004年2月W3C又发布了1.0版本的第三版。我们学习的还是1.0版本。
 ```
 
+### 元素(标签)
 
+- 区分大小写
+- 命名：不能有空格冒号
+- 根元素：**有且只能有一个根元素**
 
-## 监听接口适配器
-
-在某些监听器接口定义了多个方法, 但是在实际编程中, 往往只会使用其中的部分方法, 即程序中只需要实现接口中的部分方法
-
-为了解决这个问题,  java为所有具有多个方法的监听器接口提供了相应的适配器类
-
-|    监听器接口     |    监听适配器    |     监听器接口      |     监听适配器     |
-| :---------------: | :--------------: | :-----------------: | :----------------: |
-| ComponentListener | ComponentAdapter |    MouseListener    |    MouseAdapter    |
-| ContainerListener | ContainerAdapter | MouseMotionListener | MouseMotionAdapter |
-|   FocusListener   |   FocusAdapter   |   WindowListener    |   WindowAdapter    |
-|    KeyListener    |    KeyAdapter    |                     |                    |
-
-```java
-import java.awt.event.*;
-import javax.swing.*;
-
-public class TestWindowAdapter {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("测试 WindowAdapter ");
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.out.println("wzxyyds666");
-                System.exit(0);
-            }
-        });
-        frame.setSize(300,300);
-        frame.setVisible(true);
-    }
-}
+```xml
+<person>
+</person>
 ```
 
-## 布局管理器
+### 属性
 
-**使用方法 : **创建相应的布局管理器类对象, 然后调用类**Container** 中的方法**setLayout**将此对象设置为该容器的布局管理器
-
-**默认布局管理器 : **BorderLayout 
-
-对于被添加多次的组件, **以最后一次为有效添加**
-
-```java
-设置布局管理器:
-public class BorderJButton extends JFrame{
-    public BorderJButton() {
-        setLayout(new BorderLayout());
-    }
-}
+```xml
+<persion id="110">
 ```
 
-### BorderLayout
+![1552225389171](https://raw.githubusercontent.com/which-biscuits/pigGo/main/XML_01.png)
 
-将容器的内部空间划分为 **东 / 西 / 南 / 北 / 中 ** 五个区域, 它们分别以常量来表示
+### 注释
 
-在添加组件时若无显式指定则默认添加到 **中央区域**
+![1552225416050](https://raw.githubusercontent.com/which-biscuits/pigGo/main/XML_02.png)
 
-```java
-BorderLayout.EAST(东);  BorderLayout.WEST(西);  BorderLayout.SOUTH(南);
-BorderLayout.NORTH(北);  BorderLayout.CENTER(中);
+### 实体字符
+
+- XML中的实体字符与HTML一样。因为很多符号已经被文档结构所使用，所以在元素体或属性值中想使用这些符号就必须使用实体字符
+
+![1552225605462](https://raw.githubusercontent.com/which-biscuits/pigGo/main/202207221523603.png)
+
+### CDATA 字符数据区
+
+- 解决大量使用实体字符导致的数据可读性降低
+
+![1552225954936](https://raw.githubusercontent.com/which-biscuits/pigGo/main/XML_03.png)
+
+```xml
+<sql>
+        <![CDATA[
+            select * from user where age < 20
+        ]]>
+    </sql>
 ```
 
-**构造方法**
+### 处理指令
 
-```java
-public BorderLayout();	// 创建一个新的 BorderLayout 布局管理器对象, 组件之间没有水平和垂直间距
-public BorderLayout(int hgap, int vgap);	// 以指定的水平和垂直间距创建一个新的 BorderLayout 布局管理器对象
+![1552226032459](https://raw.githubusercontent.com/which-biscuits/pigGo/main/XML_04.png)
+
+## XML约束
+
+### DTD约束
+
+- DTD: Document Type Definiation 文档类型定义
+- 纯文本文件，指定了XML约束规则。
+- **不能验证数据类型**
+- 因为DTD是一个文本文件，本身不能验证是否正确。
+
+| **导入**DTD文件的两种格式                             | **说明**                               |
+| ----------------------------------------------------- | -------------------------------------- |
+| **<!DOCTYPE** **根元素 SYSTEM "DTD文件">**            | 系统DTD文件，通常个人或公司内部使用    |
+| **<!DOCTYPE** **根元素 PUBLIC "文件描述" "DTD文件">** | 公有的DTD文件，在互联网上广泛使用的DTD |
+
+**格式：**
+
+```dtd
+<!ELEMENT 书架 (书+)>
+<!ELEMENT 书 (书名,作者,售价)>
+<!ELEMENT 书名 (#PCDATA)>
+<!ELEMENT 作者 (#PCDATA)>
+<!ELEMENT 售价 (#PCDATA)>
 ```
 
-**eg : **
-
-```java
-public BorderJButton() {
-    setLayout(new BorderLayout());
-    add(new Button("North"), BorderLayout.NORTH);
-    add(new Button("South"), BorderLayout.SOUTH);
-    add(new Button("East"), BorderLayout.EAST);
-    add(new Button("West"), BorderLayout.WEST);
-    add(new Button("Center"), BorderLayout.CENTER);
-}
-```
-
-
-
-### FlowLayout
-
-根据容器的组件排列方式属性, 简单的将容器中的组件按添加的先后顺序依次摆放, 默认情况下, 容器中每一行的组件都是居中对齐的
-
-**构造方法**
-
-```java
-public FlowLayout();	// 创建一个新的 FlowLayout 对象, 对齐方式是默认的居中对齐, 组件之间的水平和竖直间距都是默认的5个像素
-public FlowLayout(int align);	// 以参数指定的对齐方式创建一个新的FLowLayout布局管理器对象, 组件之间的水平和垂直间距都是默认的5个像素
-// 对齐方式 FlowLayout.LEFT(左对齐) FlowLayout.CENTER(居中) FlowLayout.RIGHT(右对齐)
-public FLowLayout(int align, int hgap, int vgap);	// 以指定的对齐方式, 水平垂直间距创建一个新的FlowLayout布局管理器
-```
-
-**eg : **
-
-```java
-public FlowJButton() {
-    applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);	// 修改排序方式为右至左
-    setLayout(new FlowLayout(FlowLayout.LEFT,0,0));	// 设置左对齐, 水平和垂直间距为0px
-    for (int index = 0; index < 9; index++) {
-        add(new Button("JButton" + index));
-    }
-}
-```
-
-### GridLayout
-
-把容器的空间平均划分成若干行乘若干列的矩形网格, 每个网格中只能添加一个组件. 
-
-如果程序指定了划分的具体非0行数, 编译器将忽略指定的具体列数, 实际列数将由指定的行数和实际的组件数决定
-
-只有在行数指定为0时, 指定的列数才有实际意义
-
-**构造方法**
-
-```java
-public GridLayout();	// 创建一个GridLayout管理器对象, 每行中只有一个列
-public GridLayout(int rows, int cols);	// 以指定的行列数创建一个GridLayout布局管理器, 组件之间的水平垂直距离都是0
-public GridLayout(int rows, int cols, int hgap, int vgap);	// 以指定参数创建布局管理器
-```
-
-**eg : **
-
-```java
-public GridJButton() {
-    setLayout(new GridLayout(3,4,10,10));
-    for (int index = 0; index < 9; index++) {
-        add(new Button("JButton" + index));
-    }
-    add
-}
-```
-
-### 容器
-
-将容器当作一个卡片盒 而把添加到容器中的每一个组件当作一张卡片, 每次只有一张卡片是可见的
-
-**构造方法**
-
-```java
-public CardLayout();	// 创建一个间距为0的新的CardLayout
-public CardLayout(int hgap, int vgap);	// 以指定的水平和垂直间距创建一个新的CardLayout布局管理器
-```
-
-**常用方法**
-
-```java
-public void first(Container parent);	// 显示容器中的第一张卡片
-public void next(Container parent);		// 显示容器中的下一张卡片
-public void previous(Container parent);	// 显示容器中的前一张卡片
-public void last(Container parent);	// 显示容器中的最后一张卡片
-public void show(Container parent, String name);	// 显示容器中指定名称的卡片
-
-public void add(Component comp, String name);	// 添加组件并指定名称标识
-```
-
-**eg : **
-
-```java
-private CardLayout cl = new CardLayout();
-private Container container = getContentPane();
-public CardJButton() {
-    JButton button;
-    ActionListener listener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            cl.next(container); // container必须为内容框格
-        }
-    };
-    setLayout(cl);
-    for (int index = 0; index < 12; index++) {
-        button = new JButton("JButton " + index);
-        add(button, Integer.toString(index));
-        button.addActionListener(listener);
-    }
-}
-```
-
-## 文本组件
-
-Swing组件中, 具有用户输入和编辑文本功能的常用组件只有 **文本域 : JTextField / 文本区 : JTextArea / 密码域 : JPassword**
-
-```java
-Swing文本组件都继承于抽象类 javax.swing.text.JTextComponent:
-
-public String getText();	// 返回当前文本组件中包含的文本
-public void setText(String t);	// 将当前文本组件中的文本设定为指定文本
-public boolean isEditable();	// 返回当前文本组件是否可编辑
-public void setEditable(boolean b);	// 将当前文本组件设置为 可编辑 / 不可编辑
-```
-
-### 文本域
-
-创建文本域需要使用类 **javax.swing.JTextField**
-
-**构造方法**
-
-```java
-public JTextField();	// 创建一个文本域, 初始化字符串为空, 列数为0
-public JTextField(String text);	// 创建一个文本域, 初始化字符串为 text, 列数为0
-public JTextField(int columns);	// 创建一个文本域, 初始化字符串为空, 列数为columns
-public JTextField(String text, int columns);	// 创建一个文本域, 初始化字符串为text, 列数为columns
-```
-
-**常用方法**
-
-```java
-public void addActionListener(ActionListener l);	// 向当前文本域注册动作事件监听器
-public int getColumns();	// 返回当前文本域的列数
-public void setColumns(int columns);	// 设置当前文本域的列数
-public int getHorizontalAlignment();	// 返回当前文本的水平对齐方式
-public int setHorizontalALignment(int alignment);	// 设置当前文本的水平对齐方式
-public void setFont(Font f);	// 设置当前文本域中文本的字体
-```
-
-### 文本区
-
-创建文本区需要使用类 **Javax.swing.JTextArea**
-
-**构造方法**
-
-```java
-public JTextArea();	// 创建一个文本区, 初始化字符串为空, 行 / 列数 = 0
-public JTextArea(String text);	// 创建一个文本区, 初始化字符串为text, 行 / 列数 = 0
-public JTextArea(int rows, int columns);	// 创建一个文本区, 初始化字符串为空, 行 / 列 = rows / columns
-public JTextArea(String text, int rows, int columns);	// 创建一个文本区, 初始化字符串为text, rows / columns
-```
-
-**常用方法**
-
-```java
-public void append(String str);	// 将字符串str添加到文本区中文本的末尾
-public void replaceRange(String str, int start, int end);	// 用字符串str替换当前文本区中文本从start-end的字符
-public void insert(String str, int pos);	// 将字符串str插入到当前文本区中文本的指定位置pos
-public int getRows();	// 返回当前文本区的行数
-public void setRows(int rows);	//设置当前文本区的行数
-public int getLineCount();	// 返回当前文本区中所包含文本的行数
-```
-
-### 密码域
-
-密码域是一种特殊的文本域,它也允许用户编辑单行文本
-
-用户输入的每个字符都会用回显字符(默认情况下,回显字符一般是"*")表示
-
-创建密码域需要使用类 **Javax.swing.JPasswardField**
-
-```java
-// 获取用户输入
-public char[] getPassword();
-// 设置回显字符
-public void setEchoChar(char c);
-```
-
-## 面板
-
-用来容纳组件的容器, 面板不能独立存在, 只能添加到其他容器中, 面板也可以添加到其他面板中
-
-**面板是JPanel 的对象** 面板的默认布局是 **FlowLayout** 可直接容纳组件
-
-```java
-JPanel northPanel = new JPanel();	// 创建JPanel 对象
-northPanel.setLayout(new FlowLayout());	// 设置布局管理器
-northPanel.add(textField);	// 添加组件
-northPanel.add(passwordField);
-add(northPanel, BorderLayout.NORTH);	// 将其加入到页面中
-```
-
-## 选择组件
-
-Swing组件中, 常用的选择组件有 按钮 JButton / 复选框 JCheckBox / 单选按钮 JRadioButton / 组合框 JComboBox
-
- / 列表 JLIst / 滑块 JSlider 等
-
-### 按钮
-
-**构造方法**
-
-```java
-public JButton();	// 创建一个不带标记的按钮
-public JButton(Icon icon);	// 创建一个带指定图标的标签
-public JButton(String text);	// 创建一个带指定文本的标签
-public JButton(String text, Icon icon);	// 创建一个带指定文本和图标的标签
-```
-
-**常用方法**
-
-```java
-// JButton 是抽象类javax.swing.AbstractButton 的子类, 有以下常用方法:
-public void addActionListener(ActionListener l);	// 注册动作事件监听器
-public Icon getIcon();	// 返回按钮上的图标
-public void setIcon(Icon defaultIcon);	// 设置按钮上的图标
-public String getText();	// 返回按钮上的文本
-public void setText(String text);	// 设置按钮上的文本
-public void setEnabled(boolean b);	// 设置按钮的状态 true / false
-
-public void setHorizontalAlignment(int alignment);	// 设置按钮上图标和文本的水平对齐方式
-// SwingConstants.RIGHT \ SwingConstants.LEFT \ SwingContants.CENTER(默认值) \ SwingContants.LEADING \ SwingContants.TRAILING
-public void setVerticalAlignment(int alignment);	// 设置按钮上图标和文本的垂直对齐方式
-// SwingContants.CENTER(默认值) \ SwingConstants.TOP \ SwingContants.BOTTOM
-
-public void setHorizontalPosition(int textPosition);	// 设置按钮上文本相对于图标的水平位置
-// SwingConstants.RIGHT \ SwingConstants.LEFT \ SwingContants.CENTER \ SwingContants.LEADING \ SwingContants.TRAILING(默认值)
-public void setVerticalTextPosition(int textPosition);	// 设置按钮上文本相对于图标的垂直位置
-// SwingContants.CENTER(默认值) \ SwingConstants.TOP \ SwingContants.BOTTOM
-```
-
-### 标签
-
-与按钮相同, 标签也可以显示文本和图像, 但无点击事件,
-
-**构造方法**
-
-```java
-public JLabel();	// 创建空标签
-public JLabel(Icon image);	// 创建具有指定图标的标签
-public JLabel(Icon image, int horizontalAlignment);		// 创建具有指定图标和水平对齐方式的标签
-public JLabel(String text);	// 创建具有指定文本的标签
-public JLabel(String text, int horizontalAlignment);	// 创建具有指定文本和水平对齐方式的标签
-public JLabel(String text, Icon image, int horizontalAlignment);	// 创建具有文本/图标/水平对齐方式的标签
-```
-
-**常用方法**
-
-与按钮相似, 可调用方法设置或返回标签上的文本或图标, 对齐方式 , 相对位置
-
-### 复选框
-
-复选框是一个很小的方框, 方框旁边可以表有文本或图标, 复选框有两种状态 **选中 / 未选中**
-**构造方法**
-
-```java
-public JCheckBox();	// 创建一个不带标记的复选框, 复选框未选中
-public JCheckBox(Icon icon);	// 创建一个标有指定图标的复选框, 复选框未被选中
-public JCheckBox(Icon icon, boolean selected);	// 创建一个标有指定图标的复选框, 复选框选中状态指定
-public JCheckBox(String text);	// 创建一个标有指定文本的复选框, 复选框未被选
-public JCheckBox(String text, boolean selected);	// 创建一个带有指定文本的复选框, 复选框选中状态指定
-public JCheckBox(String text, Icon icon);	// 创建一个标有指定文本和图标的复选框, 复选框未被选中
-public JCheckBox(String text, Icon icon, boolean selected);	// 创建标有文本和图标的复选框, 指定选中状态
-```
-
-### 单选按钮
-
-创建单选按钮后, 需要将其归属到某个组中, 通过类 Javax.swing.ButtonGroup 进行分组 通过 add方法将按钮添加其中
-
-点击单选按钮会触发事件 ActiveEvent 和 ItemEvent
-
-**构造方法**
-
-```java
-public JRadioButton();	// 创建一个不带标记的单选按钮, 单选按钮未被选中
-public JRadioButton(Icon icon);	// 创建一个标有指定图标的单选按钮, 单选按钮未选中
-public JRadioButton(Icon icon, boolean selected);	// 创建一个标有指定标记的单选按钮, 指定选中状态
-public JRadioButton(String text);	// 创建一个标有指定文本的单选按钮, 未被选中
-public JRadioButton(String text, boolean selected);	// 创建一个标有指定文本的单选按钮, 指定选中状态
-public JRadioButton(String text, Icon icon);	// 创建一个指定文本和图标的单选按钮, 未被选中
-public JRadioButton(String text, Icon icon, boolean selected);	// 创建标有文本和图标的单选框, 指定选中状态
-```
-
-### 边框
-
-为组件设置边框, 可用于区分不同的单选框组
-
-```java
-public void setBorder(Border border);
-
-eg :
-Border etched = BorderFactory.createEtchedBorder();	// 创建一个蚀刻边框
-Border titled = BorderFactory.createTitledBorder(etched, "标题");
-```
-
-### 组合框
-
-> 组合框 也称下拉式列表, 是一些项目的简单列表, 与单选按钮类似, 用户可以从中选择一个
-
-**构造方法**
-
-```java
-public JComboBox();	//创建一个组合框, 组合框中的选项为空
-public JComboBox(Object[] items);	// 创建一个组合框, 组合框中的选项由参数items指定
-```
-
-**常用方法**
-
-```java
-public void addItem(Object anObject);	// 在组合框中添加一个选项anObject
-public void removeItem(Object anObject);	// 在组合框中删除参数指定的 anObject选项
-public void removeItemAt(int anIndex);	// 在组合框中删除参数anIndex 索引的选项
-public void removeAllItems();	// 删除组合框中的所有选项
-
-public Object getItemAt(int index);	// 返回组合框中索引为参数index的选线
-public int getSelectedIndex();	// 返回组合框中被选择的选项的索引值
-public Object getSelectedItem();	// 返回组合框中被选中的选项
-```
-
-### 列表
-
-在屏幕上持续占用指定行数的空间, 允许用户选中多个 : ctrl   /   shift
-
-**构造方法**
-
-```java
-public JList();	// 创建一个列表, 列表中的选项为空
-public JList(Object[] listData);	// 创建一个列表, 列表中的选项由参数listData指定
-```
-
-**常用方法**
-
-```java
-public int[] getSelectedIndices();	// 返回列表中所有被选中的选项的索引
-public Object[] getSelectedValues();	// 返回列表中所有被选中的选项
-public void setVisibleRowCount(int visibleRowCount);	// 设置列表中同时可见的首选行数, 默认为8
-```
-
-
-
-# 34 流
-
-## 34.2 字节流
-
-
-
-### FilterInputStream && FilterOutputStream
-
-**以指定类型读取或写入数据**
-
-```java
-常用子类:
-DataInputStream && DataOutputStream
-	常用数据方法:
-	readBoolean / readChar / readShort / readByte / readInt / readLong / readFloat / readDouble / readUTF(读取字符串)
-	writeBoolean / writeChar / writeShort/ writeByte / writeInt / writeLong / writeFloat / writeDouble / writeUTF(写入字符串)
-
-BufferedInputStream && BufferOutputStream
-	缓冲输出/输入流. 进行I/O操作时,建立缓冲区,可以避免每次读写都访问基础设备,提高效率,建议都建立缓冲区
-
-PrintStream
-	可视化文本格式输出, System.out 就是PrintStream的一个子类
-```
-
-DataOutputStream 输出与平台无关的二进制, PrintStream 用于格式化输出, 可以以文本方式阅读
-
-## 34.3 字符流
-
-### Reader && Writer
-
-**Reader && Writer 及其部分字符流子类和对应的字节流类**
-
-|      字符流类      |    对应的字节流类     |
-| :----------------: | :-------------------: |
-|       Reader       |      InputStream      |
-|       Writer       |     OutputStream      |
-|   BufferedReader   |  BufferedInputStream  |
-|   BufferedWriter   | BufferedOutputStream  |
-|  CharArrayReader   | ByteArrayInputStream  |
-|  CharArrayWriter   | ByteArrayOutputStream |
-|    FilterReader    |   FilterInputStream   |
-|    FilterWriter    |  FilterOutputStream   |
-|    PrintWriter     |      PrintStream      |
-| InputStreamReader  |          无           |
-| OutputStreamWriter |          无           |
-
-**InputStreamReader : **将一个字节输入流转换成字符输入流
-
-**OutputStreamWriter : **将一个字节输出流转换成字符输出流
-
-## 34.4 随机文件访问
-
-**java.io.RandomAccessFile : 文件的随机访问**
-
-```java
-构造方法:
-RandomAccessFile(File file, String mode);
-RandomAccessFile(String name, String mode);
-// file / name : 要访问的文件对象或文件名
-// ① r: 以只读方式打开
-// ② rw：打开以便读取和写入
-// ③ rwd:打开以便读取和写入；同步文件内容的更新
-// ④ rws:打开以便读取和写入；同步文件内容和元数据的更新
-```
-
-```java
-常用方法:
-public void seek(long pos) throws IOException;	// 设置文件光标位置向前偏移pos个字节, 打开文件时光标位于开始位置
-public long length() throws IOException;	// 返回文件的字节长度
-public long getFilePointer() throws IOException;	// 返回当前偏移的字节数(输入输出流光标位置)
-```
-
-## 34.5 对象I/O
-
-```java
-ObjectOutputStream : OutputStream 的子类, 并实现了DataOutputStream的全部功能, 定义了方法WriteObject(Object obj);
-ObjectInputStream : InputStream 的子类, 并实现了DataOutputStream的全部功能, 定义了方法ReadObject(Object obj); 
-```
-
-**注意 : **
-
->1. 对象的读取顺序应与对象的写入顺序一致
->2. 读取对象的类文件应被加载完毕
-
-## 34.6 对象序列化
-
-可序列化对象: 实现了接口*Java.io.Serializable*
-
-**transient (瞬态) : **关闭对象成员的序列化
-
-```java
-class Login implements java.io.Serializable {
-    private String name;
-    private transient String passward;	// 对象序列化时, 忽略数据成员
-}
-```
-
-**对未实现序列化接口的数据成员 无法进行序列化**
-
-**序列化时会自动忽略静态数据成员**
+### Schema约束
+
+- 约束文件本身也是一个XML文件，本身也会受到其他xsd文件的约束
+- 内置多种数据类型，可以检查数据类型是否正确
+- 支持命名空间，一个XML文件可以同时引入多个xsd的约束文件，让约束规则重用
