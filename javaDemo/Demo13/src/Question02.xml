@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE contactList SYSTEM "Question02.dtd">
+<contactList>
+    <contact id="test1">
+        <name>王子潇</name>
+        <gender>男</gender>
+        <phone>1831231</phone>
+        <qq>1231434353</qq>
+        <email>123123@qq.com</email>
+    </contact>
+    <contact id="test2">
+        <name>123455456</name>
+        <gender>男</gender>
+        <phone>12390854</phone>
+        <qq>809709@qq.com</qq>
+        <email>12312312</email>
+    </contact>
+</contactList>

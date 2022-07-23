@@ -774,7 +774,7 @@ interface A extends B,C {...}
     // 静态方法: static修饰 只能用接口名本身来调用
     static void run(){ return 0 }
     // 私有方法: private修饰 私有实例方法 -- JDK 1.9
-    private voic run(){ return 0 }
+    private void run(){ return 0 }
 }
 ```
 
@@ -4096,14 +4096,6 @@ while(matcher.find()){
 
 ***
 
-# 命令行参数
-
-类的**main**方法 有一个String 数组类型的参数, 可通过**命令行**给其传参
-
-```java
-c:\test>java class1 2.6 + 4 "Hello Java!"	// 参数列表,有空格时需要双引号引出, 参数以空格划分字符串
-```
-
 # `junit`单元测试
 
 - 单元测试是指程序员写的测试代码给自己的类中的方法进行预期正确性的验证。
@@ -4536,23 +4528,31 @@ public class LogProxy {
 
 ![1552226032459](https://raw.githubusercontent.com/which-biscuits/pigGo/main/XML_04.png)
 
-## XML约束
-
-### DTD约束
+## DTD约束
 
 - DTD: Document Type Definiation 文档类型定义
 - 纯文本文件，指定了XML约束规则。
 - **不能验证数据类型**
 - 因为DTD是一个文本文件，本身不能验证是否正确。
 
+**DTD文件的导入：**
+
 | **导入**DTD文件的两种格式                             | **说明**                               |
 | ----------------------------------------------------- | -------------------------------------- |
 | **<!DOCTYPE** **根元素 SYSTEM "DTD文件">**            | 系统DTD文件，通常个人或公司内部使用    |
 | **<!DOCTYPE** **根元素 PUBLIC "文件描述" "DTD文件">** | 公有的DTD文件，在互联网上广泛使用的DTD |
 
-**格式：**
+**元素声明：**
 
 ```dtd
+<!ELEMENT 元素名称 类别>
+<!ELEMENT 元素名称 (元素内容)>
+
+<!-- 只有 PCDATA 的元素通过圆括号中的 #PCDATA 进行声明： -->
+<!ELEMENT test1 (#PCDATA)>
+<!-- 空元素声明 -->
+<!ELEMENT test2 EMPTY>
+
 <!ELEMENT 书架 (书+)>
 <!ELEMENT 书 (书名,作者,售价)>
 <!ELEMENT 书名 (#PCDATA)>
@@ -4560,8 +4560,214 @@ public class LogProxy {
 <!ELEMENT 售价 (#PCDATA)>
 ```
 
-### Schema约束
+**属性声明：**
 
-- 约束文件本身也是一个XML文件，本身也会受到其他xsd文件的约束
+```dtd
+<!ATTLIST 元素名称 属性名称 属性类型 默认值>
+
+<!ATTLIST payment type CDATA "check">
+```
+
+**属性类型：**
+
+| CDATA              | 值为字符数据 (character data) |
+| ------------------ | ----------------------------- |
+| (*en1*\|*en2*\|..) | 此值是枚举列表中的一个值      |
+| ID                 | 值为唯一的 id                 |
+| IDREF              | 值为另外一个元素的 id         |
+| IDREFS             | 值为其他 id 的列表            |
+| NMTOKEN            | 值为合法的 XML 名称           |
+| NMTOKENS           | 值为合法的 XML 名称的列表     |
+| ENTITY             | 值是一个实体                  |
+| ENTITIES           | 值是一个实体列表              |
+| NOTATION           | 此值是符号的名称              |
+| xml:               | 值是一个预定义的 XML 值       |
+
+**默认值参数可使用下列值：**
+
+| 值           | 解释           |
+| :----------- | :------------- |
+| 值           | 属性的默认值   |
+| #REQUIRED    | 属性值是必需的 |
+| #IMPLIED     | 属性不是必需的 |
+| #FIXED value | 属性值是固定的 |
+
+**实体：**
+
+```dtd
+<!ENTITY 实体名称 "实体的值">
+
+<!ENTITY writer "Bill Gates">
+<!ENTITY copyright "Copyright W3School.com.cn">
+
+<author>&writer;&copyright;</author>
+```
+
+## Schema约束
+
+- 约束文件本身也是一个XML文件，**本身也会受到其他xsd文件的约束**
 - 内置多种数据类型，可以检查数据类型是否正确
 - 支持命名空间，一个XML文件可以同时引入多个xsd的约束文件，让约束规则重用
+- xsd：**XML Schema Defination**
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.itcast.cn"
+          >
+    <xs:element name='书架'>
+        <xs:complexType>
+            <xs:sequence maxOccurs='unbounded'>
+                <xs:element name='书'>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name='书名' type='xs:string'/>
+                            <xs:element name='作者' type='xs:string'/>
+                            <xs:element name='售价' type='xs:double'/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+```
+
+## DOM解析
+
+- **优点**：将整个XML文件加载到内存中，生成一棵DOM树。随意访问树上任何一个节点，可以修改和删除节点，程序开发比较方便。纯面向对象开发。
+- **缺点**：占内存，如果XML文件很大，可能出现内存溢出。
+
+![1552305195234](https://raw.githubusercontent.com/which-biscuits/pigGo/main/DOM_01.png)
+
+### DOM树
+
+### 生成的DOM树
+
+![1552305350183](https://raw.githubusercontent.com/which-biscuits/pigGo/main/DOM_02.png)
+
+​	由于DOM方式解析XML文档所有都是节点Node，所有节点又都被封装到Document对象中，所以解析的重点就是获取Document对象。
+
+### DOM4j中DOM树的API:
+
+| **组成**      | **说明**                                |
+| ------------- | --------------------------------------- |
+| **Document**  | 当前解析的XML文档对象                   |
+| **Node**      | XML中节点，它是其它所有节点对象的父接口 |
+| **Element**   | 代表一个元素(标签)                      |
+| **Attribute** | 代表一个属性                            |
+| **Text**      | 代表标签中文本                          |
+
+## SAX解析
+
+- **优点**：事件驱动型解析方式，读取一行就解析一行，释放内存。理论上可以解析任意大小的XML文件。
+- **缺点**：使用过的元素不能再访问了，不能修改元素，只能查找。
+
+## dom4j
+
+**获取Document对象：**
+
+```java
+// 1.创建类: 读取XML文件
+SAXReader reader = new SAXReader();
+// 2.获取XML输入流
+InputStream in = Demo3Document.class.getResourceAsStream("/Contacts.xml");
+// 3.通过reader来读取xml, 生成了一个document对象
+Document document = reader.read(in);
+
+```
+
+**获取根元素：**
+
+```java
+// 得到文档以后，通过文档得到根元素
+Element rootElement = document.getRootElement();
+```
+
+**Element元素方法：**
+
+```java
+// 取元素的名称。
+String getName();
+// 获取当前元素下的全部子元素（一级）
+List<Element> elements();
+// 获取当前元素下的指定名称的全部子元素（一级）
+List<Element> elements(String name);
+// 获取当前元素下的指定名称的某个子元素，默认取第一个（一级）
+Element element(String name);
+
+// 可以直接获取当前元素的子元素的文本内容
+String elementText(String name);
+// 去前后空格,直接获取当前元素的子元素的文本内容
+String elementTextTrim(String name);
+// 直接获取当前元素的文本内容。
+String getText();
+// 去前后空格,直接获取当前元素的文本内容。
+String getTextTrim();
+```
+
+**Attribute对象：**
+
+```java
+// 获取元素的全部属性对象。
+List<Attribute> attributes();
+// 根据名称获取某个元素的属性对象。
+Attribute attribute(String name);
+// 直接获取某个元素的某个属性名称的值。
+String attributeValue(String var1);
+
+// 获取属性名称。
+String getName();
+// 获取属性值。
+String getValue();
+```
+
+## Xpath
+
+- 用于快速查找XML元素的路径表达式,是用于方便的检索XML文件中的信息。
+
+**方法：**
+
+```java
+// 检索出一批节点集合。
+List<Node> selectNodes(String xpath);
+// 检索出一个节点返回。
+Node selectSingleNode(String xpath);
+```
+
+**绝对路径检索：**
+
+```java
+String xpath = "/contactList/contact/name";
+// 得到所有name元素
+List<Node> nodeList = document.selectNodes(xpath);
+```
+
+**相对路径检索：**
+
+```java
+List<Node> nodeList = node.selectNodes("./contact/name");
+```
+
+**全文搜索：**
+
+```java
+// 找contact元素，无论元素在哪里
+List<Node> nodeList = node.selectNodes("//name");
+// 找contact，无论在哪一级，但name一定是contact的子节点
+List<Node> nodeList = node.selectNodes("//contact/name");
+// contact无论在哪一种，name只要是contact的子孙元素都可以找到
+List<Node> nodeList = node.selectNodes("//contact//name");
+```
+
+**属性查找：**
+
+```java
+// 查找属性对象。无论哪个元素，只有有个属性即可
+List<Node> nodeList = node.selectNodes("//@id");
+// 查找元素对象，全文搜索指定元素名和属性名
+List<Node> nodeList = node.selectNodes("//name[@id]");
+// 查找元素对象，全文搜索指定元素名·属性名，并且属性值指定
+List<Node> nodeList = node.selectNodes("//name[@id='1']");
+```
+

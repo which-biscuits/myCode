@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="569869c6-3e2c-47bd-856f-521d8e082b42" name="Default Changelist" comment="update">
-      <change afterPath="$PROJECT_DIR$/Demo03/Demo03.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo03/src/BookSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDemo.iml" afterDir="false" />
+    <list default="true" id="fb0e1bf3-678b-4f63-9ffb-06a700179181" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo01/src/Demo01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo02/src/Question01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo02/src/Question02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo02/src/Question03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo02/src/Question04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/Demo13.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/Question02.dtd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/Question02.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/Qusetion01.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Markdown/Java基础语法.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Markdown/Java基础语法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo02/src/Landlords.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo02/src/Landlords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/_review/Class01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Animal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Cat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Coder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Dog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Homework01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Homework02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/HwPhone.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Person.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Teacher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo02/src/GameDemo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo02/src/Landlords.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo02/src/MyMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo03/Demo03.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo03/src/BookSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/javaDemo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/_review/Class01.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Coder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Homework01.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Person.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Teacher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo02/Card.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo02/Landlords.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Demo02/MyMap.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,72 +53,66 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Tag Library Descriptor" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitToolBoxStore">
-    <option name="projectConfigVersion" value="5" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="$PROJECT_DIR$/../../../../../Program Files/Java/apache-maven-3.3.9" />
-        <option name="userSettingsFile" value="C:\Program Files\Java\apache-maven-3.3.9\conf\settings.xml" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="ProjectId" id="2CKpkiIzikXhtb8FzBjOaXcSaRd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectId" id="2BkBL6H8f84HaFI9DvQ2ics94kZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8.0_281",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\11412\Desktop\javaDemo\Demo01\src" />
-    </key>
-  </component>
-  <component name="RunManager" selected="应用程序.MyMap">
-    <configuration name="Homework01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.which.biscuits.homework.Homework01" />
+  <component name="RunManager" selected="应用程序.Question04">
+    <configuration name="Demo01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Demo01" />
       <module name="Demo01" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.which.biscuits.homework.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Landlords" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Landlords" />
+    <configuration name="Question01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Question01" />
       <module name="Demo02" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyMap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MyMap" />
+    <configuration name="Question02" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Question02" />
+      <module name="Demo02" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Question03" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Question03" />
+      <module name="Demo02" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Question04" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Question04" />
       <module name="Demo02" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,45 +120,24 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.MyMap" />
-        <item itemvalue="应用程序.Landlords" />
+        <item itemvalue="应用程序.Question04" />
+        <item itemvalue="应用程序.Question03" />
+        <item itemvalue="应用程序.Question02" />
+        <item itemvalue="应用程序.Question01" />
+        <item itemvalue="应用程序.Demo01" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
-  <component name="SshConsoleOptionsProvider">
-    <option name="myEncoding" value="UTF-8" />
-    <option name="myConnectionType" value="NONE" />
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="569869c6-3e2c-47bd-856f-521d8e082b42" name="Default Changelist" comment="" />
-      <created>1657440143514</created>
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="fb0e1bf3-678b-4f63-9ffb-06a700179181" name="变更" comment="" />
+      <created>1658561279557</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1657440143514</updated>
-      <workItem from="1657440146288" duration="1900000" />
-      <workItem from="1657869009847" duration="3855000" />
-      <workItem from="1657892355193" duration="2854000" />
+      <updated>1658561279557</updated>
+      <workItem from="1658561281199" duration="5721000" />
     </task>
-    <task id="LOCAL-00001" summary="update">
-      <created>1657893184255</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1657893184255</updated>
-    </task>
-    <task id="LOCAL-00002" summary="update">
-      <created>1657893432772</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1657893432772</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,7 +155,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

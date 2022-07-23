@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--给通讯录程序设计一个xml文件存储联系人的数据。-->
+<!--联系人属性： 编号（联系人的属性）、 姓名、性别、电话、QQ、邮箱-->
+<!--文件名：contact.xml-->
+<!--1. 要求：-->
+<!--1）使用xml语法进行描述联系人信息-->
+<!--2）能够存储多个联系人-->
+<contacts>
+    <contact>
+        <name>王子潇</name>
+        <sex>male</sex>
+        <phone>1831787502</phone>
+        <QQ>1141207643</QQ>
+        <mail>1141207643@qq.com</mail>
+    </contact>
+</contacts>
