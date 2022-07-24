@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.itheima.com/shoporder">
+    <!-- 订单 -->
+    <xs:element name="shoporder">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- 依次出现下订单的人 -->
+                <xs:element name="order-person" type="xs:string" >
+                </xs:element>
+
+                <!-- 收件人的地址 -->
+                <xs:element name="shopto">
+                    <xs:complexType>
+                        <!-- 依次出现姓名，地址，城市，国家 -->
+                        <xs:sequence>
+                            <xs:element name="name" type="xs:string" />
+                            <xs:element name="address" type="xs:string" />
+                            <xs:element name="city" type="xs:string" />
+                            <xs:element name="country" type="xs:string" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <!-- 订单具体的项 -->
+                <xs:element name="item" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <!-- 依次出现标题，便条(可以不出现)，数量(正整数)，价格(小数) -->
+                        <xs:sequence>
+                            <xs:element name="title" type="xs:string" />
+                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                            <xs:element name="quantity" type="xs:positiveInteger" />
+                            <xs:element name="price" type="xs:decimal" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+
+            <!-- 订单有个必须的属性orderid -->
+            <xs:attribute name="orderid" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

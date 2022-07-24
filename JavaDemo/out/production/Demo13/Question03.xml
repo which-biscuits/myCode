@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<shoporder xmlns:xsi="http://www.itheima.com/shoporder"
+           orderid="123"
+           xsi:schemaLocation="http://www.itcast.cn shopdorder.xsd">
+    <order-person>123</order-person>
+    <shopto>
+        <name>123</name>
+        <address>123</address>
+        <city>123</city>
+        <country>123</country>
+    </shopto>
+    <item>
+        <title>123</title>
+        <quantity>123</quantity>
+        <price>99.5</price>
+    </item>
+</shoporder>

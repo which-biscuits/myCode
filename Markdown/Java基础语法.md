@@ -2695,7 +2695,9 @@ public long length() throws IOException;
 public long getFilePointer() throws IOException;	
 ```
 
-# 单例设计模式
+# 设计模式
+
+## 单例设计模式
 
 **什么是单例 SingleIntance**：
 
@@ -2742,6 +2744,64 @@ public long getFilePointer() throws IOException;
        }
    }
     ```
+
+## 工厂设计模式
+
+- **创建型模式**，它提供了一种创建对象的方式。
+
+- 解决类与类之间的耦合问题
+
+```java
+public class CarFactory {
+    /**
+     * @param id : 车的标识
+     *           benchi : 代表需要创建Benchi类对象
+     *           falali : 代表需要创建Falali类对象
+     *           如果传入的车标识不正确,代表当前工厂生成不了当前车对象,则返回null
+     * @return
+     */
+    public Car createCar(String id){
+        if("falali".equals(id)){
+            return new Falali();
+        }else if("benchi".equals(id)){
+            return new Benchi();
+        }
+        return null;
+    }
+}
+```
+
+## 装饰设计模式
+
+- 在不改变原类, 不使用继承的基础上，动态地扩展一个对象的功能
+
+```java
+/*
+	装饰模式遵循原则:
+		装饰类和被装饰类必须实现相同的接口
+		在装饰类中必须传入被装饰类的引用
+		在装饰类中对需要扩展的方法进行扩展
+		在装饰类中对不需要扩展的方法调用被装饰类中的同名方法
+*/
+public class LiuDeHuaWarpper implements Star {
+    // 存放被装饰类的引用
+    private LiuDeHua liuDeHua;
+    // 通过构造器传入被装饰类对象
+    public LiuDeHuaWarpper(LiuDeHua liuDeHua){
+        this.liuDeHua = liuDeHua;
+    }
+    @Override
+    public void sing() {
+        // 对需要扩展的方法进行扩展增强
+        System.out.println("刘德华在鸟巢的舞台上演唱忘情水.");
+    }
+    @Override
+    public void dance() {
+        // 不需要增强的方法调用被装饰类中的同名方法
+        liuDeHua.dance();
+    }
+}
+```
 
 ***
 
@@ -4184,6 +4244,8 @@ Clas c3 = Class.forName("org.junit.Before");
 String getSimpleName();
 // 获得类全名：包名+类名
 String getName();  
+// 创建无参实例
+public T newInstance();
 ```
 
 ## `Constructor`对象
@@ -4329,7 +4391,7 @@ String value();
 - `@Retention`：申明注解的生命周期
 
 ```java
-QTarget
+@Target
 /* 可使用的值定义在ElementType枚举类中，常用值如下
  * - TYPE，类，接口
  * - FIELD, 成员变量
@@ -4632,6 +4694,10 @@ public class LogProxy {
     </xs:element>
 </xs:schema>
 ```
+
+**命名空间：**
+
+![1552303625212](https://raw.githubusercontent.com/which-biscuits/pigGo/main/Schema_01.png)
 
 ## DOM解析
 

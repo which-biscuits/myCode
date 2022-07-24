@@ -2,47 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb0e1bf3-678b-4f63-9ffb-06a700179181" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo01/src/Demo01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo02/src/Question01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo02/src/Question02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo02/src/Question03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo02/src/Question04.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo13/Demo13.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo13/src/Question02.dtd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo13/src/Question02.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo13/src/Qusetion01.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/dom4j_2_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/Demo11.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/src/question01/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/src/question01/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/src/question02/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/src/question02/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/src/question03/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo11/src/question03/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Demo12.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/Question09.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/question08.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question01Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question05.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question06.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question07.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question08.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question09.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question10.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question11.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo12/src/Question12.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/lib/commons-io-2.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/lib/dom4j-2.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/lib/jaxen-1.1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/Question03.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/Question04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/books.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Demo13/src/shopdorder.xsd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Markdown/Java基础语法.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Markdown/Java基础语法.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/_review/Class01.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Animal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Cat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Coder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Dog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Homework01.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Homework02.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/HwPhone.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Person.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo01/src/com/which/biscuits/homework/Teacher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo02/src/GameDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo02/src/Landlords.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo02/src/MyMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo03/Demo03.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo03/src/BookSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/javaDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/javaDemo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/_review/Class01.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Coder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Homework01.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Person.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo01/com/which/biscuits/homework/Teacher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo02/Card.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo02/Landlords.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demo02/MyMap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo13/Demo13.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo13/Demo13.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo13/src/Question02.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo13/src/Question02.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +48,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Tag Library Descriptor" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -74,57 +70,96 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8.0_281",
+    "last_opened_file_path": "C:/Users/11412/Desktop/myCode/JavaDemo",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="应用程序.Question04">
-    <configuration name="Demo01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Demo01" />
-      <module name="Demo01" />
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\11412\Desktop\myCode\JavaDemo\Demo13\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\11412\Desktop\myCode\JavaDemo\Demo13\src" />
+      <recent name="C:\Users\11412\Desktop\myCode\JavaDemo\Demo13\static" />
+      <recent name="C:\Users\11412\Desktop\myCode\JavaDemo\Demo13" />
+    </key>
+  </component>
+  <component name="RunManager" selected="应用程序.question02.Client">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="question01.Client" />
+      <module name="Demo11" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="question01.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Question01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Question01" />
-      <module name="Demo02" />
+    <configuration name="Question12" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Question12" />
+      <module name="Demo12" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Question02" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Question02" />
-      <module name="Demo02" />
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="question01.Server" />
+      <module name="Demo11" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="question01.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Question03" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Question03" />
-      <module name="Demo02" />
+    <configuration name="question02.Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="question02.Client" />
+      <module name="Demo11" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="question02.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Question04" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Question04" />
-      <module name="Demo02" />
+    <configuration name="question02.Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="question02.Server" />
+      <module name="Demo11" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="question02.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.Question04" />
-        <item itemvalue="应用程序.Question03" />
-        <item itemvalue="应用程序.Question02" />
-        <item itemvalue="应用程序.Question01" />
-        <item itemvalue="应用程序.Demo01" />
+        <item itemvalue="应用程序.question02.Client" />
+        <item itemvalue="应用程序.question02.Server" />
+        <item itemvalue="应用程序.Client" />
+        <item itemvalue="应用程序.Server" />
+        <item itemvalue="应用程序.Question12" />
       </list>
     </recent_temporary>
   </component>
@@ -136,7 +171,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1658561279557</updated>
-      <workItem from="1658561281199" duration="5721000" />
+      <workItem from="1658561281199" duration="8056000" />
+      <workItem from="1658637054696" duration="13143000" />
     </task>
     <servers />
   </component>

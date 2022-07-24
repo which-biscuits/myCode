@@ -1,0 +1,15 @@
+<!--1)	根元素是contactList，contactList中包含1~n个contact子元素，contact子元素包含name,gender,phone,qq,email元素，这个元素必须依次出现，并且元素中都可以包含文本元素(#PCDATA)-->
+<!--2)	其中contact有id属性，必须，并且不能重复，不能以数字开头-->
+<!--3)	contact有一个可选的属性vip，取值是true或false-->
+<!--4)	按此DTD约束创建XML文件，并添加3条contact记录。注：括号前要有空格-->
+<!ELEMENT contactList (contact+)>
+<!ELEMENT contact (name, gender, phone, qq, email)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT gender (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT qq (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+
+<!ATTLIST contact
+        id ID #REQUIRED
+        vip (true|false) #IMPLIED>
